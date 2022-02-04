@@ -1,4 +1,0 @@
-RewriteEngine on
-RewriteCond %{HTTP_HOST} masimulation\.ca [NC]
-RewriteCond %{REQUEST_URI} ^/$
-RewriteRule ^(.*)$ /Projet-Synthese_Homier_Fournier/$1 [L]
