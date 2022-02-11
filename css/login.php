@@ -1,3 +1,7 @@
+<?php
+    header("Content-type: text/css");
+?>
+
 * {
     margin: 0px;
     padding: 0px;
