@@ -21,12 +21,14 @@ body {
 }
 
 .background-ia-img {
-    width: 1145px;
-    height: 1889px;
+    width: 802px;
+    height: 1323px;
     position: fixed;
-    top: 30%;
-    left: 72%;
+    top: 10%;
+    left: 60%;
     background-image: url('../media/img/login/IA_IMG.png');
+    background-size: 50rem;
+    background-repeat: no-repeat;
 }
 
 .header {
@@ -53,7 +55,7 @@ body {
     text-decoration: none;
     color: #0d6efd;
     font-family: 'Hind Siliguri', sans-serif;
-    font-size: 100pt;
+    font-size: 5rem;
 }
 
 .container-pres {
@@ -74,7 +76,7 @@ body {
 
 .container-pres-title {
     font-family: 'Hind Siliguri', sans-serif;
-    font-size: 45pt;
+    font-size: 2rem;
     color: white;
     display: inline-flex;
 }
@@ -88,14 +90,14 @@ body {
 .item-pres-text {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-    font-size: 35pt;
+    font-size: 1.3rem;
     color: white;
     font-weight: 20;
 }
 
 .container-pres-start {
     cursor: pointer;
-    width: 50%;
+    width: 60%;
     height: 10%;
     display: inline-flex;
     flex-direction: row;
@@ -105,19 +107,19 @@ body {
 
 .item-pres-start-text {
     font-family: 'Hind Siliguri', sans-serif;
-    font-size: 30pt;
+    font-size: 1.5rem;
     color: rgb(226, 226, 226);
     font-weight: 20;
 }
 
 .item-pres-start-button {
-    width: 92px;
-    height: 92px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABmJLR0QA/wD/AP+gvaeTAAABL0lEQVQokZXOu0oDURSF4X/HENTCQi3MTJ7AYGttJYIgBLTKZLAKgoWVIEFMRCzsxDIgQi4iiu9hL2KjXS5WCiJ4IZllFfBCJpPdrrW+cyD0ZElPW05e4/0asbC543FkxjHvXKfXlBgaiEEZeAKWXsa4YkHxoYBGzR5iAYvAM2LFTXFGSb82oQBAo263FrAMvMnwnEdOhgIAmnW7wcgAn8Cm46nYy2wyq4nREQpRICBNwDIGgo121cqW8uUGohER+HldwVz8I85r4oudKAsZ8yYyGBhst6p2b1GfS3oqmHEIBEC+VbVTgEiAm9Ou4ADoYvitip33soGAk9MesA90gFyrahc/81DA8VVCFIGOiWyzZpd/O30B19eUxB0wLWO9XbHaoN/+u5msZl1fq2Gdb/tRYHOxlf28AAAAAElFTkSuQmCC);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 2rem;
+    background-size: 1.15rem;
     margin-left: 5%;
     background-color: white;
     transition: all 1s;
