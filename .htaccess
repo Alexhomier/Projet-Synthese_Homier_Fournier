@@ -1,5 +1,0 @@
-DirectoryIndex login.php
-
-RewriteEngine on
-RewriteCond %{HTTP_HOST} 159.89.124.82
-RewriteRule (.*) https://masimulation.ca/$1 [L,R=301,NE]
