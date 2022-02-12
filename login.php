@@ -15,6 +15,7 @@
       <header class="header">
         <div class="header-container">
           <a href="login.php" class="header-item-title">M.A.</a>
+          <div class="header-item-login" onclick="login()">Connexion</div>
         </div>
       </header>
       <div class="container-pres">
