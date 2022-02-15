@@ -47,7 +47,7 @@ body {
     width: 30%;
     height: 100%;
     text-decoration: none;
-    color: #7e7e7e;
+    color: #5c5c5c;
     font-family: 'Roboto', sans-serif;
     font-size: 2rem;
     display: flex;
@@ -57,12 +57,12 @@ body {
 
 .header-item-link-decoration {
     text-decoration: none;
-    color: #9c9c9c;
+    color: #5c5c5c;
     transition: all 1s;
 }
 
 .header-item-link-decoration:hover {
-    color: #dfdfdf;
+    color: #0e62fd;
     transition: all 0.5s;
 }
 
@@ -154,7 +154,7 @@ body {
 
 .container-pres-start {
     cursor: pointer;
-    width: 60%;
+    width: 70%;
     height: 10%;
     display: inline-flex;
     flex-direction: row;
