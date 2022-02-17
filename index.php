@@ -14,7 +14,7 @@
       <div class="pres-background-ia-img"></div>
       <header class="header">
         <div class="header-container">
-          <a href="login.php" class="header-item-title">M.A.</a>
+          <a href="index.php" class="header-item-title">M.A.</a>
           <div class="header-item-link">
             <a href="#" class="header-item-link-decoration">M.A.</a>
             <p class="header-item-link-decoration">|</p>
@@ -24,7 +24,9 @@
             <p class="header-item-link-decoration">|</p>
             <a href="#" class="header-item-link-decoration">CVM</a>
           </div>
-          <div class="header-item-login" ><h2 class="header-item-login-decoration">Connexion</h2></div>
+          <div class="header-container-login">
+            <div class="header-item-login-decoration"><h2>Connexion</h2></div>
+          </div>
         </div>
       </header>
       <!-- Section Pres -->
@@ -51,46 +53,43 @@
       </div>
     </div>
     <!-- Section M.A. -->
-    <div class="ma-background">
+    <!-- <div class="ma-background">
 
+    </div> -->
+
+    <!-- Section login -->
+    <div class="login-background">
+      <div class="login-ia-img"></div>
+      <form action="" class="login-form">
+        <div class="login-form-title-container">
+          <div class="login-form-title-item-login"><h2>Connexion</h2></div>
+          <div class="login-form-title-item-signup"><h2>Inscription</h2></div>
+        </div>
+        <div class="login-container-form-input">
+          <input type="text" class="login-form-input-decoration" placeholder="Nom d'utilisateur" required>
+          <input type="password" class="login-form-input-decoration" placeholder="Mot de passe" required>
+        </div>
+        <button type="submit" class="login-form-button">Se connecter</button>
+      </form>
     </div>
 </body>
 </html>
 
-<!-- ######################################################################################
-#                                                                                    # 
-#                            ,.--------._                                            #
-#                           /            ''.                                         #
-#                         ,'                \     |"\                /\          /\  #
-#                /"|     /                   \    |__"              ( \\        // ) #
-#               "_"|    /           z#####z   \  //                  \ \\      // /  #
-#                 \\  #####        ##------".  \//                    \_\\||||//_/   #
-#                  \\/-----\     /          ".  \                      \/ _  _ \     #
-#                   \|      \   |   ,,--..       \                    \/|(O)(O)|     #
-#                   | ,.--._ \  (  | ##   \)      \                  \/ |      |     #
-#                   |(  ##  )/   \ `-....-//       |///////////////_\/  \      /     #
-#                     '--'."      \                \              //     |____|      #
-#                  /'    /         ) --.            \            ||     /      \     #
-#               ,..|     \.________/    `-..         \   \       \|     \ 0  0 /     #
-#            _,##/ |   ,/   /   \           \         \   \       U    / \_//_/      #
-#          :###.-  |  ,/   /     \        /' ""\      .\        (     /              #
-#         /####|   |   (.___________,---',/    |       |\=._____|  |_/               #
-#        /#####|   |     \__|__|__|__|_,/             |####\    |  ||                #
-#       /######\   \      \__________/                /#####|   \  ||                #
-#      /|#######`. `\                                /#######\   | ||                #
-#     /++\#########\  \                      _,'    _/#########\ | ||                #
-#    /++++|#########|  \      .---..       ,/      ,'##########.\|_||  Donkey By     #
-#   //++++|#########\.  \.              ,-/      ,'########,+++++\\_\\ Hard'96       #
-#  /++++++|##########\.   '._        _,/       ,'######,''++++++++\                  #
-# |+++++++|###########|       -----."        _'#######' +++++++++++\                 #
-# |+++++++|############\.     \\     //      /#######/++++ S@yaN +++\                #
-#      ________________________\\___//______________________________________         #
-#     / ____________________________________________________________________)        #
-#    / /              _                                             _                #
-#    | |             | |                                           | |               #
-#     \ \            | | _           ____           ____           | |  _            #
-#      \ \           | || \         / ___)         / _  )          | | / )           #
-#  _____) )          | | | |        | |           (  __ /          | |< (            #
-# (______/           |_| |_|        |_|            \_____)         |_| \_)           #
-#                                                                                    #
-###################################################################################### -->
+<!-- 
+⢀⡴⠑⡄⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠸⡇⠀⠿⡀⠀⠀⠀⣀⡴⢿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠑⢄⣠⠾⠁⣀⣄⡈⠙⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⡀⠁⠀⠀⠈⠙⠛⠂⠈⣿⣿⣿⣿⣿⠿⡿⢿⣆⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⡾⣁⣀⠀⠴⠂⠙⣗⡀⠀⢻⣿⣿⠭⢤⣴⣦⣤⣹⠀⠀⠀⢀⢴⣶⣆
+⠀⠀⢀⣾⣿⣿⣿⣷⣮⣽⣾⣿⣥⣴⣿⣿⡿⢂⠔⢚⡿⢿⣿⣦⣴⣾⠁⠸⣼⡿
+⠀⢀⡞⠁⠙⠻⠿⠟⠉⠀⠛⢹⣿⣿⣿⣿⣿⣌⢤⣼⣿⣾⣿⡟⠉⠀⠀⠀⠀⠀
+⠀⣾⣷⣶⠇⠀⠀⣤⣄⣀⡀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀
+⠀⠉⠈⠉⠀⠀⢦⡈⢻⣿⣿⣿⣶⣶⣶⣶⣤⣽⡹⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠉⠲⣽⡻⢿⣿⣿⣿⣿⣿⣿⣷⣜⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣷⣶⣮⣭⣽⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣀⣀⣈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠛⠉ 
+      Code made by AlexHomier
+-->
