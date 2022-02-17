@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="css/login.css">
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@700&family=Roboto+Mono:wght@200&family=Work+Sans&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@700&family=Roboto+Mono:wght@200&family=Roboto:wght@100&family=Work+Sans&display=swap" rel="stylesheet"> 
+  <script src="js/login.js"></script>
+  <script src="SpriteLogin/login.js"></script>
 </head>
 <body>
   <div class="pres-background">
@@ -60,15 +62,12 @@
     <!-- Section login -->
     <div class="login-background">
       <div class="login-ia-img"></div>
-      <form action="" class="login-form">
+      <form action="" class="login-form" method="POST">
         <div class="login-form-title-container">
-          <div class="login-form-title-item-login"><h2>Connexion</h2></div>
-          <div class="login-form-title-item-signup"><h2>Inscription</h2></div>
+          <div class="login-form-title-item-login" onclick="loginClickedView()"><h2>Connexion</h2></div>
+          <div class="login-form-title-item-signup" onclick="signupClickedView()"><h2>Inscription</h2></div>
         </div>
-        <div class="login-container-form-input">
-          <input type="text" class="login-form-input-decoration" placeholder="Nom d'utilisateur" required>
-          <input type="password" class="login-form-input-decoration" placeholder="Mot de passe" required>
-        </div>
+        <div class="login-container-form-input"></div>
         <button type="submit" class="login-form-button">Se connecter</button>
       </form>
     </div>
