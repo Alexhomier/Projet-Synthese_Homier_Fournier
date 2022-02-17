@@ -14,7 +14,7 @@
       <div class="pres-background-ia-img"></div>
       <header class="header">
         <div class="header-container">
-          <a href="login.php" class="header-item-title">M.A.</a>
+          <a href="index.php" class="header-item-title">M.A.</a>
           <div class="header-item-link">
             <a href="#" class="header-item-link-decoration">M.A.</a>
             <p class="header-item-link-decoration">|</p>
@@ -25,7 +25,7 @@
             <a href="#" class="header-item-link-decoration">CVM</a>
           </div>
           <div class="header-container-login">
-            <h2 class="header-item-login-decoration">Connexion</h2>
+            <div class="header-item-login-decoration"><h2>Connexion</h2></div>
           </div>
         </div>
       </header>
@@ -59,9 +59,18 @@
 
     <!-- Section login -->
     <div class="login-background">
-      <div class="login-ia-img">
-
-      </div>
+      <div class="login-ia-img"></div>
+      <form action="" class="login-form">
+        <div class="login-form-title-container">
+          <div class="login-form-title-item-login"><h2>Connexion</h2></div>
+          <div class="login-form-title-item-signup"><h2>Inscription</h2></div>
+        </div>
+        <div class="login-container-form-input">
+          <input type="text" class="login-form-input-decoration" placeholder="Nom d'utilisateur" required>
+          <input type="password" class="login-form-input-decoration" placeholder="Mot de passe" required>
+        </div>
+        <button type="submit" class="login-form-button">Se connecter</button>
+      </form>
     </div>
 </body>
 </html>
