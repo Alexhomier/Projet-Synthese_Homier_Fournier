@@ -27,7 +27,7 @@
             <a href="#" class="header-item-link-decoration">CVM</a>
           </div>
           <div class="header-container-login">
-            <div class="header-item-login-decoration"><h2>Connexion</h2></div>
+            <div class="header-item-login-decoration" onclick="loginButton()"><h2>Connexion</h2></div>
           </div>
         </div>
       </header>
@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="container-pres-start" id="container-pres-start" onclick="gotoSignup()">
-          <h3 class="item-pres-start-text">Commencer maintenant</h3>
+          <h3 class="item-pres-start-text" onclick="signupButton()">Commencer maintenant</h3>
           <div class="item-pres-start-button"></div>
         </div>
       </div>

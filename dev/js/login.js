@@ -1,15 +1,25 @@
 let spriteList = [];
 
 window.addEventListener("load", () => {
-    // spriteList.push(new Chat());
+    spriteList.push(new Login());
 
     loginClickedView();
-    
+
 
     tick();
 });
 
-function loginClickedView(){
+function loginButton() {
+    loginClickedView()
+    spriteList[0].openCloseMenu();
+}
+
+function signupButton() {
+    signupClickedView()
+    spriteList[0].openCloseMenu();
+}
+
+function loginClickedView() {
     let inputContainer = document.querySelector(".login-container-form-input");
     let button = document.querySelector(".login-form-button");
     let loginTitle = document.querySelector(".login-form-title-item-login");
@@ -41,7 +51,7 @@ function loginClickedView(){
     button.innerHTML = "Se connecter";
 }
 
-function signupClickedView(){
+function signupClickedView() {
     let inputContainer = document.querySelector(".login-container-form-input");
     let button = document.querySelector(".login-form-button");
     let loginTitle = document.querySelector(".login-form-title-item-login");
