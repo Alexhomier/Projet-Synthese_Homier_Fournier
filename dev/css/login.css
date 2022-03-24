@@ -7,6 +7,7 @@ html,
 body {
     width: 100%;
     height: 100%;
+    scroll-behavior: smooth;
 }
 
 h2 {
@@ -15,6 +16,19 @@ h2 {
 
 ::-webkit-scrollbar {
     z-index: 5;
+}
+
+.background-blacken {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: #202020cc;
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.5s;
 }
 
 
@@ -31,6 +45,7 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 5;
 }
 
 .header-container {
@@ -109,12 +124,10 @@ h2 {
     width: 100%;
     height: 105%;
     background-color: #0e62fd;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    z-index: 0;
 }
 
 .pres-background-ia-img {
@@ -126,7 +139,7 @@ h2 {
     background-image: url('../media/img/login/IA_IMG.png');
     background-size: 47rem;
     background-repeat: no-repeat;
-    z-index: 3;
+    z-index: 1;
 }
 
 .container-pres {
@@ -193,26 +206,15 @@ h2 {
     background-size: 1.15rem;
     margin-left: 5%;
     background-color: white;
-    transition: all 1s;
 }
 
 .container-pres-start:hover .item-pres-start-button {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABmJLR0QA/wD/AP+gvaeTAAAAwElEQVQokZ2PsQpBcRSHf0c3g8FitJrIKg9gMylJsllsJiUJs9lk9QQmj+IFFIuFRXH7DI4y3e7/nul0Ot93fkdKKMCACVBI2ksSbPjWEchnEVSAi0sOQJRFUgduLtkDuSySJvBwyTZY4JIW8HTJ6jc3oChpntJTk9T2fmxmOwPKks4ZQsWS6pGku6RZSqghqeP91MxOqc8Bc/8/BkZBWYGFw29gEAovHX4B/VB4/Qf3QuEScPXYwyD4T1IFukk7H6LftbD+BGF9AAAAAElFTkSuQmCC);
-    transition: all 1s;
     background-color: black;
 }
 
-
-/* M.A. */
-
-.ma-background {
-    width: 100%;
-    height: 60%;
-    position: absolute;
-    background-color: rgb(223, 223, 223);
-    -webkit-box-shadow: 0px 0px 8px 5px #000000;
-    box-shadow: 0px 0px 8px 5px #000000;
-    z-index: 5;
+.container-pres-start:hover .item-pres-start-text {
+    color: rgb(151, 151, 151);
 }
 
 
@@ -229,10 +231,36 @@ h2 {
     left: 50%;
     top: 110%;
     margin-left: -25%;
-    z-index: 6;
+    z-index: 11;
     display: flex;
     justify-content: center;
     align-items: flex-start;
+}
+
+.login-exit {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #202020;
+    color: #a8a8a8;
+    border: 1px solid rgb(39, 39, 39);
+    position: absolute;
+    top: 2%;
+    left: 93%;
+    cursor: pointer;
+    z-index: 7;
+    transition: all 0.5s;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.login-exit:hover {
+    background-color: #d10000;
+    color: #202020;
+    transition: all 0.5s;
 }
 
 .login-ia-img {
@@ -345,4 +373,145 @@ h2 {
 .login-form-button:hover {
     background-color: #4888ff;
     transition: all 0.5s;
+}
+
+
+/* M.A. */
+
+.ma-background {
+    width: 100%;
+    height: 60%;
+    position: absolute;
+    background-color: rgb(223, 223, 223);
+    -webkit-box-shadow: 0px 0px 8px 5px #000000;
+    box-shadow: 0px 0px 8px 5px #000000;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ma-container {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    height: 60%;
+}
+
+.ma-item-title {
+    width: 35%;
+    height: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 2.5rem;
+}
+
+.ma-item-texte {
+    width: 65%;
+    height: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+}
+
+.ma-container-img {
+    display: inline-flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 70%;
+    height: 20%;
+}
+
+
+/* Service */
+
+.serv-background {
+    width: 100%;
+    height: 80%;
+    margin-top: 30%;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.serv-container {
+    width: 70%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.serv-container-title {
+    width: 40%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.serv-title {
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 3rem;
+}
+
+.serv-text {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.7rem;
+}
+
+.serv-container-service {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.serv-service-container {
+    width: 25%;
+    height: 80%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    border-radius: 10px;
+    border: #d3d3d3 0.5px solid;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.serv-service-img {
+    margin-left: 0%;
+    margin-top: 5%;
+    width: 41px;
+    height: 39px;
+}
+
+.serv-service-title {
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    height: 30%;
+}
+
+.serv-service-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    display: flex;
+    height: 40%;
 }

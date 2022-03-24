@@ -12,65 +12,135 @@
   <script src="SpriteLogin/login.js"></script>
 </head>
 <body>
+  <div class="background-blacken" onclick="loginButton()"></div>
+
+  <!-- Presentation  -->
   <div class="pres-background">
-      <div class="pres-background-ia-img"></div>
-      <header class="header">
-        <div class="header-container">
-          <a href="index.php" class="header-item-title">M.A.</a>
-          <div class="header-item-link">
-            <a href="#" class="header-item-link-decoration">M.A.</a>
-            <p class="header-item-link-decoration">|</p>
-            <a href="#" class="header-item-link-decoration">Services</a>
-            <p class="header-item-link-decoration">|</p>
-            <a href="#" class="header-item-link-decoration">Contexte</a>
-            <p class="header-item-link-decoration">|</p>
-            <a href="#" class="header-item-link-decoration">CVM</a>
-          </div>
-          <div class="header-container-login">
-            <div class="header-item-login-decoration" onclick="loginButton()"><h2>Connexion</h2></div>
-          </div>
+    <div class="pres-background-ia-img"></div>
+    <header class="header">
+      <div class="header-container">
+        <a href="index.php" class="header-item-title">M.A.</a>
+        <div class="header-item-link">
+          <a href="#ma" class="header-item-link-decoration">M.A.</a>
+          <p class="header-item-link-decoration">|</p>
+          <a href="#serv" class="header-item-link-decoration">Services</a>
+          <p class="header-item-link-decoration">|</p>
+          <a href="#" class="header-item-link-decoration">Contexte</a>
+          <p class="header-item-link-decoration">|</p>
+          <a href="#" class="header-item-link-decoration">CVM</a>
         </div>
-      </header>
-      <!-- Section Pres -->
-      <div class="container-pres">
-        <div class="container-pres-title-text">
-          <div class="container-pres-title">
-            <h1>Créer, tester et s'informer.</h1>
-          </div>
-          <div class="container-pres-text">
-            <p class="item-pres-text">
-              Notre solution de simulation offre à n'importe quel utilisateur
-              un moyen d'apprendre et de s'amuser en créant des dispositions 
-              d'immeubles réelle ou tout droit sortie de leur imagination.
-              Que ce soit pour un projet professionnelle ou personnel, 
-              notre équipe vous assure qu'elle saura répondre à
-              vos besoins.
-            </p>
-          </div>
+        <div class="header-container-login">
+          <div class="header-item-login-decoration" onclick="loginButton()"><h2>Connexion</h2></div>
         </div>
-        <div class="container-pres-start" id="container-pres-start" onclick="gotoSignup()">
-          <h3 class="item-pres-start-text" onclick="signupButton()">Commencer maintenant</h3>
-          <div class="item-pres-start-button"></div>
+      </div>
+    </header>
+    <!-- Section Pres -->
+    <div class="container-pres">
+      <div class="container-pres-title-text">
+        <div class="container-pres-title">
+          <h1>Créer, tester et s'informer.</h1>
+        </div>
+        <div class="container-pres-text">
+          <p class="item-pres-text">
+            Notre solution de simulation offre à n'importe quel utilisateur
+            un moyen d'apprendre et de s'amuser en créant des dispositions 
+            d'immeubles réelle ou tout droit sortie de leur imagination.
+            Que ce soit pour un projet professionnelle ou personnel, 
+            notre équipe vous assure qu'elle saura répondre à
+            vos besoins.
+          </p>
+        </div>
+      </div>
+      <div class="container-pres-start" id="container-pres-start" onclick="signupButton()">
+        <h3 class="item-pres-start-text" onclick="signupButton()">Commencer maintenant</h3>
+        <div class="item-pres-start-button"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section M.A. --> 
+  <div class="ma-background" id="ma">
+    <div class="ma-container">
+      <h2 class="ma-item-title">Qu'est-ce que M.A.?</h2>
+      <p class="ma-item-texte">
+        Mathieu et Alexandre, deux étudiants de la technique informatique du Cégep du Vieux-Montréal.
+        Ce site est notre projet de fin de fin d'étude, il associe le web avec l'intelligence artificielle
+        pour créer une application optimale, aux particuliers et aux entreprises. Les technologies utilisées
+        dans ce projet sont Python, Flask, Apache2 et PHP.
+      </p>
+    </div>
+    <div class="ma-container-img">
+      <a href="https://www.python.org/"><img src="./media/img/login/python.png" alt="python"></a>
+      <a href="https://flask.palletsprojects.com/en/2.0.x/"><img src="./media/img/login/flask.png" alt="flask"></a>
+      <a href="https://www.apache.org/"><img src="./media/img/login/apache.png" alt="apache"></a>
+      <a href="https://www.php.net/"><img src="./media/img/login/php.png" alt="php"></a>
+      <a href="https://www.cvm.qc.ca/"><img src="./media/img/login/cvm.png" alt="cvm"></a>
+    </div>
+  </div>
+
+  <!-- Section Services -->
+  <div class="serv-background" id="serv">
+    <div class="serv-container">
+      <div class="serv-container-title">
+        <h2 class="serv-title">Nos services</h2>
+        <p class="serv-text">
+          Les services disponibles permettent 
+          à n'importe qui de construire la simulation
+          qu'ils désirent.
+        </p>
+      </div>
+      <div class="serv-container-service">
+        <div class="serv-service-container">
+          <img src="./media/img/login/code.svg"  class="serv-service-img" alt="code">
+          <h2 class="serv-service-title">Création</h2>
+          <p class="serv-service-text">
+            Notre outil de création permet
+            à n'importe qui de créer façilement
+            le plan d'un bâtiment qu'ils désirent.
+            La grille fourni est intuitive, simple
+            et fonctionnelle.
+          </p>
+        </div>
+        <div class="serv-service-container">
+          <img src="./media/img/login/rocket.svg"  class="serv-service-img" alt="rocket">
+          <h2 class="serv-service-title">Simulation</h2>
+          <p class="serv-service-text">
+            Notre programme de simulation
+            est une intelligence artificielle
+            basée sur l'algorithme de PathFinding.
+            Elle reconnait le chemin le plus rapide
+            qu'un individu pourrait emprunter 
+            dans un espace défini.
+          </p>
+        </div>
+        <div class="serv-service-container">
+          <img src="./media/img/login/cup.svg"  class="serv-service-img" alt="cup">
+          <h2 class="serv-service-title">Visionnement</h2>
+          <p class="serv-service-text">
+            Notre page de visionnement en 3D
+            permet d'avoir un apperçu en temps réelle 
+            de la simulation. Vous pouvez vous diriger
+            dans n'importe quel angle de vue, pour 
+            découvrir votre plan.
+          </p>
         </div>
       </div>
     </div>
-    <!-- Section M.A. -->
-    <!-- <div class="ma-background">
+  </div>
 
-    </div> -->
-
-    <!-- Section login -->
-    <div class="login-background">
-      <div class="login-ia-img"></div>
-      <form action="" class="login-form" method="POST">
-        <div class="login-form-title-container">
-          <div class="login-form-title-item-login" onclick="loginClickedView()"><h2>Connexion</h2></div>
-          <div class="login-form-title-item-signup" onclick="signupClickedView()"><h2>Inscription</h2></div>
-        </div>
-        <div class="login-container-form-input"></div>
-        <button type="submit" class="login-form-button">Se connecter</button>
-      </form>
-    </div>
+  <!-- Section login -->
+  <div class="login-background">
+    <button class="login-exit" onclick="loginButton()">x</button>
+    <div class="login-ia-img"></div>
+    <form action="" class="login-form" method="POST">
+      <div class="login-form-title-container">
+        <div class="login-form-title-item-login" onclick="loginClickedView()"><h2>Connexion</h2></div>
+        <div class="login-form-title-item-signup" onclick="signupClickedView()"><h2>Inscription</h2></div>
+      </div>
+      <div class="login-container-form-input"></div>
+      <button type="submit" class="login-form-button">Se connecter</button>
+    </form>
+  </div>
 </body>
 </html>
 

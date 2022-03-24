@@ -1,6 +1,6 @@
 class Login {
     constructor() {
-        this.speed = 5;
+        this.speed = 7;
         this.open = false;
         this.action = false;
         this.loginDOM = document.querySelector(".login-background");
@@ -12,10 +12,15 @@ class Login {
     openCloseMenu() {
         if (!this.action) {
             this.action = true;
-            if (this.open)
-                this.direction = 1 * this.speed;
-            else
-                this.direction = -1 * this.speed;
+            if (this.open) {
+                this.direction = 0.5 * this.speed;
+                document.querySelector(".background-blacken").style.display = "none";
+                console.log("close")
+            } else {
+                console.log("open")
+                document.querySelector(".background-blacken").style.display = "inline-flex";
+                this.direction = -0.5 * this.speed;
+            }
         }
     }
 

@@ -10,12 +10,12 @@ window.addEventListener("load", () => {
 });
 
 function loginButton() {
-    loginClickedView()
+    loginClickedView() // set login to login
     spriteList[0].openCloseMenu();
 }
 
 function signupButton() {
-    signupClickedView()
+    signupClickedView() // set login to signup
     spriteList[0].openCloseMenu();
 }
 
