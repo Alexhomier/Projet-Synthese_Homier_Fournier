@@ -1,3 +1,11 @@
+<?php
+// require_once("action/CommonAction.php");
+// require_once("action/IndexAction.php");
+
+// $action = new IndexAction();
+// $data = $action->execute();
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -25,9 +33,7 @@
           <p class="header-item-link-decoration">|</p>
           <a href="#serv" class="header-item-link-decoration">Services</a>
           <p class="header-item-link-decoration">|</p>
-          <a href="#" class="header-item-link-decoration">Contexte</a>
-          <p class="header-item-link-decoration">|</p>
-          <a href="#" class="header-item-link-decoration">CVM</a>
+          <a href="#cvm" class="header-item-link-decoration">CVM</a>
         </div>
         <div class="header-container-login">
           <div class="header-item-login-decoration" onclick="loginButton()"><h2>Connexion</h2></div>
@@ -96,8 +102,8 @@
           <p class="serv-service-text">
             Notre outil de création permet
             à n'importe qui de créer façilement
-            le plan d'un bâtiment qu'ils désirent.
-            La grille fourni est intuitive, simple
+            le plan d'un bâtiment qu'il désire.
+            La grille fournit est intuitive, simple
             et fonctionnelle.
           </p>
         </div>
@@ -124,6 +130,66 @@
             découvrir votre plan.
           </p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section CVM -->
+  <div class="cvm-background" id="cvm">
+    <div class="cvm-container">
+      <div class="cvm-container-title">
+        <h2 class="cvm-title">Notre projet</h2>
+        <p class="cvm-text">
+          Notre projet comporte plusieurs documents.
+          Voici quelques-un d'entre eux.
+          Vous pouvez les télécharger pour 
+          suivre la progression que nous avons eu
+          tout au long du développement du site.
+        </p>
+        <p class="cvm-text">
+          Il est important de rappeller que ce projet
+          est créer entièrement dans un but académique.
+          Il n'a pas été créé dans un but lucratif.
+        </p>
+        <div class="cvm-container-img">
+          <img src="./media/img/login/partner.svg"  class="cvm-img" alt="partner">
+        </div>
+      </div>
+      <div class="cvm-container-links">
+        <a href="./media/files/login/Mandat.pdf" class="cvm-item-link">
+          <div class="cvm-link-img-container">
+            <img src="./media/img/login/to-do.png" class="cvm-link-img" alt="to-do">
+          </div>
+          <div class="cvm-link-text-container">
+            <p class="cvm-link-text">
+              Le mandat est le repère
+              de tous nos idées, la conception est possible 
+              grâce à ce "BrainStorm".
+            </p>
+          </div>
+        </a>
+        <a href="./media/files/login/Conception.pdf" class="cvm-item-link">
+          <div class="cvm-link-img-container">
+            <img src="./media/img/login/planif.png" class="cvm-link-img" alt="planif">
+          </div>
+          <div class="cvm-link-text-container">
+            <p class="cvm-link-text">
+              La conception est l'application concrète de nos idées.
+              Elle comporte des shémas UML, tout comme des maquettes.
+            </p>
+          </div>
+        </a>
+        <a href="./media/files/login/Planification.pdf" class="cvm-item-link">
+          <div class="cvm-link-img-container">
+            <img src="./media/img/login/temps.png" class="cvm-link-img" alt="temps">
+          </div>
+          <div class="cvm-link-text-container">
+            <p class="cvm-link-text">
+              La planification est notre gestionnaire de tâches et de temps.
+              Elle nous permet de garder en tête nos objectifs.
+            </p>
+          </div>
+        </a>
       </div>
     </div>
   </div>

@@ -37,6 +37,9 @@ function loginClickedView() {
     newInputUsername.placeholder = "Nom d'utilisateur";
     newInputPassword.placeholder = "Mot de passe";
 
+    newInputUsername.setAttribute("name", "username");
+    newInputPassword.setAttribute("name", "password");
+
     newInputUsername.required = true;
     newInputPassword.required = true;
 
@@ -74,6 +77,11 @@ function signupClickedView() {
     newInputMail.placeholder = "Courriel";
     newInputPassword.placeholder = "Mot de passe";
     newInputPasswordConf.placeholder = "Confirmez le mot de passe";
+
+    newInputUsername.setAttribute("name", "username");
+    newInputMail.setAttribute("name", "mail");
+    newInputPassword.setAttribute("name", "password");
+    newInputPasswordConf.setAttribute("name", "passwordConf");
 
     newInputUsername.required = true;
     newInputMail.required = true;
