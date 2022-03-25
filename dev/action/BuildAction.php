@@ -6,7 +6,7 @@ class IndexAction extends CommonAction
 
     public function __construct()
     {
-        parent::__construct(CommonAction::$VISIBILITY_PUBLIC);
+        parent::__construct(CommonAction::$VISIBILITY_MEMBER);
     }
 
     protected function executeAction()

@@ -1,7 +1,7 @@
 <?php
 require_once("action/CommonAction.php");
 
-class IndexAction extends CommonAction
+class AjaxActionBuild extends CommonAction
 {
 
     public function __construct()
@@ -11,6 +11,10 @@ class IndexAction extends CommonAction
 
     protected function executeAction()
     {
+        $result = null;
+
+        
+
         return [];
     }
 }
