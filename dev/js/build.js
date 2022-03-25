@@ -35,7 +35,10 @@ function resizeGridStart() {
 function resizeUp() {
     let grid = document.querySelector(".grid");
     let pourcWidth = grid.offsetWidth / screen.width * 100;
+    grid.style.transform = `translateY(${pourcWidth/4.5}%)`;
     grid.style.width = (pourcWidth + 10) + "%";
+    console.log(pourcWidth)
+    grid.style.width
     resizeGridStart()
 }
 

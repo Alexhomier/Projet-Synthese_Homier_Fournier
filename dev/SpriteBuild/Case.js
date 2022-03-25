@@ -15,6 +15,9 @@ class Case {
         if (this.id[0] == 0 && this.id[1] == 0) {
             this.case.classList.add("caseZero");
         }
+        if (this.id[0] == -25) {
+            this.case.style.backgroundColor = "red";
+        }
     }
 
     setCaseSet() {
