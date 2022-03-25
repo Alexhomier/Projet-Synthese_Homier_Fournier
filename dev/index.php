@@ -25,7 +25,7 @@ $data = $action->execute();
   <div class="background-blacken" onclick="loginButton()"></div>
   <header class="header">
       <div class="header-container">
-        <a href="index.php" class="header-item-title">M.A.</a>
+        <a href="index" class="header-item-title">M.A.</a>
         <div class="header-item-link">
           <a href="#ma" class="header-item-link-decoration">M.A.</a>
           <p class="header-item-link-decoration">|</p>
@@ -44,7 +44,7 @@ $data = $action->execute();
     <div class="pres-background-ia-img"></div>
     <header class="header-pres">
       <div class="header-container">
-        <a href="index.php" class="header-item-title-pres">M.A.</a>
+        <a href="index" class="header-item-title-pres">M.A.</a>
         <div class="header-container-login-pres">
           <div class="header-item-login-decoration-pres" onclick="loginButton()">
             <h2 class="header-item-login-title-decoration-pres">Connexion</h2>

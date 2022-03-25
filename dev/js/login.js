@@ -146,7 +146,7 @@ function login() {
                 document.querySelector(".login-error-container").style.display = "inline-flex";
                 document.querySelector(".login-error-text").innerHTML = response;
             } else {
-                window.location.href = "build.php";
+                window.location.href = "build";
             }
         })
 }
