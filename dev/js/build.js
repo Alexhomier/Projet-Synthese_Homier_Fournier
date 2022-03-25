@@ -57,6 +57,7 @@ function fullScreen() {
         isfullscreen = false;
         gridisFullscreen = false;
     }
+    document.querySelector(".grid").style.transform = `translateY(0%)`;
     isfullscreen = true;
     document.body.requestFullscreen();
 }
