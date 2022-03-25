@@ -267,11 +267,7 @@ h2 {
 
 .container-pres-start:hover .item-pres-start-button {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABmJLR0QA/wD/AP+gvaeTAAAAwElEQVQokZ2PsQpBcRSHf0c3g8FitJrIKg9gMylJsllsJiUJs9lk9QQmj+IFFIuFRXH7DI4y3e7/nul0Ot93fkdKKMCACVBI2ksSbPjWEchnEVSAi0sOQJRFUgduLtkDuSySJvBwyTZY4JIW8HTJ6jc3oChpntJTk9T2fmxmOwPKks4ZQsWS6pGku6RZSqghqeP91MxOqc8Bc/8/BkZBWYGFw29gEAovHX4B/VB4/Qf3QuEScPXYwyD4T1IFukk7H6LftbD+BGF9AAAAAElFTkSuQmCC);
-    background-color: black;
-}
-
-.container-pres-start:hover .item-pres-start-text {
-    color: rgb(151, 151, 151);
+    background-color: #03328b;
 }
 
 
@@ -527,6 +523,7 @@ h2 {
     align-items: center;
     width: 70%;
     height: 20%;
+    opacity: 0.4;
 }
 
 
