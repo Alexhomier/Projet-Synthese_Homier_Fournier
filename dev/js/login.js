@@ -2,8 +2,11 @@ let spriteList = [];
 
 window.addEventListener("load", () => {
     spriteList.push(new Login());
+    spriteList.push(new Header());
 
     loginClickedView();
+
+    scrollEvent();
 
 
     tick();
@@ -25,9 +28,14 @@ function loginClickedView() {
     let loginTitle = document.querySelector(".login-form-title-item-login");
     let signupTitle = document.querySelector(".login-form-title-item-signup");
 
-    while (inputContainer.firstChild) {
-        inputContainer.removeChild(inputContainer.firstChild);
+    if (inputContainer) {
+        while (inputContainer.firstChild) {
+            inputContainer.removeChild(inputContainer.firstChild);
+        }
     }
+    document.querySelector(".login-error-container").style.display = "none";
+    document.querySelector(".login-working-container").style.display = "none";
+
     let newInputUsername = document.createElement("input");
     let newInputPassword = document.createElement("input");
 
@@ -38,7 +46,10 @@ function loginClickedView() {
     newInputPassword.placeholder = "Mot de passe";
 
     newInputUsername.setAttribute("name", "username");
+    newInputUsername.setAttribute("id", "usernameLogin");
     newInputPassword.setAttribute("name", "password");
+    newInputPassword.setAttribute("type", "password");
+    newInputPassword.setAttribute("id", "passwordLogin");
 
     newInputUsername.required = true;
     newInputPassword.required = true;
@@ -52,6 +63,7 @@ function loginClickedView() {
     loginTitle.style.borderBottom = "white solid 1px";
 
     button.innerHTML = "Se connecter";
+    button.setAttribute("onclick", "login()");
 }
 
 function signupClickedView() {
@@ -60,9 +72,14 @@ function signupClickedView() {
     let loginTitle = document.querySelector(".login-form-title-item-login");
     let signupTitle = document.querySelector(".login-form-title-item-signup");
 
-    while (inputContainer.firstChild) {
-        inputContainer.removeChild(inputContainer.firstChild);
+    if (inputContainer) {
+        while (inputContainer.firstChild) {
+            inputContainer.removeChild(inputContainer.firstChild);
+        }
     }
+    document.querySelector(".login-error-container").style.display = "none";
+    document.querySelector(".login-working-container").style.display = "none";
+
     let newInputUsername = document.createElement("input");
     let newInputMail = document.createElement("input");
     let newInputPassword = document.createElement("input");
@@ -79,9 +96,16 @@ function signupClickedView() {
     newInputPasswordConf.placeholder = "Confirmez le mot de passe";
 
     newInputUsername.setAttribute("name", "username");
+    newInputUsername.setAttribute("id", "usernameSignup");
     newInputMail.setAttribute("name", "mail");
+    newInputMail.setAttribute("type", "email");
+    newInputMail.setAttribute("id", "mail");
     newInputPassword.setAttribute("name", "password");
+    newInputPassword.setAttribute("type", "password");
+    newInputPassword.setAttribute("id", "passwordSignup");
     newInputPasswordConf.setAttribute("name", "passwordConf");
+    newInputPasswordConf.setAttribute("type", "password");
+    newInputPasswordConf.setAttribute("id", "passwordConfSignup");
 
     newInputUsername.required = true;
     newInputMail.required = true;
@@ -99,6 +123,79 @@ function signupClickedView() {
     signupTitle.style.borderBottom = "white solid 1px";
 
     button.innerHTML = "Inscription";
+    button.setAttribute("onclick", "signup()");
+}
+
+function login() {
+    const usernameLogin = document.querySelector("#usernameLogin").value;
+    const passwordLogin = document.querySelector("#passwordLogin").value;
+    let formData = new FormData();
+
+    formData.append("action", "login");
+    formData.append("username", usernameLogin);
+    formData.append("password", passwordLogin);
+
+    fetch("AjaxIndex.php", {
+            method: "POST",
+            credentials: "include",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response) {
+                document.querySelector(".login-error-container").style.display = "inline-flex";
+                document.querySelector(".login-error-text").innerHTML = response;
+            } else {
+                window.location.href = "build.php";
+            }
+        })
+}
+
+function signup() {
+    const username = document.querySelector("#usernameSignup").value;
+    const password = document.querySelector("#passwordSignup").value;
+    const mail = document.querySelector("#mail").value;
+    const passwordConf = document.querySelector("#passwordConfSignup").value;
+
+    if (password == passwordConf) {
+        let formData = new FormData();
+
+        formData.append("action", "signup");
+        formData.append("username", username);
+        formData.append("password", password);
+        formData.append("mail", mail);
+
+        fetch("AjaxIndex.php", {
+                method: "POST",
+                credentials: "include",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(response => {
+                if (response) {
+                    document.querySelector(".login-error-container").style.display = "inline-flex";
+                    document.querySelector(".login-error-text").innerHTML = response;
+                } else {
+                    loginClickedView();
+                    document.querySelector(".login-working-container").style.display = "inline-flex";
+                    document.querySelector(".login-working-text").innerHTML = "Inscription terminée, veuillez-vous connecter.";
+                }
+            })
+    } else {
+        document.querySelector(".login-error-container").style.display = "inline-flex";
+        document.querySelector(".login-error-text").innerHTML = "Les mots de passe ne correspondes pas, veuillez réessayer.";
+    }
+}
+
+function scrollEvent() {
+    document.addEventListener("scroll", event => {
+        if (window.scrollY > 100) {
+            spriteList[1].openHeader()
+        } else {
+            spriteList[1].closeHeader()
+        }
+
+    }, { passive: true });
 }
 
 const tick = () => {

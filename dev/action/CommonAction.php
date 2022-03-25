@@ -35,8 +35,6 @@ abstract class CommonAction
         }
 
         $data = $this->executeAction(); // Template method
-        $data["visibility"] = $_SESSION["visibility"];
-        $data["username"] = empty($_SESSION["username"]) ? "Invité" : $_SESSION["username"];
 
         return $data;
     }

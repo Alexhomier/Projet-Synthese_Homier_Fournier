@@ -4,9 +4,9 @@ class Login {
         this.open = false;
         this.action = false;
         this.loginDOM = document.querySelector(".login-background");
-        this.currentTopValue = 110;
+        this.currentTopValue = 120;
         this.maxValueTop = 13;
-        this.maxValueDown = 110;
+        this.maxValueDown = 120;
     }
 
     openCloseMenu() {
@@ -15,9 +15,8 @@ class Login {
             if (this.open) {
                 this.direction = 0.5 * this.speed;
                 document.querySelector(".background-blacken").style.display = "none";
-                console.log("close")
+                document.querySelector(".login-error-container").style.display = "none";
             } else {
-                console.log("open")
                 document.querySelector(".background-blacken").style.display = "inline-flex";
                 this.direction = -0.5 * this.speed;
             }

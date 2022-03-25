@@ -1,9 +1,9 @@
 <?php
-// require_once("action/CommonAction.php");
-// require_once("action/IndexAction.php");
+require_once("action/CommonAction.php");
+require_once("action/IndexAction.php");
 
-// $action = new IndexAction();
-// $data = $action->execute();
+$action = new IndexAction();
+$data = $action->execute();
 
 ?>
 <!DOCTYPE html>
@@ -18,14 +18,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@700&family=Roboto+Mono:wght@200&family=Roboto:wght@100&family=Work+Sans&display=swap" rel="stylesheet"> 
   <script src="js/login.js"></script>
   <script src="SpriteLogin/login.js"></script>
+  <script src="SpriteLogin/header.js"></script>
 </head>
-<body>
+<body id="body">
   <div class="background-blacken" onclick="loginButton()"></div>
-
-  <!-- Presentation  -->
-  <div class="pres-background">
-    <div class="pres-background-ia-img"></div>
-    <header class="header">
+  <header class="header">
       <div class="header-container">
         <a href="index.php" class="header-item-title">M.A.</a>
         <div class="header-item-link">
@@ -37,6 +34,20 @@
         </div>
         <div class="header-container-login">
           <div class="header-item-login-decoration" onclick="loginButton()"><h2>Connexion</h2></div>
+        </div>
+      </div>
+    </header>
+
+  <!-- Presentation  -->
+  <div class="pres-background">
+    <div class="pres-background-ia-img"></div>
+    <header class="header-pres">
+      <div class="header-container">
+        <a href="index.php" class="header-item-title-pres">M.A.</a>
+        <div class="header-container-login-pres">
+          <div class="header-item-login-decoration-pres" onclick="loginButton()">
+            <h2 class="header-item-login-title-decoration-pres">Connexion</h2>
+          </div>
         </div>
       </div>
     </header>
@@ -198,15 +209,38 @@
   <div class="login-background">
     <button class="login-exit" onclick="loginButton()">x</button>
     <div class="login-ia-img"></div>
-    <form action="" class="login-form" method="POST">
+    <div class="login-form">
       <div class="login-form-title-container">
         <div class="login-form-title-item-login" onclick="loginClickedView()"><h2>Connexion</h2></div>
         <div class="login-form-title-item-signup" onclick="signupClickedView()"><h2>Inscription</h2></div>
       </div>
+      <div class="login-error-container">
+        <p class="login-error-text"></p>
+      </div>
+      <div class="login-working-container">
+        <p class="login-working-text"></p>
+      </div>
       <div class="login-container-form-input"></div>
-      <button type="submit" class="login-form-button">Se connecter</button>
-    </form>
+      <button type="submit" class="login-form-button" onclick="login()">Se connecter</button>
+    </div>
   </div>
+
+  <!-- footer -->
+  <footer class="footer-background">
+    <div class="footer-container">
+      <div class="footer-title-container">
+        <h2 class="footer-title-item">M.A.</h2>
+      </div>
+      <div class="footer-copyright-container">
+        <p class="footer-copyright-item">Copyrights aren't reserved. All works aren't protected by copyright of the corresponding authors. </p>
+      </div>
+      <div class="footer-link-container">
+        <a href="#ma" class="footer-link-items">M.A.</a>
+        <a href="#serv" class="footer-link-items">Services</a>
+        <a href="#cvm" class="footer-link-items">CVM</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
 
