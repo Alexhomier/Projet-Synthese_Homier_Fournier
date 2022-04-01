@@ -6,39 +6,38 @@ class Case {
         this.case = document.createElement("div");
         this.case.classList.add("case");
         this.case.setAttribute("id", x + "," + y);
+        this.case.setAttribute("title", "Vide");
         document.querySelector(".grid").appendChild(this.case);
-
-        this.setZero();
     }
 
-    setZero() {
-        if (this.id[0] == 0 && this.id[1] == 0) {
-            this.case.classList.add("caseZero");
-        }
-        if (this.id[0] == -25) {
-            this.case.style.backgroundColor = "red";
-        }
-    }
-
-    setCaseSet() {
-        switch (this.category) {
-            case "couloir":
-                this.case.classList.add("caseCouloir")
-                this.case.innerHTML = "";
+    setCase(state) {
+        switch (state) {
+            case "Couloir":
+                this.case.style.backgroundColor = "grey";
+                this.case.setAttribute("title", "Couloir");
+                this.state = "Couloir";
                 break;
-            case "salle":
-                this.case.classList.add("caseSalle")
-                this.case.innerHTML = "";
+            case "Salle":
+                this.case.style.backgroundColor = "white";
+                this.state = "Salle";
+                this.case.setAttribute("title", "Salle");
                 break;
             default:
                 break;
         }
     }
 
-    setCaseAdd() {
-        this.case.classList.add("caseAdd");
-        this.case.innerHTML = "+";
+    checkState() {
+        if (this.state == "Couloir") {
+            this.case.style.backgroundColor = "grey";
+        }
+        if (this.state == "Salle") {
+            this.case.style.backgroundColor = "white";
+            console.log(this);
+        }
     }
 
-    tick() {}
+    tick() {
+
+    }
 }
