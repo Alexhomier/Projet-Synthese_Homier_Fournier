@@ -27,17 +27,21 @@ class Case {
         }
     }
 
-    checkState() {
+    checkStateCase() {
         if (this.state == "Couloir") {
             this.case.style.backgroundColor = "grey";
+            this.case.setAttribute("title", "Couloir");
         }
         if (this.state == "Salle") {
             this.case.style.backgroundColor = "white";
-            console.log(this);
+            this.case.setAttribute("title", "Salle");
         }
     }
 
-    tick() {
-
+    checkStateCaseFill() {
+        if (this.state == null) {
+            this.state = "Couloir";
+            this.checkStateCase();
+        }
     }
 }

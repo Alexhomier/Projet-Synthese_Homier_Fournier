@@ -248,6 +248,19 @@ h2 {
     cursor: pointer;
 }
 
+.left-panel-button-item-door {
+    width: 50px;
+    height: 50px;
+    border: #ffffff solid 1px;
+    border-radius: 5px;
+    background-color: #2e2e2e;
+    background-image: url('../media/img/build/door.png');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
 .left-panel-button-item-couloir:hover {
     background-color: #444444;
     box-shadow: 0px 0px 8px 4px #FFFFFF;
@@ -255,6 +268,12 @@ h2 {
 }
 
 .left-panel-button-item-salle:hover {
+    background-color: #444444;
+    box-shadow: 0px 0px 8px 4px #FFFFFF;
+    -webkit-box-shadow: 0 px 0 px 8 px 4 px #FFFFFF;
+}
+
+.left-panel-button-item-porte:hover {
     background-color: #444444;
     box-shadow: 0px 0px 8px 4px #FFFFFF;
     -webkit-box-shadow: 0 px 0 px 8 px 4 px #FFFFFF;

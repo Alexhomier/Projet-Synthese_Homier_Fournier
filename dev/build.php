@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="./css/build.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@viselect/vanilla/lib/viselect.cjs.js"></script>
-    <script src="./js/build.js"></script>
-    <script src="./SpriteBuild/Case.js"></script>
+    <script src="./js/build/build.js"></script>
+    <script src="./js/build/Case.js"></script>
+    <script src="./js/build/Grille.js"></script>
 </head>
 <body>
     <div class="background">
@@ -24,10 +25,10 @@
                     <h2 class="left-panel-title-item-cat">Commandes:</h2>
                 </div>
                 <div class="left-panel-control-button-container">
-                    <button title="Agrandir la grille" class="left-panel-control-button-item" onclick="resizeUp()">+</button>
-                    <button title="Réduire la grille" class="left-panel-control-button-item" onclick="resizeDown()">-</button>
+                    <button title="Agrandir la grille" class="left-panel-control-button-item" onclick="grille.resizeUp()">+</button>
+                    <button title="Réduire la grille" class="left-panel-control-button-item" onclick="grille.resizeDown()">-</button>
                     <button title="Plein écran" class="left-panel-control-button-item-fullscreen" onclick="fullScreen()"></button>
-                    <button title="Grille plein écran" class="left-panel-control-button-item-grid" onclick="gridFullScreen()"></button>
+                    <button title="Grille plein écran" class="left-panel-control-button-item-grid" onclick="grille.gridFullScreen()"></button>
                     <button title="Fermer le panneau de contrôle" class="left-panel-control-button-item-close" onclick="closeMenu()"></button>
                 </div>
             </div>
@@ -38,6 +39,7 @@
                 <div class="left-panel-case-button-container">
                     <button title="Sélection: Couloir &#13Ctrl + Q" class="left-panel-button-item-couloir" onclick="setSelectionCouloir()"></button>
                     <button title="Sélection: Salle &#13Ctrl + W" class="left-panel-button-item-salle" onclick="setSelectionSalle()"></button>
+                    <button title="Sélection: Porte &#13Ctrl + E" class="left-panel-button-item-door" onclick="setSelectionDoor()"></button>
                 </div>
             </div>
             <div class="left-panel-info-container">
