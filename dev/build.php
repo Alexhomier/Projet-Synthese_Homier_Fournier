@@ -38,9 +38,9 @@
                     <h2 class="left-panel-title-item-cat">Cases:</h2>
                 </div>
                 <div class="left-panel-case-button-container">
-                    <button title="Sélection: Couloir &#13Ctrl + Q" class="left-panel-button-item-couloir" onclick="setSelectionCouloir()"></button>
-                    <button title="Sélection: Salle &#13Ctrl + W" class="left-panel-button-item-salle" onclick="setSelectionSalle()"></button>
-                    <button title="Sélection: Porte &#13Ctrl + E" class="left-panel-button-item-door" onclick="setSelectionDoor()"></button>
+                    <button title="Sélection: Couloir &#13Alt + Z" class="left-panel-button-item-couloir" onclick="setSelectionCouloir()"></button>
+                    <button title="Sélection: Salle &#13Alt + X" class="left-panel-button-item-salle" onclick="setSelectionSalle()"></button>
+                    <button title="Sélection: Porte &#13Alt + C" class="left-panel-button-item-door" onclick="setSelectionDoor()"></button>
                 </div>
             </div>
             <div class="left-panel-info-container">

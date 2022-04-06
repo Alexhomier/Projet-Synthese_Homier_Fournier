@@ -2,6 +2,7 @@ let grille;
 let isfullscreen = false;
 let currentSelection = "Salle";
 let controlPanelIsOpen = true;
+let keysPressed = {};
 
 const GRIDSIZE = 2500;
 
@@ -13,7 +14,28 @@ window.addEventListener("load", () => {
     setCurrentSelectionText();
     updateScrollBar();
     setUpMultipleSelection();
+    keylistener();
 });
+
+function keylistener() {
+    document.addEventListener('keydown', (event) => {
+        keysPressed[event.key] = true;
+
+        if (keysPressed['Alt'] && event.key == 'z') {
+            setSelectionCouloir();
+        }
+        if (keysPressed['Alt'] && event.key == 'x') {
+            setSelectionSalle();
+        }
+        if (keysPressed['Alt'] && event.key == 'c') {
+            setSelectionDoor();
+        }
+    });
+
+    document.addEventListener('keyup', (event) => {
+        delete this.keysPressed[event.key];
+    });
+}
 
 function fullScreen() {
     if (isfullscreen || grille.gridisFullscreen) {
