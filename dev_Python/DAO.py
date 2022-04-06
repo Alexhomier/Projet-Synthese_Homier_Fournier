@@ -19,12 +19,11 @@ def post():
 
 if __name__ == '__main__':
     app.run()
-    
-# py -m pip install virtualenv
+
+# py -m pip install virtualenv (Only @ first use)
 # py -m venv projetSynthese
 # projetSynthese\Scripts\activate
 # pip install flask
 # pip install flask-cors
-# rename main file as app.py
-# python DAO.py
+# F5 Python Run
 # Don't forget to delete the folder projetSynthese WE DON'T WANT VIRTUAL ENV IN GITHUB

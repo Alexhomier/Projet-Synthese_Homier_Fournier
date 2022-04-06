@@ -1,16 +1,16 @@
 import pygame
 import math
-from queue import PriorityQueue
+from queue import PriorityQueue # element based on highest priority is dequeued
 
 #Avec pygame, 0,0 est en haut a gauche. Donc plus on descends y monte et plus on va a droite x monte
 
 WIDTH = 800 #Taille de la fenêtre
-WIN = pygame.display.set_mode((WIDTH, WIDTH))
-pygame.display.set_caption("A* Path Finding Algorithm")
+window = pygame.display.set_mode((WIDTH, WIDTH))
+pygame.display.set_caption("Visualisation of Path Finding Algorithm for Projet-Synthese_Homier_Fournier")
 
 RED = (255, 0, 0)  #Closed
-GREEN = (0, 255, 0)
-GREY = (128, 128, 128)
+GREEN = (0, 255, 0) # Open
+GREY = (128, 128, 128) #Couleur des lignes entre les cases
 ORANGE = (255, 165 ,0) #Start
 TURQUOISE = (64, 224, 208) #End
 PURPLE = (128, 0, 128) #Path
@@ -26,7 +26,7 @@ class Case:
 		self.x = row * width
 		self.y = col * width
 		self.color = WHITE  #Couleur d'une case n'ayant pas été visité
-		self.neighbors = []
+		self.voisins = []
 
 	def get_position(self):
 		return self.row, self.col
@@ -67,30 +67,77 @@ class Case:
 	def make_path(self):
 		self.color = PURPLE
 
-	def draw(self, win):
-		pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.width))
+	def draw(self, window):
+		pygame.draw.rect(window, self.color, (self.x, self.y, self.width, self.width))
 
-	def update_neighbors(self, grid): #Regarde si voisin est mur ou non
-		self.neighbors = []
+	def update_voisins(self, grid): #Regarde si voisin est mur ou non
+		self.voisins = []
 		if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].is_barrier(): # DOWN
-			self.neighbors.append(grid[self.row + 1][self.col])
+			self.voisins.append(grid[self.row + 1][self.col])
 
 		if self.row > 0 and not grid[self.row - 1][self.col].is_barrier(): # UP
-			self.neighbors.append(grid[self.row - 1][self.col])
+			self.voisins.append(grid[self.row - 1][self.col])
 
 		if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].is_barrier(): # RIGHT
-			self.neighbors.append(grid[self.row][self.col + 1])
+			self.voisins.append(grid[self.row][self.col + 1])
 
 		if self.col > 0 and not grid[self.row][self.col - 1].is_barrier(): # LEFT
-			self.neighbors.append(grid[self.row][self.col - 1])
-
-	def __lt__(self, other):   #Less than
-		return False
+			self.voisins.append(grid[self.row][self.col - 1])
 
 def h(p1, p2): #Heuristic function (manhattan distance)
 	x1, y1 = p1
 	x2, y2 = p2
 	return abs(x1 - x2) + abs(y1 - y2)
+
+def reconstruct_path(came_from, current_case, draw):
+	while current_case in came_from:
+		current_case = came_from[current_case]
+		current_case.make_path()
+		draw()
+
+def algorithm(draw, grid, start, end):
+	count = 0
+	open_set = PriorityQueue()
+	open_set.put((0, count, start))
+	came_from = {}
+	g_score = {case: float("inf") for row in grid for case in row} #Contient tout les G scores
+	g_score[start] = 0
+	f_score = {case: float("inf") for row in grid for case in row} # Contient les F scores
+	f_score[start] = h(start.get_position(), end.get_position()) #F score de start est la distance heuristique calculé dans la métohde h
+
+	open_set_hash = {start}
+
+	while not open_set.empty():
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+
+		current_case = open_set.get()[2] #Prends la case ayant le meilleur score (plus bas) avec la PriorityQueue
+		open_set_hash.remove(current_case)
+
+		if current_case == end:  #Si la current_case est end, c'est la fin de l'ago
+			reconstruct_path(came_from, end, draw)
+			end.make_end()
+			return True
+
+		for voisin in current_case.voisins:  #Analyse les voisin de la current_case
+			temp_g_score = g_score[current_case] + 1
+
+			if temp_g_score < g_score[voisin]:
+				came_from[voisin] = current_case # Ajoute la case au chemin le plus court
+				g_score[voisin] = temp_g_score
+				f_score[voisin] = temp_g_score + h(voisin.get_position(), end.get_position())
+				if voisin not in open_set_hash:
+					count += 1
+					open_set.put((f_score[voisin], count, voisin))
+					open_set_hash.add(voisin)
+					voisin.make_open()
+		draw()
+
+		if current_case != start:
+			current_case.make_closed()
+
+	return False
 
 def make_grid(rows, width):
 	grid = []  #Contient les cases
@@ -102,20 +149,20 @@ def make_grid(rows, width):
 			grid[i].append(case)
 	return grid
 
-def draw_grid(win, rows, width): #Dessine la grid pour le retour visuel
+def draw_grid(window, rows, width): #Dessine la grid pour le retour visuel
 	gap = width // rows
 	for i in range(rows): #Horizontal
-		pygame.draw.line(win, GREY, (0, i * gap), (width, i * gap))
+		pygame.draw.line(window, GREY, (0, i * gap), (width, i * gap))
 		for j in range(rows): #Vertical
-			pygame.draw.line(win, GREY, (j * gap, 0), (j * gap, width))
+			pygame.draw.line(window, GREY, (j * gap, 0), (j * gap, width))
 
-def draw(win, grid, rows, width):
-	win.fill(WHITE)
+def draw(window, grid, rows, width):
+	window.fill(WHITE)
 	for row in grid:
 		for case in row:
-			case.draw(win)
+			case.draw(window)
 
-	draw_grid(win, rows, width)
+	draw_grid(window, rows, width)
 	pygame.display.update()
 
 def get_clicked_pos(pos, rows, width): #Retourne la position cliqué
@@ -126,7 +173,7 @@ def get_clicked_pos(pos, rows, width): #Retourne la position cliqué
 
 	return row, col
 
-def main(win, width):
+def main(window, width):
 	ROWS = 50 #Nombre de colonne dans le carré de 1000x1000
 	grid = make_grid(ROWS, width)
 	start = None #Position de départ
@@ -134,7 +181,7 @@ def main(win, width):
 
 	run = True
 	while run:
-		draw(win, grid, ROWS, width)
+		draw(window, grid, ROWS, width)
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT: #Devrait toujours être le premier
 				run = False
@@ -164,8 +211,15 @@ def main(win, width):
 
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_SPACE and start and end:
-					pass
+					for row in grid:
+						for case in row:
+							case.update_voisins(grid)
+
+					algorithm(lambda: draw(window, grid, ROWS, width), grid, start, end)
 	pygame.quit()
 
 if __name__ == '__main__':
-	main(WIN, WIDTH)
+	main(window, WIDTH)
+
+
+##### Source : https://www.youtube.com/watch?v=JtiK0DOeI4A #####
