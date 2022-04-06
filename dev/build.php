@@ -41,6 +41,7 @@
                     <button title="Sélection: Couloir &#13Alt + Z" class="left-panel-button-item-couloir" onclick="setSelectionCouloir()"></button>
                     <button title="Sélection: Salle &#13Alt + X" class="left-panel-button-item-salle" onclick="setSelectionSalle()"></button>
                     <button title="Sélection: Porte &#13Alt + C" class="left-panel-button-item-door" onclick="setSelectionDoor()"></button>
+                    <button title="Sélection: Efface &#13Alt + V" class="left-panel-button-item-efface" onclick="setSelectionEfface()"></button>
                 </div>
             </div>
             <div class="left-panel-info-container">
@@ -62,7 +63,7 @@
                 <div class="left-panel-options-button-container">
                     <button title="Enregistrer le plan" class="left-panel-button-item-save" onclick="setSelectionCouloir()"></button>
                     <button title="Importer un plan" class="left-panel-button-item-import" onclick="setSelectionSalle()"></button>
-                    <button title="Simulation" class="left-panel-button-item-simu" onclick="setSelectionDoor()"></button>
+                    <button title="Simulation" class="left-panel-button-item-simu" onclick="grille.getGrilleJSON()"></button>
                 </div>
             </div>
         </div>

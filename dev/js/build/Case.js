@@ -22,6 +22,10 @@ class Case {
                 this.state = "Salle";
                 this.case.setAttribute("title", "Salle");
                 break;
+            case null:
+                this.case.style.backgroundColor = "transparent";
+                this.state = "Vide";
+                this.case.setAttribute("title", "Vide");
             default:
                 break;
         }

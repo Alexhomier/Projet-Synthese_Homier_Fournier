@@ -30,6 +30,9 @@ function keylistener() {
         if (keysPressed['Alt'] && event.key == 'c') {
             setSelectionDoor();
         }
+        if (keysPressed['Alt'] && event.key == 'v') {
+            setSelectionEfface();
+        }
     });
 
     document.addEventListener('keyup', (event) => {
@@ -77,24 +80,38 @@ function setSelectionDoor() {
     grille.fillEmptyCase();
 }
 
+function setSelectionEfface() {
+    currentSelection = "Efface";
+    setCurrentSelectionText();
+}
+
 function setCurrentSelectionText() {
     let text = document.querySelector(".left-panel-info-value-selection");
     let btnCouloir = document.querySelector(".left-panel-button-item-couloir");
     let btnSalle = document.querySelector(".left-panel-button-item-salle");
     let btnDoor = document.querySelector(".left-panel-button-item-door");
+    let btnEfface = document.querySelector(".left-panel-button-item-efface");
     text.innerHTML = `Sélection courante : ${currentSelection}`;
     if (currentSelection == "Couloir") {
         btnSalle.style.boxShadow = "none";
+        btnEfface.style.boxShadow = "none";
         btnDoor.style.boxShadow = "none";
         btnCouloir.style.boxShadow = "0px 0px 8px 4px #FFFFFF";
     } else if (currentSelection == "Salle") {
         btnCouloir.style.boxShadow = "none";
+        btnEfface.style.boxShadow = "none";
         btnDoor.style.boxShadow = "none";
         btnSalle.style.boxShadow = "0px 0px 8px 4px #FFFFFF";
     } else if (currentSelection == "Porte") {
+        btnEfface.style.boxShadow = "none";
         btnCouloir.style.boxShadow = "none";
         btnSalle.style.boxShadow = "none";
         btnDoor.style.boxShadow = "0px 0px 8px 4px #FFFFFF";
+    } else if (currentSelection == "Efface") {
+        btnEfface.style.boxShadow = "0px 0px 8px 4px #FFFFFF";
+        btnCouloir.style.boxShadow = "none";
+        btnSalle.style.boxShadow = "none";
+        btnDoor.style.boxShadow = "none";
     }
 }
 
@@ -102,6 +119,7 @@ function updateScrollBar() {
     let textIndSalle = document.querySelector(".left-panel-info-value-selection-sb");
     let scrollbarValue = document.querySelector(".left-panel-info-scrollbar").value;
 
+    grille.setIndBySalle(scrollbarValue);
     textIndSalle.innerHTML = `Individus par salle : ${scrollbarValue}`;
 }
 
@@ -137,9 +155,23 @@ function setUpMultipleSelection() {
         evt.store.selected.forEach(element => {
             document.getElementById(element.id).style.backgroundColor = "transparent";
             let tempPos = element.id.split(",");
-            grille.setCase(tempPos[0], [tempPos[1]], currentSelection);
+            if (currentSelection == "Efface") {
+                grille.setCase(tempPos[0], [tempPos[1]], null);
+            } else {
+                grille.setCase(tempPos[0], [tempPos[1]], currentSelection);
+            }
         });
 
+        if (currentSelection == "Porte") {
+            let lastPoint = evt.store.selected.pop().id.split(",");
+            let x = lastPoint[0]
+            let y = lastPoint[1]
+            if (grille.setDoorValid(parseInt(x), parseInt(y))) {
+                document.getElementById(grille.getCase(x, y).id).style.backgroundColor = "red";
+            } else {
+                alert("Vous ne pouvez pas placer de porte à cet endroit.")
+            }
+        }
         grille.checkState();
     });
 }
