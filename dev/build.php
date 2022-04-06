@@ -16,6 +16,7 @@
 <body>
     <div class="background">
         <grid class="grid"></grid>
+        <button class="open-menu-button" onclick="openCloseControlPanel()"></button>
         <div class="left-panel">
             <div class="left-panel-title-container">
                 <h2 class="left-panel-title-item">Panneau de contrôle</h2>
@@ -29,7 +30,7 @@
                     <button title="Réduire la grille" class="left-panel-control-button-item" onclick="grille.resizeDown()">-</button>
                     <button title="Plein écran" class="left-panel-control-button-item-fullscreen" onclick="fullScreen()"></button>
                     <button title="Grille plein écran" class="left-panel-control-button-item-grid" onclick="grille.gridFullScreen()"></button>
-                    <button title="Fermer le panneau de contrôle" class="left-panel-control-button-item-close" onclick="closeMenu()"></button>
+                    <button title="Fermer le panneau de contrôle" class="left-panel-control-button-item-close" onclick="openCloseControlPanel()"></button>
                 </div>
             </div>
             <div class="left-panel-case-container">
@@ -52,6 +53,16 @@
                         <h3 class="left-panel-info-value-selection-sb">Individus par salle : </h3>
                         <input title= "Individus par salle 1-100" type="range" min="1" max="100" class="left-panel-info-scrollbar" oninput="updateScrollBar()">
                     </div>
+                </div>
+            </div>
+            <div class="left-panel-options-container">
+                <div class="left-panel-options-title-container">
+                    <h2 class="left-panel-title-item-cat">Options:</h2>
+                </div>
+                <div class="left-panel-options-button-container">
+                    <button title="Enregistrer le plan" class="left-panel-button-item-save" onclick="setSelectionCouloir()"></button>
+                    <button title="Importer un plan" class="left-panel-button-item-import" onclick="setSelectionSalle()"></button>
+                    <button title="Simulation" class="left-panel-button-item-simu" onclick="setSelectionDoor()"></button>
                 </div>
             </div>
         </div>

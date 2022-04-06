@@ -1,6 +1,7 @@
 let grille;
 let isfullscreen = false;
 let currentSelection = "Salle";
+let controlPanelIsOpen = true;
 
 const GRIDSIZE = 2500;
 
@@ -26,8 +27,16 @@ function fullScreen() {
     document.body.requestFullscreen();
 }
 
-function closeMenu() {
-    document.querySelector(".left-panel").style.display = "none";
+function openCloseControlPanel() {
+    if (controlPanelIsOpen) {
+        document.querySelector(".left-panel").style.display = "none";
+        document.querySelector(".open-menu-button").style.display = "flex";
+        controlPanelIsOpen = false;
+    } else {
+        document.querySelector(".left-panel").style.display = "flex";
+        document.querySelector(".open-menu-button").style.display = "none";
+        controlPanelIsOpen = true;
+    }
 }
 
 function setSelectionSalle() {
