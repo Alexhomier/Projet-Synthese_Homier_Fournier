@@ -29,6 +29,7 @@ h2 {
     grid-template-columns: repeat(51, 1fr);
     grid-template-rows: repeat(51, 1fr);
     user-select: none;
+    cursor: crosshair;
     /* À CHANGER À 101 POUR 100x100 */
     /* À CHANGER À 11 POUR 10x10 */
     /* À CHANGER À 51 POUR 50x50 */
@@ -54,6 +55,30 @@ h2 {
 }
 
 
+/* Open menu button */
+
+.open-menu-button {
+    position: absolute;
+    top: 2%;
+    left: 1%;
+    display: none;
+    width: 50px;
+    height: 50px;
+    border: #ffffff solid 1px;
+    border-radius: 5px;
+    background-color: #2e2e2e;
+    background-image: url('../media/img/build/menu.png');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.open-menu-button:hover {
+    background-color: #444444;
+}
+
+
 /* Left panel */
 
 .left-panel {
@@ -71,9 +96,18 @@ h2 {
     box-shadow: 0px 0px 8px 2px #000000;
 }
 
+.left-panel-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .left-panel-title-container {
     width: 100%;
-    height: 20%;
+    height: 15%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -140,7 +174,7 @@ h2 {
     border-radius: 5px;
     background-color: #2e2e2e;
     color: #ffffff;
-    cursor: pointer;
+    cursor: help;
 }
 
 .left-panel-control-button-item:hover {
@@ -156,7 +190,7 @@ h2 {
     background-image: url('../media/img/build/fullscreen.png');
     background-size: cover;
     background-position: center;
-    cursor: pointer;
+    cursor: help;
 }
 
 .left-panel-control-button-item-fullscreen:hover {
@@ -172,7 +206,7 @@ h2 {
     background-image: url('../media/img/build/grid.png');
     background-size: cover;
     background-position: center;
-    cursor: pointer;
+    cursor: help;
 }
 
 .left-panel-control-button-item-grid:hover {
@@ -189,7 +223,7 @@ h2 {
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
-    cursor: pointer;
+    cursor: help;
 }
 
 .left-panel-control-button-item-close:hover {
@@ -232,7 +266,7 @@ h2 {
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
-    cursor: pointer;
+    cursor: help;
 }
 
 .left-panel-button-item-salle {
@@ -245,7 +279,7 @@ h2 {
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
-    cursor: pointer;
+    cursor: help;
 }
 
 .left-panel-button-item-door {
@@ -258,7 +292,20 @@ h2 {
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
-    cursor: pointer;
+    cursor: help;
+}
+
+.left-panel-button-item-efface {
+    width: 50px;
+    height: 50px;
+    border: #ffffff solid 1px;
+    border-radius: 5px;
+    background-color: #2e2e2e;
+    background-image: url('../media/img/build/eraser.png');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: help;
 }
 
 .left-panel-button-item-couloir:hover {
@@ -279,17 +326,26 @@ h2 {
     -webkit-box-shadow: 0 px 0 px 8 px 4 px #FFFFFF;
 }
 
+.left-panel-button-item-efface:hover {
+    background-color: #444444;
+    box-shadow: 0px 0px 8px 4px #FFFFFF;
+    -webkit-box-shadow: 0 px 0 px 8 px 4 px #FFFFFF;
+}
+
 .left-panel-info-container {
     width: 75%;
-    height: 40%;
+    height: 20%;
+    border-bottom: #959595 solid 1px;
+    padding-bottom: 4%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
 }
 
 .left-panel-info-title-container {
     width: 100%;
+    padding-top: 10%;
     height: auto;
     display: flex;
     justify-content: flex-start;
@@ -298,7 +354,8 @@ h2 {
 
 .left-panel-info-value-container {
     width: 100%;
-    height: 50%;
+    height: 30%;
+    padding-top: 5%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -339,4 +396,113 @@ h2 {
 .left-panel-info-scrollbar {
     width: 100%;
     margin-top: 2%;
+    cursor: ew-resize;
+}
+
+.left-panel-options-container {
+    width: 75%;
+    height: 17%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.left-panel-options-title-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.left-panel-options-button-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.left-panel-button-item-save {
+    width: 50px;
+    height: 50px;
+    border: #ffffff solid 1px;
+    border-radius: 5px;
+    background-color: #2e2e2e;
+    background-image: url('../media/img/build/save.png');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: help;
+}
+
+.left-panel-button-item-import {
+    width: 50px;
+    height: 50px;
+    border: #ffffff solid 1px;
+    border-radius: 5px;
+    background-color: #2e2e2e;
+    background-image: url('../media/img/build/import.png');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: help;
+}
+
+.left-panel-button-item-simu {
+    width: 50px;
+    height: 50px;
+    border: #ffffff solid 1px;
+    border-radius: 5px;
+    background-color: #2e2e2e;
+    background-image: url('../media/img/build/simu.png');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: help;
+}
+
+.left-panel-button-item-save:hover {
+    background-color: #444444;
+}
+
+.left-panel-button-item-import:hover {
+    background-color: #444444;
+}
+
+.left-panel-button-item-simu:hover {
+    background-color: #444444;
+}
+
+
+/* Left panel Welcome */
+
+.left-panel-welcome-container {
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.left-panel-welcome-title-container {
+    width: 100%;
+    height: 15%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-panel-welcome-title-item {
+    color: #ffffff;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1.8rem;
+    border-bottom: #959595 solid 1px;
+    width: 78%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
 }

@@ -4,6 +4,7 @@ class Grille {
         this.gridsize = gridSize;
         this.gridisFullscreen = false;
         this.grille = [];
+        this.indBySalle = 0;
         this.minX = 25;
         this.minY = 25;
         this.maxX = -25;
@@ -54,6 +55,10 @@ class Grille {
         this.grille[x][y].setCase(currentSelection);
     }
 
+    setIndBySalle(ind) {
+        this.indBySalle = ind;
+    }
+
     checkState() {
         for (let x = -25; x < this.grille.length; x++) {
             for (let y = -25; y < this.grille[x].length; y++) {
@@ -82,5 +87,35 @@ class Grille {
             if (this.maxY < y)
                 this.maxY = y;
         }
+    }
+
+    setDoorValid(tempX, tempY) {
+        let minX = tempX - 1
+        let maxX = tempX + 1
+        let minY = tempY - 1
+        let maxY = tempY + 1
+        let valid = false;
+
+        for (let x = minX; x < maxX; x++) {
+            for (let y = minY; y < maxY; y++) {
+                if (this.grille[x][y].state == "Couloir" ||
+                    this.grille[x][y].state == "null") {
+                    valid = true;
+                }
+            }
+        }
+        if (valid) {
+            this.grille[tempX][tempY].state = "Porte";
+        }
+        return valid;
+    }
+
+    getCase(x, y) {
+        return this.grille[parseInt(x)][parseInt(y)];
+    }
+
+    sendGrilleToPy() {
+        let daoGrille = new DAOGrille(this)
+        console.log(daoGrille.sendToPy())
     }
 }
