@@ -12,58 +12,66 @@
     <script src="./js/build/build.js"></script>
     <script src="./js/build/Case.js"></script>
     <script src="./js/build/Grille.js"></script>
+    <script src="./js/build/DAO/DAOGrille.js"></script>
 </head>
 <body>
     <div class="background">
         <grid class="grid"></grid>
         <button class="open-menu-button" onclick="openCloseControlPanel()"></button>
         <div class="left-panel">
-            <div class="left-panel-title-container">
-                <h2 class="left-panel-title-item">Panneau de contrôle</h2>
-            </div>
-            <div class="left-panel-control-container">
-                <div class="left-panel-control-title-container">
-                    <h2 class="left-panel-title-item-cat">Commandes:</h2>
+            <div class="left-panel-container">
+                <div class="left-panel-title-container">
+                    <h2 class="left-panel-title-item">Panneau de contrôle</h2>
                 </div>
-                <div class="left-panel-control-button-container">
-                    <button title="Agrandir la grille" class="left-panel-control-button-item" onclick="grille.resizeUp()">+</button>
-                    <button title="Réduire la grille" class="left-panel-control-button-item" onclick="grille.resizeDown()">-</button>
-                    <button title="Plein écran" class="left-panel-control-button-item-fullscreen" onclick="fullScreen()"></button>
-                    <button title="Grille plein écran" class="left-panel-control-button-item-grid" onclick="grille.gridFullScreen()"></button>
-                    <button title="Fermer le panneau de contrôle" class="left-panel-control-button-item-close" onclick="openCloseControlPanel()"></button>
+                <div class="left-panel-control-container">
+                    <div class="left-panel-control-title-container">
+                        <h2 class="left-panel-title-item-cat">Commandes:</h2>
+                    </div>
+                    <div class="left-panel-control-button-container">
+                        <button title="Agrandir la grille" class="left-panel-control-button-item" onclick="grille.resizeUp()">+</button>
+                        <button title="Réduire la grille" class="left-panel-control-button-item" onclick="grille.resizeDown()">-</button>
+                        <button title="Plein écran" class="left-panel-control-button-item-fullscreen" onclick="fullScreen()"></button>
+                        <button title="Grille plein écran" class="left-panel-control-button-item-grid" onclick="grille.gridFullScreen()"></button>
+                        <button title="Fermer le panneau de contrôle" class="left-panel-control-button-item-close" onclick="openCloseControlPanel()"></button>
+                    </div>
                 </div>
-            </div>
-            <div class="left-panel-case-container">
-                <div class="left-panel-case-title-container">
-                    <h2 class="left-panel-title-item-cat">Cases:</h2>
+                <div class="left-panel-case-container">
+                    <div class="left-panel-case-title-container">
+                        <h2 class="left-panel-title-item-cat">Cases:</h2>
+                    </div>
+                    <div class="left-panel-case-button-container">
+                        <button title="Sélection: Couloir &#13Alt + Z" class="left-panel-button-item-couloir" onclick="setSelectionCouloir()"></button>
+                        <button title="Sélection: Salle &#13Alt + X" class="left-panel-button-item-salle" onclick="setSelectionSalle()"></button>
+                        <button title="Sélection: Porte &#13Alt + C" class="left-panel-button-item-door" onclick="setSelectionDoor()"></button>
+                        <button title="Sélection: Efface &#13Alt + V" class="left-panel-button-item-efface" onclick="setSelectionEfface()"></button>
+                    </div>
                 </div>
-                <div class="left-panel-case-button-container">
-                    <button title="Sélection: Couloir &#13Alt + Z" class="left-panel-button-item-couloir" onclick="setSelectionCouloir()"></button>
-                    <button title="Sélection: Salle &#13Alt + X" class="left-panel-button-item-salle" onclick="setSelectionSalle()"></button>
-                    <button title="Sélection: Porte &#13Alt + C" class="left-panel-button-item-door" onclick="setSelectionDoor()"></button>
-                    <button title="Sélection: Efface &#13Alt + V" class="left-panel-button-item-efface" onclick="setSelectionEfface()"></button>
+                <div class="left-panel-info-container">
+                    <div class="left-panel-info-title-container">
+                        <h2 class="left-panel-title-item-cat">Informations:</h2>
+                    </div>
+                    <div class="left-panel-info-value-container">
+                        <h3 class="left-panel-info-value-selection">Sélection courante : </h3>
+                        <div class="left-panel-info-scrollbar-container">
+                            <h3 class="left-panel-info-value-selection-sb">Individus par salle : </h3>
+                            <input title= "Individus par salle 1-100" type="range" min="1" max="100" class="left-panel-info-scrollbar" oninput="updateScrollBar()">
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="left-panel-info-container">
-                <div class="left-panel-info-title-container">
-                    <h2 class="left-panel-title-item-cat">Informations:</h2>
-                </div>
-                <div class="left-panel-info-value-container">
-                    <h3 class="left-panel-info-value-selection">Sélection courante : </h3>
-                    <div class="left-panel-info-scrollbar-container">
-                        <h3 class="left-panel-info-value-selection-sb">Individus par salle : </h3>
-                        <input title= "Individus par salle 1-100" type="range" min="1" max="100" class="left-panel-info-scrollbar" oninput="updateScrollBar()">
+                <div class="left-panel-options-container">
+                    <div class="left-panel-options-title-container">
+                        <h2 class="left-panel-title-item-cat">Options:</h2>
+                    </div>
+                    <div class="left-panel-options-button-container">
+                        <button title="Enregistrer le plan" class="left-panel-button-item-save" onclick="setSelectionCouloir()"></button>
+                        <button title="Importer un plan" class="left-panel-button-item-import" onclick="setSelectionSalle()"></button>
+                        <button title="Simulation" class="left-panel-button-item-simu" onclick="grille.sendGrilleToPy()"></button>
                     </div>
                 </div>
             </div>
-            <div class="left-panel-options-container">
-                <div class="left-panel-options-title-container">
-                    <h2 class="left-panel-title-item-cat">Options:</h2>
-                </div>
-                <div class="left-panel-options-button-container">
-                    <button title="Enregistrer le plan" class="left-panel-button-item-save" onclick="setSelectionCouloir()"></button>
-                    <button title="Importer un plan" class="left-panel-button-item-import" onclick="setSelectionSalle()"></button>
-                    <button title="Simulation" class="left-panel-button-item-simu" onclick="grille.getGrilleJSON()"></button>
+            <div class="left-panel-welcome-container">
+                <div class="left-panel-welcome-title-container">
+                    <h2 class="left-panel-welcome-title-item"></h2>
                 </div>
             </div>
         </div>

@@ -96,6 +96,15 @@ h2 {
     box-shadow: 0px 0px 8px 2px #000000;
 }
 
+.left-panel-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .left-panel-title-container {
     width: 100%;
     height: 15%;
@@ -464,4 +473,36 @@ h2 {
 
 .left-panel-button-item-simu:hover {
     background-color: #444444;
+}
+
+
+/* Left panel Welcome */
+
+.left-panel-welcome-container {
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.left-panel-welcome-title-container {
+    width: 100%;
+    height: 15%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-panel-welcome-title-item {
+    color: #ffffff;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1.8rem;
+    border-bottom: #959595 solid 1px;
+    width: 78%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
 }

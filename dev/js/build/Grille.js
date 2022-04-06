@@ -114,9 +114,8 @@ class Grille {
         return this.grille[parseInt(x)][parseInt(y)];
     }
 
-    getGrilleJSON() {
-        let valuesToSend = { "grille": this.grille, "IndParSalle": this.indBySalle, "minX": this.minX, "minY": this.minY, "maxX": this.maxX, "maxY": this.maxY };
-        let temp = JSON.stringify(valuesToSend);
-        console.log(temp)
+    sendGrilleToPy() {
+        let daoGrille = new DAOGrille(this)
+        console.log(daoGrille.sendToPy())
     }
 }
