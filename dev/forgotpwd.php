@@ -11,24 +11,23 @@
 </head>
 <body>
     <div class="background">
-        <form class="mdp-container" onsubmit="return false">
+        <div class="mdp-container">
             <div class="mdp-key-img"></div>
             <h2 class="mdp-title">Mot de passe oublié?</h2>
             <p class="mdp-text">Pas de problème! Veuillez entrer votre nom d'utilisateur et suivre les instructions.</p>
             <input type="mail" class="mdp-input" required>
-            <button class="mdp-button" onsubmit="sendMail()">Réinitialiser le mot de passe</button>
+            <button class="mdp-button" onclick="sendMail()">Réinitialiser le mot de passe</button>
             <div class="mdp-back">
                 <div class="mdp-arrow"></div>
                 <a href="index.php" class="mdp-link">Retour à la connexion</a>
             </div>
-        </form>
+        </div>
         <div class="sent-container">
             <h2 class="sent-title">Courriel envoyé!</h2>
             <p class="sent-text">
                 Un courriel a été envoyé à l'adresse associé au nom d'utilisateur.
                 Veuillez maintenant suivre les instructions envoyées par courriel
                 pour effectuer le changement de mot de passe. 
-
             </p>
         </div>
     </div>
