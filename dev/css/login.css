@@ -453,6 +453,21 @@ h2 {
     color: white;
 }
 
+.login-form-forgetmdp {
+    display: block;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    color: #b5b5b5;
+}
+
+.login-form-forgetmdp:link {
+    color: #b5b5b5;
+}
+
+.login-form-forgetmdp:hover {
+    color: #0e62fd;
+}
+
 .login-form-button {
     width: 77%;
     height: 7%;

@@ -35,6 +35,7 @@ function loginClickedView() {
     }
     document.querySelector(".login-error-container").style.display = "none";
     document.querySelector(".login-working-container").style.display = "none";
+    document.querySelector(".login-form-forgetmdp").style.display = "block";
 
     let newInputUsername = document.createElement("input");
     let newInputPassword = document.createElement("input");
@@ -79,6 +80,7 @@ function signupClickedView() {
     }
     document.querySelector(".login-error-container").style.display = "none";
     document.querySelector(".login-working-container").style.display = "none";
+    document.querySelector(".login-form-forgetmdp").style.display = "none";
 
     let newInputUsername = document.createElement("input");
     let newInputMail = document.createElement("input");

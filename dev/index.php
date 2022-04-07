@@ -210,7 +210,7 @@ $data = $action->execute();
   <div class="login-background">
     <button class="login-exit" onclick="loginButton()">x</button>
     <div class="login-ia-img"></div>
-    <div class="login-form">
+    <form class="login-form" onsubmit="return false"">
       <div class="login-form-title-container">
         <div class="login-form-title-item-login" onclick="loginClickedView()"><h2>Connexion</h2></div>
         <div class="login-form-title-item-signup" onclick="signupClickedView()"><h2>Inscription</h2></div>
@@ -222,8 +222,9 @@ $data = $action->execute();
         <p class="login-working-text"></p>
       </div>
       <div class="login-container-form-input"></div>
-      <button type="submit" class="login-form-button" onclick="login()">Se connecter</button>
-    </div>
+      <a href="forgotpwd.php" class="login-form-forgetmdp">Mot de passe oublié?</a>
+      <button type="submit" class="login-form-button" onsubmit="login()">Se connecter</button>
+    </form>
   </div>
 
   <!-- footer -->

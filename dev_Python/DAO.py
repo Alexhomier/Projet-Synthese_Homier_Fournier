@@ -14,7 +14,7 @@ def post():
     grille = request.get_json()
     print(grille)
 
-    returnValue = "All good"
+    returnValue = grille
     return jsonify(returnValue)
 
 if __name__ == '__main__':
