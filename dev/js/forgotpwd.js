@@ -21,9 +21,10 @@ function createJSONForMail(username) {
         'to': [
             "a.homier@hotmail.com"
         ],
-        'template_id': "1563249",
+        'template_id': "4872134",
         'template_data': {
-            'username': `${username}`
+            'username': `${username}`,
+            'url': `https://wwww.masimulation.ca`
         }
     })
 }
