@@ -26,8 +26,10 @@
             <h2 class="sent-title">Courriel envoyé!</h2>
             <p class="sent-text">
                 Un courriel a été envoyé à l'adresse associé au nom d'utilisateur.
+                Si le nom d'utilisateur n'existe pas, veuillez réessayer.
                 Veuillez maintenant suivre les instructions envoyées par courriel
-                pour effectuer le changement de mot de passe. 
+                pour effectuer le changement de mot de passe. Si vous ne trouvez pas 
+                votre courriel, veuillez vérifier dans vos courriels indésirables.
             </p>
         </div>
     </div>
