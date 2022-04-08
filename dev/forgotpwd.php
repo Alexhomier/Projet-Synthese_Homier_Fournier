@@ -32,6 +32,14 @@
                 votre courriel, veuillez vérifier dans vos courriels indésirables.
             </p>
         </div>
+        <div class="rec-container">
+            <div class="rec-key-img"></div>
+            <h2 class="rec-title">Changement de mot de passe</h2>
+            <p class="rec-text"></p>
+            <input type="password" class="rec-input" id="pwd1" required>
+            <input type="password" class="rec-input" id="pwd2" required>
+            <button class="rec-button" onclick="checkpwd()">Réinitialiser le mot de passe</button>
+        </div>
     </div>
 </body>
 </html>

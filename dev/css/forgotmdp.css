@@ -168,3 +168,77 @@ h2 {
     width: 80%;
     text-align: center;
 }
+
+
+/* Recovery */
+
+.rec-container {
+    width: 30%;
+    height: 50%;
+    display: none;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    -webkit-box-shadow: 0px 0px 15px 0px #000000;
+    box-shadow: 0px 0px 15px 0px #000000;
+    margin-top: -10%;
+}
+
+.rec-key-img {
+    width: 70px;
+    height: 70px;
+    background-image: url('../media/img/forgetpwd/key.png');
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    -webkit-box-shadow: 0px 0px 15px 0px #000000;
+    box-shadow: 0px 0px 15px 0px #000000;
+}
+
+.rec-title {
+    color: #ffffff;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1.4rem;
+}
+
+.rec-text {
+    color: #aea7a7;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    width: 80%;
+    text-align: center;
+}
+
+.rec-input {
+    width: 60%;
+    height: 7%;
+    border: none;
+    -webkit-box-shadow: 0px 0px 2px 1px #7e7e7ed3;
+    box-shadow: 0px 0px 2px 1px #7e7e7ed3;
+    padding: 0% 5%;
+    color: white;
+    background-color: #1e1e1e;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: larger;
+}
+
+.rec-button {
+    width: 71%;
+    height: 7%;
+    padding: 0% 7%;
+    font-family: 'Roboto', sans-serif;
+    font-size: larger;
+    background-color: #0e62fd;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s;
+    border-radius: 5px;
+}
+
+.rec-button:hover {
+    background-color: #4888ff;
+    transition: all 0.5s;
+}
