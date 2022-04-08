@@ -21,10 +21,37 @@
             </div>
             <div class="lb-score">
                 <div class="lb-score-item">
-                    <h2 class="lb-score-number">1</h2>
-                    <h3 class="lb-score-name">Alexhomier</h3>
-                    <button class="lb-score-import"></button>
-                    <div class="lb-score-upvote"></div>
+                    <div class="lb-score-left-container">
+                        <h2 class="lb-score-number">1</h2>
+                        <h3 class="lb-score-name">Alexhomier</h3>
+                    </div>
+                    <div class="lb-score-right-container">
+                        <button class="lb-score-import"></button>
+                        <div class="lb-score-upvote"></div>
+                        <h5 class="lb-score-vote">0</h5>
+                    </div>
+                </div>
+                <div class="lb-score-item">
+                    <div class="lb-score-left-container">
+                        <h2 class="lb-score-number">2</h2>
+                        <h3 class="lb-score-name">xHomier</h3>
+                    </div>
+                    <div class="lb-score-right-container">
+                        <button class="lb-score-import"></button>
+                        <div class="lb-score-upvote"></div>
+                        <h5 class="lb-score-vote">0</h5>
+                    </div>
+                </div>
+                <div class="lb-score-item">
+                    <div class="lb-score-left-container">
+                        <h2 class="lb-score-number">3</h2>
+                        <h3 class="lb-score-name">Fourmi</h3>
+                    </div>
+                    <div class="lb-score-right-container">
+                        <button class="lb-score-import"></button>
+                        <div class="lb-score-upvote"></div>
+                        <h5 class="lb-score-vote">0</h5>
+                    </div>
                 </div>
             </div>
         </div>
