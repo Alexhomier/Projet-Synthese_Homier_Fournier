@@ -4,6 +4,8 @@ let currentTimeSelection = "day";
 window.addEventListener("load", () => {
     spriteList.push(new DateSelection());
 
+    getListOf
+
     tick();
 });
 
