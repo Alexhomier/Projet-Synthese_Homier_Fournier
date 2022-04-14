@@ -68,10 +68,10 @@ $data = $action->execute();
             vos besoins.
           </p>
         </div>
+        <div class="container-pres-start" id="container-pres-start" onclick="signupButton()">
+          <h3 class="item-pres-start-text" onclick="signupButton()">Commencer maintenant</h3>
+          <div class="item-pres-start-button"></div>
       </div>
-      <div class="container-pres-start" id="container-pres-start" onclick="signupButton()">
-        <h3 class="item-pres-start-text" onclick="signupButton()">Commencer maintenant</h3>
-        <div class="item-pres-start-button"></div>
       </div>
     </div>
   </div>

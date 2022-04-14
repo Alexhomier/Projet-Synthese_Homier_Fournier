@@ -226,6 +226,7 @@ h2 {
     width: auto;
     height: auto;
     display: inline-flex;
+    padding-top: 5%;
 }
 
 .item-pres-text {
@@ -239,7 +240,8 @@ h2 {
 .container-pres-start {
     cursor: pointer;
     width: 70%;
-    height: 10%;
+    height: 60%;
+    padding-top: 10%;
     display: inline-flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -833,4 +835,66 @@ h2 {
 .footer-link-items:hover {
     transition: all 0.5s;
     color: #b9b9b9;
+}
+
+@media only screen and (max-width: 600px) {
+    .header-container-login-pres {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .header-item-login-decoration-pres {
+        background-image: url('../media/img/login/menu_blanc.png');
+        background-size: 80%;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        border-radius: 10%;
+        padding: 5%;
+    }
+    .header-item-login-decoration-pres:hover {
+        background-color: transparent;
+    }
+    .header-item-login-title-decoration-pres {
+        display: none;
+    }
+    .container-pres {
+        padding: 0%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .header-item-title {
+        font-size: 4rem;
+    }
+    .container-pres {
+        width: 70%;
+        height: 90%;
+        margin-right: 0%;
+        margin-bottom: 0%;
+    }
+    .container-pres-title {
+        font-family: 'Hind Siliguri', sans-serif;
+        font-size: 1.7rem;
+        color: white;
+        display: inline-flex;
+        margin-top: 5%;
+    }
+    .container-pres-text {
+        margin-top: -5%;
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.7;
+        font-size: 1rem;
+        color: white;
+        font-weight: 20;
+    }
+    .container-pres-start {
+        padding-top: 0%;
+        cursor: pointer;
+        width: 90%;
+        height: 10%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
 }
