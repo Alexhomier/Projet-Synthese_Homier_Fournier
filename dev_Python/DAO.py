@@ -12,7 +12,6 @@ def gett():
 @app.route('/post', methods = ['POST'])
 def post():
     grille = request.get_json()
-    print(grille)
 
     returnValue = grille
     return jsonify(returnValue)

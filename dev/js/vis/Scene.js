@@ -1,31 +1,25 @@
 class Scene {
-    constructor(canvas, DDD) {
+    constructor(canvas, grille) {
         this.canvas = canvas;
-        this.THREE = DDD.THREE;
-        this.OrbitControls = DDD.OrbitControls;
 
         this.scene = this.buildScene();
         this.renderer = this.buildRenderer(canvas);
         this.camera = this.buildCamera();
         this.orbitcontrol = this.setOrbitControls();
 
-        let THREE = this.THREE;
         let scene = this.scene;
         let renderer = this.renderer;
         let camera = this.camera;
-        let orbitcontrol = this.orbitcontrol;
 
         var packImports = {
-            THREE,
             scene,
             renderer,
             camera,
-            orbitcontrol
         }
 
         var grid = {
-            sizeX: 50,
-            sizeY: 50
+            sizeX: 500,
+            sizeY: 500
         }
 
         this.planeFormBase = new PlaneFormBase(packImports, grid);
@@ -35,13 +29,13 @@ class Scene {
     }
 
     buildScene() {
-        const scene = new this.THREE.Scene();
-        scene.background = new this.THREE.Color(0x1e1e1e);
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1e1e1e);
         return scene;
     }
 
     buildRenderer(canvas) {
-        const renderer = new this.THREE.WebGLRenderer();
+        const renderer = new THREE.WebGLRenderer();
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight + 0.5);
         canvas.appendChild(renderer.domElement);
@@ -49,8 +43,8 @@ class Scene {
     }
 
     buildCamera() {
-        const camera = new this.THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
-        camera.position.set(30, 30, 100);
+        const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 20000);
+        camera.position.set(240, 240, 800);
         return camera;
     }
 
@@ -61,7 +55,7 @@ class Scene {
     }
 
     setOrbitControls() {
-        const controls = new this.OrbitControls(this.camera, this.renderer.domElement);
+        const controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
         controls.maxPolarAngle = Math.PI * 0.495;
         controls.target.set(0, 10, 0);
         controls.minDistance = 40.0;
@@ -71,7 +65,7 @@ class Scene {
     }
 
     setLights() {
-        const light = new this.THREE.AmbientLight(0x404040);
+        const light = new THREE.AmbientLight(0x404040);
         this.scene.add(light);
     }
 

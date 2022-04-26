@@ -7,6 +7,7 @@
     <title>M.A. Simulation | Création</title>
     <link rel="icon" type="image/png" href="./media/img/overall/logo.png" />
     <link rel="stylesheet" href="./css/build.css">
+    <link rel="stylesheet" href="./css/progress-waves-no-vars.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@viselect/vanilla/lib/viselect.cjs.js"></script>
     <script src="./js/build/build.js"></script>
@@ -73,6 +74,15 @@
                 <div class="left-panel-welcome-title-container">
                     <h2 class="left-panel-welcome-title-item"></h2>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="loading">
+        <div class="loading-container">
+            <div class="loading-img"></div>
+            <div class="loading-title-anim">
+                <h1 class="loading-title">Chargement de la simulation en cours</h1>
+                <div class="in-progress"></div>
             </div>
         </div>
     </div>
