@@ -19,19 +19,19 @@
                 <div class="lb-period-all"><h4>Tout les temps</h4></div>
                 <div class="lb-period-moving-div"></div>
             </div>
-            <template class="lb-score">
+            <div class="lb-score">
                 <div class="lb-score-item">
                     <div class="lb-score-left-container">
                         <h2 class="lb-score-number">1.</h2>
                         <h3 class="lb-score-name">Alexhomier</h3>
                     </div>
                     <div class="lb-score-right-container">
-                        <button class="lb-score-import"></button>
+                        <button class="lb-score-import" onclick="goToVis(this)"></button>
                         <img src="./media/img/leaderboard/like.png" alt="like" class="lb-score-upvote" onclick="addVote(this)">
                         <h5 class="lb-score-vote">0</h5>
                     </div>
                 </div>
-            </template>
+            </div>
         </div>
     </div>
 </body>

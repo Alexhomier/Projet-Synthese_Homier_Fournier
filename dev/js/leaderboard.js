@@ -1,6 +1,7 @@
 let spriteList = [];
 let currentTimeSelection = "day";
 let currentpage = 1;
+let layoutTab = [];
 
 window.addEventListener("load", () => {
     spriteList.push(new DateSelection());
@@ -31,22 +32,6 @@ function addVote(element) {
         })
 }
 
-function getUsername() {
-    let formData = new FormData();
-
-    formData.append("getUsername", true);
-
-    fetch("AjaxIndex.php", {
-            method: "POST",
-            credentials: "include",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(response => {
-            return response;
-        })
-}
-
 function changeTimeBoard() {
     spriteList[0].change();
     if (currentTimeSelection == "day") {
@@ -68,15 +53,29 @@ function getLeaderBoard(){
         })
         .then(response => response.json())
         .then(response => {
-            for(let i = 0; i < response.length; i++){
-                addElementLB(i+1, response.lb[i].username, response.lb[i].nbVote);    
+            for(let i = 0; i < response.lb.length; i++){
+                addElementLB(i+1, response.lb[i].username, response.lb[i].vote);
+                layoutTab.push(response.lb[i].layout);    
             }
         })
 }
-var clone = getelementbytag.content.cloneNode(true)
-appendChild(clone);
 
-function addElementLB(posArr, username, nbVote)
+function addElementLB(posArr, username, nbVote){
+    let template = document.querySelector(".lb-score-item");
+    let parent = document.querySelector(".lb-score");
+    let clone = template.cloneNode(true);
+    clone.children[0].children[0].innerHTML = `${posArr}.`;
+    clone.children[0].children[1].innerHTML = `${username}`;
+    clone.children[1].children[2].innerHTML = `${nbVote}`;
+    clone.style.display = "inline-flex";
+    parent.appendChild(clone)
+}
+
+function goToVis(element){
+    let pos = element.parentElement.parentElement.children[0].children[0].textContent.toString().slice(0, -1);
+    localStorage.setItem("grille", layoutTab[parseInt(pos-1)]);
+    window.location.href = "visualisation.php";
+}
 
 const tick = () => {
     for (let i = 0; i < spriteList.length; i++) {
