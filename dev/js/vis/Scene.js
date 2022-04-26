@@ -18,8 +18,8 @@ class Scene {
         }
 
         var grid = {
-            sizeX: 500,
-            sizeY: 500
+            sizeX: 100,
+            sizeY: 100
         }
 
         this.planeFormBase = new PlaneFormBase(packImports, grid);

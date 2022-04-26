@@ -4,7 +4,7 @@ class DAOGrille {
     }
 
     sendToPy() {
-        document.querySelector(".loading").display = "flex";
+        document.querySelector(".loading").style.display = "flex";
         fetch(`http://127.0.0.1:5000/post`, {
                 method: "post",
                 credentials: "omit",
@@ -15,8 +15,10 @@ class DAOGrille {
             })
             .then(response => response.json())
             .then(response => {
-                localStorage.setItem('grille', JSON.stringify(response));
-                window.location.href = `visualisation.php`;
+                setTimeout(function(){
+                    localStorage.setItem('grille', JSON.stringify(response));
+                    window.location.href = `visualisation.php`;
+                }, 1000);
             })
     }
 }

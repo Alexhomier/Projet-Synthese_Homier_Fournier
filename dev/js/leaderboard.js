@@ -1,10 +1,11 @@
 let spriteList = [];
 let currentTimeSelection = "day";
+let currentpage = 1;
 
 window.addEventListener("load", () => {
     spriteList.push(new DateSelection());
 
-    getListOf
+    getLeaderBoard();
 
     tick();
 });
@@ -54,6 +55,28 @@ function changeTimeBoard() {
         currentTimeSelection = "day";
     }
 }
+
+function getLeaderBoard(){
+    let formData = new FormData();
+
+    formData.append("page", currentpage);
+
+    fetch("AjaxLB.php", {
+            method: "POST",
+            credentials: "include",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(response => {
+            for(let i = 0; i < response.length; i++){
+                addElementLB(i+1, response.lb[i].username, response.lb[i].nbVote);    
+            }
+        })
+}
+var clone = getelementbytag.content.cloneNode(true)
+appendChild(clone);
+
+function addElementLB(posArr, username, nbVote)
 
 const tick = () => {
     for (let i = 0; i < spriteList.length; i++) {

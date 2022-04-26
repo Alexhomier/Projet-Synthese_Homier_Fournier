@@ -10,8 +10,12 @@ window.addEventListener("load", () => {
 });
 
 function getGrille() {
-    let grille = localStorage.getItem("grille");
-    return JSON.parse(grille);
+    if(localStorage.getItem("grille") != null){
+        let grille = localStorage.getItem("grille");
+        return JSON.parse(grille);
+    } else {
+        window.location.href = "build.php";
+    }
 }
 
 const tick = () => {

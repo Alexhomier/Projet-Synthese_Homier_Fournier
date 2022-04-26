@@ -1,0 +1,15 @@
+CREATE TABLE layout(
+  id SERIAL PRIMARY KEY,
+  iduser INT NOT NULL,
+  layout VARCHAR(2000) NOT NULL,
+  vote INT NOT NULL DEFAULT 0,
+  FOREIGN KEY (iduser) REFERENCES users(id)
+);
+
+CREATE TABLE vote(
+  idlayout INT NOT NULL,
+  iduser INT NOT NULL,
+  time date DEFAULT CURRENT_DATE,
+  FOREIGN KEY (idlayout) REFERENCES layout(id),
+  FOREIGN KEY (iduser) REFERENCES users(id)
+);

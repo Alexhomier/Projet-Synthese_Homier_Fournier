@@ -19,7 +19,7 @@
                 <div class="lb-period-all"><h4>Tout les temps</h4></div>
                 <div class="lb-period-moving-div"></div>
             </div>
-            <div class="lb-score">
+            <template class="lb-score">
                 <div class="lb-score-item">
                     <div class="lb-score-left-container">
                         <h2 class="lb-score-number">1.</h2>
@@ -31,7 +31,7 @@
                         <h5 class="lb-score-vote">0</h5>
                     </div>
                 </div>
-            </div>
+            </template>
         </div>
     </div>
 </body>
