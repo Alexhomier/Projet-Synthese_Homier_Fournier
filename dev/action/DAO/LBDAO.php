@@ -2,12 +2,19 @@
     require_once("action/DAO/Connection.php");
 
     class LBDAO {
-        public static function getLB($page) {
+        public static function getLB($page, $currentSelection, $iduser) {
             $connection = Connection::getConnection();
             $page -= 1;
+            $page *= 5;
 
-            $statement = $connection->prepare("SELECT username, vote, layout FROM layout INNER JOIN users ON layout.iduser = users.id ORDER BY vote DESC LIMIT 5 OFFSET ?;");
-            $statement->bindParam(1, $page);
+            if($currentSelection == "all"){
+                $statement = $connection->prepare("SELECT username, vote, layout FROM layout INNER JOIN users ON layout.iduser = users.id ORDER BY vote DESC LIMIT 5 OFFSET ?;");
+                $statement->bindParam(1, $page);
+            } else {
+                $statement = $connection->prepare("SELECT iduser, username, vote, layout FROM layout INNER JOIN users ON layout.iduser = users.id WHERE iduser = ? ORDER BY vote DESC LIMIT 5 OFFSET ?;");
+                $statement->bindParam(1, $iduser);
+                $statement->bindParam(2, $page);
+            }
             $statement->setFetchMode(PDO::FETCH_ASSOC);
             $statement->execute();
             $lb = $statement->fetchAll();
@@ -19,18 +26,17 @@
             $connection = Connection::getConnection();
             $newVoteCount = 0;
             $voteLayout = [];
+            $username = "'".$vote."'";
 
             if(LBDAO::checkVote($idvoter)){
                 $newVoteCount = $vote + 1;
-                $statement = $connection->prepare("UPDATE layout SET vote = ? FROM users WHERE (SELECT id FROM users WHERE username = '?') = iduser AND layout.vote = ? RETURNING layout.id");
+                $statement = $connection->prepare("UPDATE layout SET vote = ? FROM users WHERE (SELECT id FROM users WHERE username = ?) = iduser AND layout.vote = ? RETURNING layout.id");
                 $statement->bindParam(1, $newVoteCount);
                 $statement->bindParam(2, $username);
                 $statement->bindParam(3, $vote);
                 $statement->setFetchMode(PDO::FETCH_ASSOC);
                 $statement->execute();
                 $voteInfo = $statement->fetchAll();
-
-                $voteLayout = $voteInfo[0]["id"];
 
                 $statement = $connection->prepare("INSERT INTO vote (idlayout, iduser) VALUES (?, ?)");
                 $statement->bindParam(1, $voteLayout);
@@ -42,8 +48,6 @@
             } else {
                 return false;
             }
-
-
         }
 
         public static function checkVote($iduser) {

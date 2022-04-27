@@ -14,8 +14,8 @@ class AjaxActionLeaderboard extends CommonAction
     {
         $result = null;
 
-        if(isset($_POST["page"])){
-            $result = LBDAO::getLB($_POST["page"]);
+        if(isset($_POST["page"]) && isset($_POST["currentSelection"]) && isset($_POST["iduser"])){
+            $result = LBDAO::getLB($_POST["page"], $_POST["currentSelection"], $_POST["iduser"]);
         }
         if(isset($_POST["usernameVote"]) && isset($_POST["vote"]) && isset($_POST["idVoter"])){
             $result = LBDAO::addVote($_POST["usernameVote"], $_POST["vote"], $_POST["idVoter"]);

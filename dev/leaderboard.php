@@ -14,9 +14,9 @@
     <div class="background">
         <div class="lb-container">
             <h2 class="lb-title">Classement</h2>
-            <div class="lb-period" onclick="changeTimeBoard()">
-                <div class="lb-period-day"><h4>Aujourd'hui</h4></div>
-                <div class="lb-period-all"><h4>Tout les temps</h4></div>
+            <div class="lb-period" onclick="changeBoardSelect()">
+                <div class="lb-period-day"><h4>Moi</h4></div>
+                <div class="lb-period-all"><h4>Tout le monde</h4></div>
                 <div class="lb-period-moving-div"></div>
             </div>
             <div class="lb-score">

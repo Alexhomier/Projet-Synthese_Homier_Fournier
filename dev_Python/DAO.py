@@ -1,28 +1,28 @@
 from urllib import request
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from State import *  
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/get', methods = ['GET'])
-def gett():
-    return "llo"
-
 @app.route('/post', methods = ['POST'])
 def post():
     grille = request.get_json()
+    # state = new State(grille)
+    # grille = state.run()
 
-    returnValue = grille
-    return jsonify(returnValue)
+    return jsonify(grille)
 
 if __name__ == '__main__':
     app.run()
 
-# py -m pip install virtualenv (Only @ first use)
-# py -m venv projetSynthese
-# projetSynthese\Scripts\activate
-# pip install flask
-# pip install flask-cors
-# F5 Python Run
-# Don't forget to delete the folder projetSynthese WE DON'T WANT VIRTUAL ENV IN GITHUB
+"""
+    run is the main of the algo.
+
+    :param grille: json dict
+     - { "grille", "IndParSalle", "minX", "minY", "maxX", "maxY" }
+
+    :return: json dict                       ?
+     - {"grille": [OBJECT Grille], "walls": [Array of Walls], "ind": [Array of Individus], "visualisation": [Array of visualisation Frame]}
+""" 

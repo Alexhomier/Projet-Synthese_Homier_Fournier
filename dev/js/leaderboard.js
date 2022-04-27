@@ -1,7 +1,8 @@
 let spriteList = [];
-let currentTimeSelection = "day";
+let currentBoardSelection = "moi";
 let currentpage = 1;
 let layoutTab = [];
+let template = null;
 
 window.addEventListener("load", () => {
     spriteList.push(new DateSelection());
@@ -21,7 +22,6 @@ function addVote(element) {
     if (userid == null) {
         window.location.href = "index.php";
     }
-    console.log(userid)
 
     let formData = new FormData();
 
@@ -43,19 +43,34 @@ function addVote(element) {
         })
 }
 
-function changeTimeBoard() {
+function changeBoardSelect() {
     spriteList[0].change();
-    if (currentTimeSelection == "day") {
-        currentTimeSelection = "all";
+    if (currentBoardSelection == "moi") {
+        currentBoardSelection = "all";
     } else {
-        currentTimeSelection = "day";
+        currentBoardSelection = "moi";
     }
+    updateBoardInfo();
+}
+
+function updateBoardInfo(){
+    let parent = document.querySelector(".lb-score");
+    while(parent.firstChild) {
+        parent.removeChild(parent.lastChild);
+    }
+    getLeaderBoard();
 }
 
 function getLeaderBoard() {
     let formData = new FormData();
+    let userid = localStorage.getItem("id");
+    if (userid == null) {
+        window.location.href = "index.php";
+    }
 
     formData.append("page", currentpage);
+    formData.append("currentSelection", currentBoardSelection);
+    formData.append("iduser", userid)
 
     fetch("AjaxLB.php", {
             method: "POST",
@@ -72,7 +87,9 @@ function getLeaderBoard() {
 }
 
 function addElementLB(posArr, username, nbVote) {
-    let template = document.querySelector(".lb-score-item");
+    if(template == null){
+        template = document.querySelector(".lb-score-item");
+    }
     let parent = document.querySelector(".lb-score");
     let clone = template.cloneNode(true);
     clone.children[0].children[0].innerHTML = `${posArr}.`;
