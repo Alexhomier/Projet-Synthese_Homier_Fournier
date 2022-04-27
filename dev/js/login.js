@@ -144,10 +144,11 @@ function login() {
         })
         .then(response => response.json())
         .then(response => {
-            if (response) {
+            if (response.length < 1) {
                 document.querySelector(".login-error-container").style.display = "inline-flex";
-                document.querySelector(".login-error-text").innerHTML = response;
+                document.querySelector(".login-error-text").innerHTML = response[0];
             } else {
+                localStorage.setItem("id", response);
                 window.location.href = "build";
             }
         })

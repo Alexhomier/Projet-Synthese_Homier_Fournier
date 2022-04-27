@@ -1,15 +1,39 @@
+CREATE TABLE users(
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(255),
+  email VARCHAR(255),
+  password VARCHAR(255)
+);
+
 CREATE TABLE layout(
   id SERIAL PRIMARY KEY,
-  iduser INT NOT NULL,
+  iduser integer NOT NULL,
   layout VARCHAR(2000) NOT NULL,
-  vote INT NOT NULL DEFAULT 0,
+  vote integer NOT NULL DEFAULT 0,
   FOREIGN KEY (iduser) REFERENCES users(id)
 );
 
+INSERT INTO layout (iduser, layout, vote)
+VALUES
+(26, 'allo', 5)
+(27, "alo", 3)
+
 CREATE TABLE vote(
-  idlayout INT NOT NULL,
-  iduser INT NOT NULL,
+  idlayout integer NOT NULL,
+  iduser integer NOT NULL,
   time date DEFAULT CURRENT_DATE,
   FOREIGN KEY (idlayout) REFERENCES layout(id),
   FOREIGN KEY (iduser) REFERENCES users(id)
 );
+
+UPDATE 
+    layout
+SET 
+    vote = 6
+FROM 
+    users
+WHERE 
+    users.id = layout.iduser AND layout.vote = 5; 
+
+
+UPDATE layout SET vote = ? FROM users WHERE (SELECT id FROM users WHERE username = '?') = iduser AND layout.vote = ?; 

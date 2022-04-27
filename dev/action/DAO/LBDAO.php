@@ -15,24 +15,53 @@
             return compact("lb");
         }
 
-        public static function addVote($username) {
+        public static function addVote($username, $vote, $idvoter) {
             $connection = Connection::getConnection();
+            $newVoteCount = 0;
+            $voteLayout = [];
 
-            $statement = $connection->prepare("SELECT mail FROM users WHERE username = ?");
-            $statement->bindParam(1, $username);
+            if(LBDAO::checkVote($idvoter)){
+                $newVoteCount = $vote + 1;
+                $statement = $connection->prepare("UPDATE layout SET vote = ? FROM users WHERE (SELECT id FROM users WHERE username = '?') = iduser AND layout.vote = ? RETURNING layout.id");
+                $statement->bindParam(1, $newVoteCount);
+                $statement->bindParam(2, $username);
+                $statement->bindParam(3, $vote);
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                $statement->execute();
+                $voteInfo = $statement->fetchAll();
+
+                $voteLayout = $voteInfo[0]["id"];
+
+                $statement = $connection->prepare("INSERT INTO vote (idlayout, iduser) VALUES (?, ?)");
+                $statement->bindParam(1, $voteLayout);
+                $statement->bindParam(2, $idvoter);
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                $statement->execute();
+
+                return true;
+            } else {
+                return false;
+            }
+
+
+        }
+
+        public static function checkVote($iduser) {
+            $connection = Connection::getConnection();
+            $result = true;
+
+            $statement = $connection->prepare("SELECT time FROM vote WHERE iduser = ?");
+            $statement->bindParam(1, $iduser);
             $statement->setFetchMode(PDO::FETCH_ASSOC);
             $statement->execute();
-            $email = $statement->fetchAll();
+            $voteInfo = $statement->fetchAll();
 
-            $statement = $connection->prepare("SELECT password FROM users WHERE username = ?");
-            $statement->bindParam(1, $username);
-            $statement->setFetchMode(PDO::FETCH_ASSOC);
-            $statement->execute();
-            $pwd = $statement->fetchAll();
-            
-            $email = $email[0]["mail"];
-            $url = $pwd[0]["password"];
-            
-            return compact("email", "url");
+            if(sizeof($voteInfo) > 0){
+                if(date("Y-m-d") == $voteInfo[0]["time"]){
+                    $result = false;
+                }
+            }
+
+            return $result;
         }
     }
