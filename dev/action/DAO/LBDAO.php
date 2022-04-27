@@ -38,6 +38,8 @@
                 $statement->execute();
                 $voteInfo = $statement->fetchAll();
 
+                var_dump($voteInfo);
+
                 $statement = $connection->prepare("INSERT INTO vote (idlayout, iduser) VALUES (?, ?)");
                 $statement->bindParam(1, $voteLayout);
                 $statement->bindParam(2, $idvoter);
