@@ -18,8 +18,13 @@
             $statement->setFetchMode(PDO::FETCH_ASSOC);
             $statement->execute();
             $lb = $statement->fetchAll();
+
+            $statement = $connection->prepare("SELECT count(*) FROM layout;");
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+            $statement->execute();
+            $pageCount = $statement->fetchAll();
             
-            return compact("lb");
+            return compact("lb", "pageCount");
         }
 
         public static function addVote($username, $vote, $idvoter) {

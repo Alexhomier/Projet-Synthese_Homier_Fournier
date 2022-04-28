@@ -51,5 +51,6 @@ class DAOGrille {
                 body: formData
             })
             .then(response => response.json())
+            .then(response => {})
     }
 }

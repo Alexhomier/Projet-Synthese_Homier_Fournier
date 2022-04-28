@@ -214,3 +214,54 @@ h4 {
     font-size: 1.5rem;
     color: red;
 }
+
+
+/* page */
+
+.page-container {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 80%;
+    left: 62%;
+}
+
+.page-arrow-container {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.page-arrow-left {
+    width: 50%;
+    height: 100%;
+    background-image: url('../media/img/leaderboard/arrow-left.png');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.page-arrow-left:hover {
+    background-image: url('../media/img/leaderboard/arrow-left-hover.png');
+}
+
+.page-arrow-right {
+    width: 50%;
+    height: 100%;
+    background-image: url('../media/img/leaderboard/arrow-right.png');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.page-arrow-right:hover {
+    background-image: url('../media/img/leaderboard/arrow-right-hover.png');
+}

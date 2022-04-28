@@ -12,10 +12,11 @@ class AjaxActionBuild extends CommonAction
 
     protected function executeAction()
     {
+        $result = null;
         if(isset($_POST["grille"]) && isset($_POST["iduser"])){
-            BuildDAO::saveGrid($_POST["grille"], $_POST["iduser"]);
+            $result = BuildDAO::saveGrid($_POST["grille"], $_POST["iduser"]);
         }
 
-        return null;
+        return compact("result");
     }
 }

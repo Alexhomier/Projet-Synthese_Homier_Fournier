@@ -33,6 +33,12 @@
                     </div>
                 </div>
             </div>
+            <div class="page-container">
+                <div class="page-arrow-container">
+                    <div class="page-arrow-left" onclick="turnPage(this)"></div>
+                    <div class="page-arrow-right" onclick="turnPage(this)"></div>
+                </div>
+            </div>
         </div>
         <div class="error-container">
             <h2 class="error-title">Malheureusement, vous avez déjà voté aujourd'hui. Revenez demain!</h2>

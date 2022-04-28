@@ -1,6 +1,9 @@
 let spriteList = [];
 let currentBoardSelection = "moi";
-let currentpage = 1;
+let currentPage = 1;
+let maxPage = 1;
+let statePageArrowRight = null;
+let statePageArrowLeft = null;
 let layoutTab = [];
 let template = null;
 
@@ -9,6 +12,7 @@ window.addEventListener("load", () => {
     spriteList.push(new ErrorMSG());
 
     getLeaderBoard();
+    setPageArrow();
 
     tick();
 });
@@ -70,7 +74,7 @@ function getLeaderBoard() {
         window.location.href = "index.php";
     }
 
-    formData.append("page", currentpage);
+    formData.append("page", currentPage);
     formData.append("currentSelection", currentBoardSelection);
     formData.append("iduser", userid)
 
@@ -81,11 +85,50 @@ function getLeaderBoard() {
         })
         .then(response => response.json())
         .then(response => {
+            maxPage = Math.ceil(response.pageCount[0].count / 5);
             for (let i = 0; i < response.lb.length; i++) {
                 addElementLB(i + 1, response.lb[i].username, response.lb[i].vote);
                 layoutTab.push(response.lb[i].layout);
             }
         })
+}
+
+function setPageArrow() {
+    let arrowLeft = document.querySelector(".page-arrow-left").style;
+    let arrowRight = document.querySelector(".page-arrow-right").style;
+    if (currentPage == 1) {
+        arrowLeft.backgroundImage = "url('../media/img/leaderboard/arrow-left-hover.png')";
+        arrowRight.backgroundImage = "url('../media/img/leaderboard/arrow-right.png')";
+        statePageArrowLeft = false;
+        statePageArrowRight = true;
+    }
+    if (currentPage == maxPage) {
+        arrowRight.backgroundImage = "url('../media/img/leaderboard/arrow-right-hover.png')";
+        statePageArrowRight = false;
+    }
+    if (currentPage != 1 && currentPage != maxPage) {
+        arrowLeft.backgroundImage = "url('../media/img/leaderboard/arrow-left.png')";
+        arrowRight.backgroundImage = "url('../media/img/leaderboard/arrow-right.png')";
+        statePageArrowLeft = true;
+        statePageArrowRight = true;
+    }
+}
+
+function turnPage(button) {
+    if (button.className == "page-arrow-left") {
+        if (statePageArrowLeft) {
+            currentPage -= 1;
+            getLeaderBoard();
+            setPageArrow();
+        }
+    }
+    if (button.className == "page-arrow-right") {
+        if (statePageArrowRight) {
+            currentPage += 1;
+            getLeaderBoard();
+            setPageArrow();
+        }
+    }
 }
 
 function addElementLB(posArr, username, nbVote) {
