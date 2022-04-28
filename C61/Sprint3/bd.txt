@@ -8,15 +8,10 @@ CREATE TABLE users(
 CREATE TABLE layout(
   id SERIAL PRIMARY KEY,
   iduser integer NOT NULL,
-  layout VARCHAR(2000) NOT NULL,
+  layout TEXT NOT NULL,
   vote integer NOT NULL DEFAULT 0,
   FOREIGN KEY (iduser) REFERENCES users(id)
 );
-
-INSERT INTO layout (iduser, layout, vote)
-VALUES
-(26, 'allo', 5)
-(27, "alo", 3)
 
 CREATE TABLE vote(
   idlayout integer NOT NULL,

@@ -64,8 +64,8 @@
                         <h2 class="left-panel-title-item-cat">Options:</h2>
                     </div>
                     <div class="left-panel-options-button-container">
-                        <button title="Enregistrer le plan" class="left-panel-button-item-save" onclick="setSelectionCouloir()"></button>
-                        <button title="Importer un plan" class="left-panel-button-item-import" onclick="setSelectionSalle()"></button>
+                        <button title="Enregistrer le plan" class="left-panel-button-item-save" onclick="saveGrid()"></button>
+                        <button title="Accéder au classement" class="left-panel-button-item-lb" onclick="seeLeaderboard()"></button>
                         <button title="Simulation" class="left-panel-button-item-simu" onclick="grille.sendGrilleToPy()"></button>
                     </div>
                 </div>

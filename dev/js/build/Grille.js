@@ -114,6 +114,11 @@ class Grille {
         return this.grille[parseInt(x)][parseInt(y)];
     }
 
+    getGrille() {
+        let daoGrille = new DAOGrille(this)
+        daoGrille.sendToPy(true);
+    }
+
     sendGrilleToPy() {
         let daoGrille = new DAOGrille(this)
         daoGrille.sendToPy()

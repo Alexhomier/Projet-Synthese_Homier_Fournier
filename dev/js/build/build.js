@@ -123,6 +123,14 @@ function updateScrollBar() {
     textIndSalle.innerHTML = `Individus par salle : ${scrollbarValue}`;
 }
 
+function saveGrid() {
+    localStorage.setItem("grille", grille.getGrille());
+}
+
+function seeLeaderboard() {
+    window.location.href = "leaderboard.php";
+}
+
 
 // Multiple Selection library : https://github.com/Simonwep/selection/tree/master/packages/vanilla
 // Exemple : https://github.com/Simonwep/selection/blob/master/packages/vanilla/demo/index.ts

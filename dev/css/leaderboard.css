@@ -187,3 +187,30 @@ h4 {
     font-family: 'Roboto', sans-serif;
     font-size: 0.9rem;
 }
+
+
+/* Error msg */
+
+.error-container {
+    width: 60%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    margin-left: -30%;
+    background-color: rgba(255, 0, 0, 0.349);
+    border: solid red 3px;
+    border-radius: 10px;
+}
+
+.error-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    color: red;
+}

@@ -20,6 +20,15 @@ $data = $action->execute();
   <script src="js/login.js"></script>
   <script src="SpriteLogin/login.js"></script>
   <script src="SpriteLogin/header.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3WF2KHEJM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-K3WF2KHEJM');
+  </script>
 </head>
 <body id="body">
   <div class="background-blacken" onclick="loginButton()"></div>

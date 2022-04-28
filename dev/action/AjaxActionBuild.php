@@ -1,5 +1,6 @@
 <?php
 require_once("action/CommonAction.php");
+require_once("action/DAO/BuildDAO.php");
 
 class AjaxActionBuild extends CommonAction
 {
@@ -11,10 +12,10 @@ class AjaxActionBuild extends CommonAction
 
     protected function executeAction()
     {
-        $result = null;
+        if(isset($_POST["grille"]) && isset($_POST["iduser"])){
+            BuildDAO::saveGrid($_POST["grille"], $_POST["iduser"]);
+        }
 
-        
-
-        return [];
+        return null;
     }
 }

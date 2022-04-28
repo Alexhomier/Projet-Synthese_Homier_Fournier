@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/leaderboard.css">
     <script src="js/leaderboard.js"></script>
     <script src="SpriteLeaderBoard/DateSelection.js"></script>
+    <script src="SpriteLeaderBoard/ErrorMSG.js"></script>
 </head>
 <body>
     <div class="background">
@@ -32,6 +33,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="error-container">
+            <h2 class="error-title">Malheureusement, vous avez déjà voté aujourd'hui. Revenez demain!</h2>
         </div>
     </div>
 </body>

@@ -437,13 +437,13 @@ h2 {
     cursor: help;
 }
 
-.left-panel-button-item-import {
+.left-panel-button-item-lb {
     width: 50px;
     height: 50px;
     border: #ffffff solid 1px;
     border-radius: 5px;
     background-color: #2e2e2e;
-    background-image: url('../media/img/build/import.png');
+    background-image: url('../media/img/build/lb.png');
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;

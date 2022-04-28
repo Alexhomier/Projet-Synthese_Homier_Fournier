@@ -25,8 +25,6 @@
         public static function addVote($username, $vote, $idvoter) {
             $connection = Connection::getConnection();
             $newVoteCount = 0;
-            $voteLayout = [];
-            $username = "'".$vote."'";
 
             if(LBDAO::checkVote($idvoter)){
                 $newVoteCount = $vote + 1;
@@ -37,11 +35,10 @@
                 $statement->setFetchMode(PDO::FETCH_ASSOC);
                 $statement->execute();
                 $voteInfo = $statement->fetchAll();
-
-                var_dump($voteInfo);
+                $layoutId = $voteInfo[0]["id"];
 
                 $statement = $connection->prepare("INSERT INTO vote (idlayout, iduser) VALUES (?, ?)");
-                $statement->bindParam(1, $voteLayout);
+                $statement->bindParam(1, $layoutId);
                 $statement->bindParam(2, $idvoter);
                 $statement->setFetchMode(PDO::FETCH_ASSOC);
                 $statement->execute();

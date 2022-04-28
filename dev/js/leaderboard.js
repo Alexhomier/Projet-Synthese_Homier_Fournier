@@ -6,6 +6,7 @@ let template = null;
 
 window.addEventListener("load", () => {
     spriteList.push(new DateSelection());
+    spriteList.push(new ErrorMSG());
 
     getLeaderBoard();
 
@@ -15,7 +16,6 @@ window.addEventListener("load", () => {
 function addVote(element) {
 
     let parentNode = element.parentNode.parentNode;
-    let score = parentNode.children[0].children[0].textContent.slice(0, -1);
     let username = parentNode.children[0].children[1].textContent.toString();
     let vote = parseInt(parentNode.children[1].children[2].textContent);
     let userid = localStorage.getItem("id");
@@ -39,6 +39,8 @@ function addVote(element) {
             if (response) {
                 element.src = "./media/img/leaderboard/liked.png";
                 parentNode.children[1].children[2].innerHTML = vote + 1;
+            } else {
+                spriteList[1].run();
             }
         })
 }
@@ -53,9 +55,9 @@ function changeBoardSelect() {
     updateBoardInfo();
 }
 
-function updateBoardInfo(){
+function updateBoardInfo() {
     let parent = document.querySelector(".lb-score");
-    while(parent.firstChild) {
+    while (parent.firstChild) {
         parent.removeChild(parent.lastChild);
     }
     getLeaderBoard();
@@ -87,7 +89,7 @@ function getLeaderBoard() {
 }
 
 function addElementLB(posArr, username, nbVote) {
-    if(template == null){
+    if (template == null) {
         template = document.querySelector(".lb-score-item");
     }
     let parent = document.querySelector(".lb-score");
