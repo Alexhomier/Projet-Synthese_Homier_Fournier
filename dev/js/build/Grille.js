@@ -89,24 +89,28 @@ class Grille {
         }
     }
 
-    setDoorValid(tempX, tempY) {
-        let minX = tempX - 1
-        let maxX = tempX + 1
-        let minY = tempY - 1
-        let maxY = tempY + 1
+    setDoorValid(x, y) {
         let valid = false;
+        const conditionsArray = [
+            this.grille[x][y + 1].state == "Couloir",
+            this.grille[x][y - 1].state == "Couloir",
+            this.grille[x + 1][y].state == "Couloir",
+            this.grille[x - 1][y].state == "Couloir"
+        ];
 
-        for (let x = minX; x < maxX; x++) {
-            for (let y = minY; y < maxY; y++) {
-                if (this.grille[x][y].state == "Couloir" ||
-                    this.grille[x][y].state == "null") {
-                    valid = true;
-                }
+        conditionsArray.forEach(element => {
+            if (element) {
+                valid = true;
             }
-        }
-        if (valid) {
-            this.grille[tempX][tempY].state = "Porte";
-        }
+        });
+
+        if (this.grille[x][y].state == "Salle" && valid) {
+            valid = true;
+            this.grille[x][y].state = "Porte";
+            this.grille[x][y]
+        } else
+            valid = false;
+
         return valid;
     }
 
