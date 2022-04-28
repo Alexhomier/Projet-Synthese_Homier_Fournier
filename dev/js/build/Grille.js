@@ -125,6 +125,7 @@ class Grille {
 
     sendGrilleToPy() {
         let daoGrille = new DAOGrille(this)
+        console.log(this);
         daoGrille.sendToPy()
     }
 }
