@@ -82,6 +82,7 @@ function setSelectionDoor() {
 
 function setSelectionEfface() {
     currentSelection = "Efface";
+    grille.reinitMinMax();
     setCurrentSelectionText();
 }
 
@@ -124,6 +125,7 @@ function updateScrollBar() {
 }
 
 function saveGrid() {
+    grille.fillEmptyCase();
     localStorage.setItem("grille", grille.getGrille());
 }
 

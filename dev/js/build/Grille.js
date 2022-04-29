@@ -5,10 +5,6 @@ class Grille {
         this.gridisFullscreen = false;
         this.grille = [];
         this.indBySalle = 0;
-        this.minX = 25;
-        this.minY = 25;
-        this.maxX = -25;
-        this.maxY = -25;
     }
 
     setHeight() {
@@ -17,13 +13,20 @@ class Grille {
     }
 
     createGrid() {
-        let sideCalc = (Math.sqrt(this.gridsize) / 2);
-        for (let x = -sideCalc; x <= sideCalc; x++) {
+        let sideCalc = (Math.sqrt(this.gridsize));
+        this.size = sideCalc;
+        this.reinitMinMax();
+        for (let x = 0; x <= sideCalc; x++) {
             this.grille[x] = [];
-            for (let y = -sideCalc; y <= sideCalc; y++) {
+            for (let y = 0; y <= sideCalc; y++) {
                 this.grille[x][y] = new Case(x, y);
             }
         }
+    }
+
+    reinitMinMax() {
+        this.minX = this.minY = (Math.sqrt(this.gridsize));
+        this.maxX = this.maxY = 0;
     }
 
     resizeGridStart() {
@@ -60,8 +63,8 @@ class Grille {
     }
 
     checkState() {
-        for (let x = -25; x < this.grille.length; x++) {
-            for (let y = -25; y < this.grille[x].length; y++) {
+        for (let x = 0; x < this.grille.length; x++) {
+            for (let y = 0; y < this.grille[x].length; y++) {
                 this.grille[x][y].checkStateCase();
                 this.getminMax(x, y);
             }
@@ -69,6 +72,7 @@ class Grille {
     }
 
     fillEmptyCase() {
+        this.checkState();
         for (let x = this.minX; x <= this.maxX; x++) {
             for (let y = this.minY; y <= this.maxY; y++) {
                 this.grille[x][y].checkStateCaseFill();
@@ -87,15 +91,31 @@ class Grille {
             if (this.maxY < y)
                 this.maxY = y;
         }
+
+        console.log(this.maxX, this.minX, this.maxY, this.minY)
     }
 
     setDoorValid(x, y) {
         let valid = false;
+        let lookVoisinXDown = 1;
+        let lookVoisinYDown = 1;
+        let lookVoisinXUp = 1;
+        let lookVoisinYUp = 1;
+
+        if (y == 0)
+            lookVoisinYDown = 0;
+        if (y == this.size)
+            lookVoisinYUp = 0;
+        if (x == 0)
+            lookVoisinXDown = 0
+        if (x == this.size)
+            lookVoisinXUp = 0
+
         const conditionsArray = [
-            this.grille[x][y + 1].state == "Couloir",
-            this.grille[x][y - 1].state == "Couloir",
-            this.grille[x + 1][y].state == "Couloir",
-            this.grille[x - 1][y].state == "Couloir"
+            this.grille[x][y + lookVoisinYUp].state == "Couloir",
+            this.grille[x][y - lookVoisinYDown].state == "Couloir",
+            this.grille[x + lookVoisinXUp][y].state == "Couloir",
+            this.grille[x - lookVoisinXDown][y].state == "Couloir"
         ];
 
         conditionsArray.forEach(element => {
@@ -107,9 +127,13 @@ class Grille {
         if (this.grille[x][y].state == "Salle" && valid) {
             valid = true;
             this.grille[x][y].state = "Porte";
-            this.grille[x][y]
         } else
             valid = false;
+
+        if (x == this.minX || x == this.maxX || y == this.minY || y == this.maxY) {
+            valid = true;
+            this.grille[x][y].state = "Porte";
+        }
 
         return valid;
     }
@@ -124,6 +148,7 @@ class Grille {
     }
 
     sendGrilleToPy() {
+        this.fillEmptyCase();
         let daoGrille = new DAOGrille(this)
         console.log(this);
         daoGrille.sendToPy()

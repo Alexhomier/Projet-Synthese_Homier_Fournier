@@ -2,6 +2,9 @@ class Scene {
     constructor(canvas, grille) {
         this.canvas = canvas;
 
+        const WALLHEIGHT = 5;
+        const CONVERSIONTODDD = 1
+
         this.scene = this.buildScene();
         this.renderer = this.buildRenderer(canvas);
         this.camera = this.buildCamera();
@@ -17,13 +20,34 @@ class Scene {
             camera,
         }
 
+        let sizeX = grille.grille.maxX - grille.grille.minX;
+        let sizeY = grille.grille.maxY - grille.grille.minY;
+        let doorWidth = 0.5 * WALLHEIGHT;
+        let doorHeight = 0.8 * WALLHEIGHT;
+
         var grid = {
-            sizeX: 100,
-            sizeY: 100
+            sizeX: sizeX,
+            sizeY: sizeY,
+            wallHeight: WALLHEIGHT,
+            doorWidth: doorWidth,
+            doorHeight: doorHeight,
+            conversionToDDD: CONVERSIONTODDD
         }
 
         this.planeFormBase = new PlaneFormBase(packImports, grid);
-        this.planeFormWallsExt = new PlaneFormWallsExt(packImports, grid);
+        this.planeFormWallsExt = new PlaneFormWalls(packImports, grid);
+
+        // temp
+        const axesHelper = new THREE.AxesHelper(5);
+        this.scene.add(axesHelper);
+
+        const size = 1000;
+        const divisions = 100;
+
+        const gridHelper = new THREE.GridHelper(size, divisions);
+        // this.scene.add(gridHelper);
+
+        // end temp
 
         window.addEventListener('resize', this.resizeWindow.bind(this));
     }

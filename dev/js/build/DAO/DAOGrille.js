@@ -27,7 +27,7 @@ class DAOGrille {
                     window.location.href = "visualisation.php";
                 else {
                     this.saveGridBD(response);
-                    window.location.href = "leaderboard.php";
+                    // window.location.href = "leaderboard.php";
                 }
             })
     }
@@ -51,6 +51,8 @@ class DAOGrille {
                 body: formData
             })
             .then(response => response.json())
-            .then(response => {})
+            .then(response => {
+                console.log(response);
+            })
     }
 }

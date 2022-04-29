@@ -4,12 +4,13 @@
     class BuildDAO {
         public static function saveGrid($grille, $iduser) {
             $connection = Connection::getConnection();
-            $statement = $connection->prepare("INSERT INTO layout (iduser, layout) VALUES (?, ?)");
+            $statement = $connection->prepare("INSERT INTO layout (iduser, layout) VALUES (?, ?) RETURNING iduser, id");
             $statement->bindParam(1, $iduser);
             $statement->bindParam(2, $grille);
             $statement->setFetchMode(PDO::FETCH_ASSOC);
             $statement->execute();
+            $result = $statement->fetchAll();
 
-            return null;
+            return $result;
         }
     }

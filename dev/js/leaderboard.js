@@ -1,7 +1,7 @@
 let spriteList = [];
 let currentBoardSelection = "moi";
 let currentPage = 1;
-let maxPage = 1;
+let maxPage = null;
 let statePageArrowRight = null;
 let statePageArrowLeft = null;
 let layoutTab = [];
@@ -12,7 +12,6 @@ window.addEventListener("load", () => {
     spriteList.push(new ErrorMSG());
 
     getLeaderBoard();
-    setPageArrow();
 
     tick();
 });
@@ -60,11 +59,16 @@ function changeBoardSelect() {
 }
 
 function updateBoardInfo() {
+    deleteCurrentLB();
+    getLeaderBoard();
+    setPageArrow();
+}
+
+function deleteCurrentLB() {
     let parent = document.querySelector(".lb-score");
     while (parent.firstChild) {
         parent.removeChild(parent.lastChild);
     }
-    getLeaderBoard();
 }
 
 function getLeaderBoard() {
@@ -86,8 +90,9 @@ function getLeaderBoard() {
         .then(response => response.json())
         .then(response => {
             maxPage = Math.ceil(response.pageCount[0].count / 5);
+            setPageArrow();
             for (let i = 0; i < response.lb.length; i++) {
-                addElementLB(i + 1, response.lb[i].username, response.lb[i].vote);
+                addElementLB(i + 1 + ((currentPage - 1) * 5), response.lb[i].username, response.lb[i].vote);
                 layoutTab.push(response.lb[i].layout);
             }
         })
@@ -102,9 +107,14 @@ function setPageArrow() {
         statePageArrowLeft = false;
         statePageArrowRight = true;
     }
+    console.log(currentPage, maxPage)
     if (currentPage == maxPage) {
         arrowRight.backgroundImage = "url('../media/img/leaderboard/arrow-right-hover.png')";
         statePageArrowRight = false;
+    }
+    if (currentPage == maxPage && currentPage != 1) {
+        arrowLeft.backgroundImage = "url('../media/img/leaderboard/arrow-left.png')";
+        statePageArrowLeft = true;
     }
     if (currentPage != 1 && currentPage != maxPage) {
         arrowLeft.backgroundImage = "url('../media/img/leaderboard/arrow-left.png')";
@@ -118,6 +128,7 @@ function turnPage(button) {
     if (button.className == "page-arrow-left") {
         if (statePageArrowLeft) {
             currentPage -= 1;
+            deleteCurrentLB();
             getLeaderBoard();
             setPageArrow();
         }
@@ -125,6 +136,7 @@ function turnPage(button) {
     if (button.className == "page-arrow-right") {
         if (statePageArrowRight) {
             currentPage += 1;
+            deleteCurrentLB();
             getLeaderBoard();
             setPageArrow();
         }
