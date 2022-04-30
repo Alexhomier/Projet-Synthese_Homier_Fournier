@@ -1,9 +1,34 @@
 class Grille {
-    constructor(grille) {
+    constructor(grille, packImports, gridInfo) {
+        const WALLHEIGHT = 5;
+        const CONVERSIONTODDD = 5
+
         this.grille = grille;
+        this.packImports = packImports;
+        this.gridInfo = gridInfo;
+        let sizeX = grille.maxX - grille.minX;
+        let sizeY = grille.maxY - grille.minY;
+        let doorWidth = 0.5 * WALLHEIGHT;
+        let doorHeight = 0.8 * WALLHEIGHT;
+
+        this.gridInfo = {
+            sizeX: sizeX,
+            sizeY: sizeY,
+            wallHeight: WALLHEIGHT,
+            doorWidth: doorWidth,
+            doorHeight: doorHeight,
+            conversionToDDD: CONVERSIONTODDD
+        }
 
         this.getWalls();
-        console.log(this.grille);
+    }
+
+    start() {
+        this.getWalls();
+
+        this.planeFormBase = new PlaneFormBase(this.packImports, this.gridInfo);
+        this.planeFormWalls = new PlaneFormWalls(this.packImports, this.gridInfo);
+        this.planeFormWalls.setExtWalls(); // Porte a passer en params
     }
 
     getWalls() {
@@ -33,14 +58,22 @@ class Grille {
         let lookVoisinXUp = 1;
         let lookVoisinYUp = 1;
 
-        if (y == 0)
+        if (y == 0) {
             lookVoisinYDown = 0;
-        if (y == this.size)
+            isACorner = true;
+        }
+        if (y == this.size) {
             lookVoisinYUp = 0;
-        if (x == 0)
-            lookVoisinXDown = 0
-        if (x == this.size)
-            lookVoisinXUp = 0
+            isACorner = true;
+        }
+        if (x == 0) {
+            lookVoisinXDown = 0;
+            isACorner = true;
+        }
+        if (x == this.size) {
+            lookVoisinXUp = 0;
+            isACorner = true;
+        }
 
         this.checkWallconditionArray = [
             this.grille.grille[x][y + lookVoisinYUp].state == null || this.grille.grille[x][y + lookVoisinYUp].state == "Couloir",
@@ -58,7 +91,6 @@ class Grille {
 
         if (countSideCorner > 1) {
             isACorner = true;
-            console.log("corner")
         }
 
         if (!isACorner) {

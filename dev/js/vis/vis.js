@@ -2,15 +2,16 @@ let spriteList = [];
 
 window.addEventListener("load", () => {
     const canvas = document.getElementById("canvas");
-    let grille = new Grille(getGrille());
 
-    spriteList.push(new Scene(canvas, grille));
+    spriteList.push(new Scene(canvas));
+    let grille = new Grille(getGrille(), spriteList[0].getPackImport());
+    grille.start();
 
     tick();
 });
 
 function getGrille() {
-    if(localStorage.getItem("grille") != null){
+    if (localStorage.getItem("grille") != null) {
         let grille = localStorage.getItem("grille");
         return JSON.parse(grille);
     } else {

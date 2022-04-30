@@ -6,15 +6,18 @@ class PlaneFormWalls {
         this.wallHeight = grid.wallHeight;
         this.doorWidth = grid.doorWidth;
         this.doorHeight = grid.doorHeight;
-
-        this.createPlaneWithPosition(true, grid.sizeY, this.wallHeight, false);
-        this.createPlaneWithPosition(true, -grid.sizeY, this.wallHeight, false);
-        this.createPlaneWithPosition(false, grid.sizeX, this.wallHeight, true);
-        this.createPlaneWithPosition(false, -grid.sizeX, this.wallHeight, true, -60);
     }
 
     addWall() {
         // this.createPlaneWithPosition()
+    }
+
+    // Porte a get en params
+    setExtWalls() {
+        this.createPlaneWithPosition(true, this.grid.sizeY, this.wallHeight, false);
+        this.createPlaneWithPosition(true, -this.grid.sizeY, this.wallHeight, false);
+        this.createPlaneWithPosition(false, this.grid.sizeX, this.wallHeight, true);
+        this.createPlaneWithPosition(false, -this.grid.sizeX, this.wallHeight, true);
     }
 
     // (Sur l'axe des X ou Y?: BOOL, size Longeur axe X ou Y?: int, wallHeight: int, rotationX ou Y: BOOL, doorPosition: int if null no door)
