@@ -25,7 +25,7 @@ class Scene {
         const divisions = 75;
 
         const gridHelper = new THREE.GridHelper(size, divisions);
-        this.scene.add(gridHelper);
+        // this.scene.add(gridHelper);
 
         // end temp
 

@@ -6,6 +6,9 @@ class Grille {
         this.grille = grille;
         this.packImports = packImports;
         this.gridInfo = gridInfo;
+
+        this.arrayWalls = [];
+
         let sizeX = grille.maxX - grille.minX;
         let sizeY = grille.maxY - grille.minY;
         let doorWidth = 0.5 * WALLHEIGHT;
@@ -14,13 +17,16 @@ class Grille {
         this.gridInfo = {
             sizeX: sizeX,
             sizeY: sizeY,
+            minX: this.grille.grille.minX,
+            minY: this.grille.grille.minY,
+            maxX: this.grille.grille.maxX,
+            maxY: this.grille.grille.maxY,
             wallHeight: WALLHEIGHT,
             doorWidth: doorWidth,
             doorHeight: doorHeight,
             conversionToDDD: CONVERSIONTODDD
         }
 
-        this.getWalls();
     }
 
     start() {
@@ -29,6 +35,8 @@ class Grille {
         this.planeFormBase = new PlaneFormBase(this.packImports, this.gridInfo);
         this.planeFormWalls = new PlaneFormWalls(this.packImports, this.gridInfo);
         this.planeFormWalls.setExtWalls(); // Porte a passer en params
+
+        this.setInsideWalls();
     }
 
     getWalls() {
@@ -37,9 +45,11 @@ class Grille {
                 let chekerInfo = this.checkWallDirectionHorizontal(x, y);
                 if (chekerInfo[0] && !chekerInfo[1] && chekerInfo[2]) {
                     this.grille.grille[x][y].category = "horizontal";
+                    this.arrayWalls.push(this.grille.grille[x][y]);
                 }
                 if (!chekerInfo[0] && !chekerInfo[1] && chekerInfo[2]) {
                     this.grille.grille[x][y].category = "vertical";
+                    this.arrayWalls.push(this.grille.grille[x][y]);
                 }
                 if (chekerInfo[1] || x == 0 || x == 51 || y == 0 || y == 51)
                     this.grille.grille[x][y].category = null;
@@ -105,5 +115,11 @@ class Grille {
             }
         }
         return [isHorizontal, isACorner, isAWall];
+    }
+
+    setInsideWalls() {
+        this.arrayWalls.forEach(wall => {
+            this.planeFormWalls.addWall(wall);
+        });
     }
 }
