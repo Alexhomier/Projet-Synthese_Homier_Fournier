@@ -32,7 +32,6 @@ class PlaneFormWalls {
             plane.position.set(XorZ / 2 * this.grid.conversionToDDD, y / 2, 0);
         } else {
             plane.rotateY(Math.PI);
-            console.log(XorZ)
             plane.position.set(0, y / 2, XorZ / 2 * this.grid.conversionToDDD);
         }
         if (doorPos)

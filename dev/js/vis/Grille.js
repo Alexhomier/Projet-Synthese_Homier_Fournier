@@ -3,19 +3,20 @@ class Grille {
         this.grille = grille;
 
         this.getWalls();
+        console.log(this.grille);
     }
 
     getWalls() {
-        for (let x = this.grille.minX + 1; x <= this.grille.maxX; x++) {
-            for (let y = this.grille.minY + 1; y <= this.grille.maxY; y++) {
+        for (let x = this.grille.minX; x <= this.grille.maxX; x++) {
+            for (let y = this.grille.minY; y <= this.grille.maxY; y++) {
                 let chekerInfo = this.checkWallDirectionHorizontal(x, y);
-                if (chekerInfo[0] && !chekerInfo[1]) {
+                if (chekerInfo[0] && !chekerInfo[1] && chekerInfo[2]) {
                     this.grille.grille[x][y].category = "horizontal";
                 }
-                if (!chekerInfo[0] && !chekerInfo[1]) {
+                if (!chekerInfo[0] && !chekerInfo[1] && chekerInfo[2]) {
                     this.grille.grille[x][y].category = "vertical";
                 }
-                if (!chekerInfo[3] || x == 0 || x == 51 || y == 0 || y == 51)
+                if (chekerInfo[1] || x == 0 || x == 51 || y == 0 || y == 51)
                     this.grille.grille[x][y].category = null;
             }
         }
@@ -42,14 +43,14 @@ class Grille {
             lookVoisinXUp = 0
 
         this.checkWallconditionArray = [
-            this.grille.grille[x][y + lookVoisinYUp].state == "Couloir",
-            this.grille.grille[x][y - lookVoisinYDown].state == "Couloir",
-            this.grille.grille[x + lookVoisinXUp][y].state == "Couloir",
-            this.grille.grille[x - lookVoisinXDown][y].state == "Couloir"
+            this.grille.grille[x][y + lookVoisinYUp].state == null || this.grille.grille[x][y + lookVoisinYUp].state == "Couloir",
+            this.grille.grille[x][y - lookVoisinYDown].state == null || this.grille.grille[x][y - lookVoisinYDown].state == "Couloir",
+            this.grille.grille[x + lookVoisinXUp][y].state == null || this.grille.grille[x + lookVoisinXUp][y].state == "Couloir",
+            this.grille.grille[x - lookVoisinXDown][y].state == null || this.grille.grille[x - lookVoisinXDown][y].state == "Couloir"
         ];
 
         this.checkWallconditionArray.forEach(element => {
-            if (element) {
+            if (this.grille.grille[x][y].state == "Salle" && element) {
                 isAWall = true;
                 countSideCorner++;
             }
@@ -57,6 +58,7 @@ class Grille {
 
         if (countSideCorner > 1) {
             isACorner = true;
+            console.log("corner")
         }
 
         if (!isACorner) {
@@ -64,7 +66,7 @@ class Grille {
                 if (this.checkWallconditionArray[i]) {
                     countSide++;
                 }
-                if (i == 1 && countSide < 2 && countSide > 0) {
+                if (i == 1 && countSide > 0) {
                     isHorizontal = true;
                     break;
                 }

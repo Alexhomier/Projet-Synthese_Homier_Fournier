@@ -3,7 +3,7 @@ class Scene {
         this.canvas = canvas;
 
         const WALLHEIGHT = 5;
-        const CONVERSIONTODDD = 1
+        const CONVERSIONTODDD = 5
 
         this.scene = this.buildScene();
         this.renderer = this.buildRenderer(canvas);
@@ -41,11 +41,13 @@ class Scene {
         const axesHelper = new THREE.AxesHelper(5);
         this.scene.add(axesHelper);
 
-        const size = 1000;
-        const divisions = 100;
+
+
+        const size = 400;
+        const divisions = 75;
 
         const gridHelper = new THREE.GridHelper(size, divisions);
-        // this.scene.add(gridHelper);
+        this.scene.add(gridHelper);
 
         // end temp
 
