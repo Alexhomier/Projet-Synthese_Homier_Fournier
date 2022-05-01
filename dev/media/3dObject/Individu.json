@@ -1,0 +1,104 @@
+{
+	"metadata": {
+		"version": 4.5,
+		"type": "Object",
+		"generator": "Object3D.toJSON"
+	},
+	"geometries": [
+		{
+			"uuid": "6b5eb1e8-c4a0-454a-a084-a138394a8f0d",
+			"type": "SphereGeometry",
+			"radius": 0.3,
+			"widthSegments": 32,
+			"heightSegments": 16,
+			"phiStart": 0,
+			"phiLength": 6.283185307179586,
+			"thetaStart": 0,
+			"thetaLength": 3.141592653589793
+		},
+		{
+			"uuid": "17efe1b2-bb53-484a-a530-c60a9135a7e6",
+			"type": "LatheGeometry",
+			"points": [
+				{
+					"x": 0,
+					"y": 0.5
+				},
+				{
+					"x": 0.5,
+					"y": 0
+				},
+				{
+					"x": 0,
+					"y": -0.5
+				}],
+			"segments": 12,
+			"phiStart": 0,
+			"phiLength": 6.283185307179586
+		}],
+	"materials": [
+		{
+			"uuid": "6d8af881-cd49-40af-b10a-f1f6768a913c",
+			"type": "MeshBasicMaterial",
+			"color": 725209,
+			"reflectivity": 1,
+			"refractionRatio": 0.98,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"colorWrite": true,
+			"stencilWrite": false,
+			"stencilWriteMask": 255,
+			"stencilFunc": 519,
+			"stencilRef": 0,
+			"stencilFuncMask": 255,
+			"stencilFail": 7680,
+			"stencilZFail": 7680,
+			"stencilZPass": 7680
+		},
+		{
+			"uuid": "214ef260-dd16-436d-984f-ec1bcb164b00",
+			"type": "MeshBasicMaterial",
+			"color": 3488500,
+			"reflectivity": 1,
+			"refractionRatio": 0.98,
+			"depthFunc": 3,
+			"depthTest": true,
+			"depthWrite": true,
+			"colorWrite": true,
+			"stencilWrite": false,
+			"stencilWriteMask": 255,
+			"stencilFunc": 519,
+			"stencilRef": 0,
+			"stencilFuncMask": 255,
+			"stencilFail": 7680,
+			"stencilZFail": 7680,
+			"stencilZPass": 7680
+		}],
+	"object": {
+		"uuid": "89fb3745-5108-43d8-9e65-b7ba39d0cbaf",
+		"type": "Group",
+		"name": "Group",
+		"layers": 1,
+		"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0.48985564994096187,0,1],
+		"children": [
+			{
+				"uuid": "a80e1303-9533-48ae-8153-d376e8edde8a",
+				"type": "Mesh",
+				"name": "Sphere",
+				"layers": 1,
+				"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0.7182362392909882,0,1],
+				"geometry": "6b5eb1e8-c4a0-454a-a084-a138394a8f0d",
+				"material": "6d8af881-cd49-40af-b10a-f1f6768a913c"
+			},
+			{
+				"uuid": "320e1f7a-e321-48ea-9232-2d6aafb6224f",
+				"type": "Mesh",
+				"name": "Lathe",
+				"layers": 1,
+				"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+				"geometry": "17efe1b2-bb53-484a-a530-c60a9135a7e6",
+				"material": "214ef260-dd16-436d-984f-ec1bcb164b00"
+			}]
+	}
+}

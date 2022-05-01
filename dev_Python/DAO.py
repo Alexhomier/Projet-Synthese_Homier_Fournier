@@ -20,9 +20,24 @@ if __name__ == '__main__':
 # """
 #     run is the main of the algo.
 
-#     :param grille: json dict
-#      - { "grille", "IndParSalle", "minX", "minY", "maxX", "maxY" }
+#     :param grille: json dict                                  size grille
+#      - { "grille", "IndParSalle", "minX", "minY", "maxX", "maxY", "size",  }
 
 #     :return: json dict                       ?
-#      - {"grille": [OBJECT Grille], "walls": [Array of Walls], "ind": [Array of Individus], "visualisation": [Array of visualisation Frame]}
+#      - {"grille": [OBJECT Grille], "individus": [Array of Individus], "visualisation": [Array of visualisation Frame]}
+#      individus[
+#        ind: {
+#             id
+#             x
+#             y  
+#        }    
+#      ]
+#       visualisation[
+#           ind: {
+#               newPos = (x, y)
+#               isOut
+#           }
+#       ]
+# 
+#       NE PAS MODIFIER LA GRILLE SVP
 # """ 

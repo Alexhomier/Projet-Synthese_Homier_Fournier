@@ -19,7 +19,7 @@ class Scene {
 
         // temp
         const axesHelper = new THREE.AxesHelper(5);
-        this.scene.add(axesHelper);
+        // this.scene.add(axesHelper);
 
         const size = 400;
         const divisions = 75;
@@ -67,7 +67,7 @@ class Scene {
         controls.maxPolarAngle = Math.PI * 0.495;
         controls.target.set(0, 10, 0);
         controls.minDistance = 40.0;
-        controls.maxDistance = 200.0;
+        controls.maxDistance = 400.0;
         controls.update();
         return controls;
     }
