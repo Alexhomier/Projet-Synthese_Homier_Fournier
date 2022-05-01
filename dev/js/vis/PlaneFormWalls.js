@@ -6,20 +6,41 @@ class PlaneFormWalls {
         this.wallHeight = grid.wallHeight;
         this.doorWidth = grid.doorWidth;
         this.doorHeight = grid.doorHeight;
+
+        this.allWalls = new THREE.Geometry();
+        this.allDoors = new THREE.Geometry();
+        this.doorCount = 0;
     }
 
-    addWall(wall) {
+    addWall(wall, asDoor = false) {
+        let isVertical = false;
+        let isALimit = false;
+
         if (wall.category == "vertical") {
-            if (wall.id[0] == this.grid.minX || wall.id[0] == this.grid.maxX || wall.id[1] == this.grid.minY || wall.id[1] == this.grid.maxY)
-                this.createPlaneWithPosition(true, null, null, wall.id[0] - this.grid.sizeX / 2, wall.id[1] - this.grid.sizeY / 2, true);
-            else
-                this.createPlaneWithPosition(true, null, null, wall.id[0] - this.grid.sizeX / 2, wall.id[1] - this.grid.sizeY / 2, false);
+            if (wall.id[0] == this.grid.minX || wall.id[0] == this.grid.maxX || wall.id[1] == this.grid.minY || wall.id[1] == this.grid.maxY) {
+                isVertical = true;
+                isALimit = true;
+            } else {
+                isVertical = true;
+                isALimit = false;
+            }
         } else {
-            if (wall.id[0] == this.grid.minX || wall.id[0] == this.grid.maxX || wall.id[1] == this.grid.minY || wall.id[1] == this.grid.maxY)
-                this.createPlaneWithPosition(false, null, null, wall.id[0] - this.grid.sizeX / 2, wall.id[1] - this.grid.sizeY / 2, true);
-            else
-                this.createPlaneWithPosition(false, null, null, wall.id[0] - this.grid.sizeX / 2, wall.id[1] - this.grid.sizeY / 2, false);
+            if (wall.id[0] == this.grid.minX || wall.id[0] == this.grid.maxX || wall.id[1] == this.grid.minY || wall.id[1] == this.grid.maxY) {
+                isVertical = false;
+                isALimit = true;
+            } else {
+                isVertical = false;
+                isALimit = false;
+            }
         }
+
+        let posX = (wall.id[0] - this.grid.sizeX / 2) - this.grid.minX;
+        let posY = (wall.id[1] - this.grid.sizeY / 2) - this.grid.minY;
+
+        if (asDoor)
+            this.createPlaneWithPosition(isVertical, null, true, posX, posY, isALimit);
+        else
+            this.createPlaneWithPosition(isVertical, null, null, posX, posY, isALimit);
     }
 
     // Porte a get en params
@@ -30,8 +51,7 @@ class PlaneFormWalls {
         this.createPlaneWithPosition(false, -this.grid.sizeX); // hori bas
     }
 
-    // (Rotation Vertical?: BOOL, LongeurWallExt?: int, doorPosition: int if null no door, PositionX: int, PositionY: int)
-    createPlaneWithPosition(isX, posWallExt, doorPos = null, positionX = null, positionY = null, isALimit = null) {
+    createPlaneWithPosition(isX, posWallExt, asDoor = false, positionX = null, positionY = null, isALimit = null) {
         let geometry = null;
 
         if (positionX != null || positionY != null) {
@@ -39,7 +59,8 @@ class PlaneFormWalls {
                 geometry = new THREE.BoxGeometry(1 * this.grid.conversionToDDD, this.wallHeight, 1);
             else
                 geometry = new THREE.BoxGeometry(2 * this.grid.conversionToDDD, this.wallHeight, 1);
-            const material = new THREE.MeshBasicMaterial({ color: 0x6d6d6d, side: THREE.DoubleSide });
+
+            const material = new THREE.MeshBasicMaterial({ color: this.grid.wallsColor, side: THREE.DoubleSide });
             const plane = new THREE.Mesh(geometry, material);
 
             if (!isX) {
@@ -48,14 +69,22 @@ class PlaneFormWalls {
                 plane.rotateY(-Math.PI / 2)
             }
             plane.position.set(positionX * this.grid.conversionToDDD, this.wallHeight / 2, positionY * this.grid.conversionToDDD);
-            this.scene.add(plane);
+
+            let wallMesh = new THREE.Mesh(plane);
+            wallMesh.updateMatrix();
+            this.allWalls.mergeMesh(wallMesh.geometry, wallMesh.matrix);
+
+            if (asDoor) {
+                this.addDoor(positionX, positionY);
+                this.doorCount++;
+            }
         } else {
             if (isX) {
-                geometry = new THREE.BoxGeometry(this.grid.sizeX * this.grid.conversionToDDD, this.wallHeight, 1);
+                geometry = new THREE.BoxGeometry(this.grid.sizeX * this.grid.conversionToDDD + 0.5, this.wallHeight + 0.1, 1.1);
             } else {
-                geometry = new THREE.BoxGeometry(this.grid.sizeY * this.grid.conversionToDDD, this.wallHeight, 1);
+                geometry = new THREE.BoxGeometry(this.grid.sizeY * this.grid.conversionToDDD + 0.5, this.wallHeight + 0.1, 1.1);
             }
-            const material = new THREE.MeshBasicMaterial({ color: 0x6d6d6d, side: THREE.DoubleSide });
+            const material = new THREE.MeshBasicMaterial({ color: this.grid.extWallsColor, side: THREE.DoubleSide });
             const plane = new THREE.Mesh(geometry, material);
 
             if (!isX) {
@@ -65,16 +94,14 @@ class PlaneFormWalls {
                 plane.rotateY(Math.PI);
                 plane.position.set(0, this.wallHeight / 2, posWallExt / 2 * this.grid.conversionToDDD);
             }
-            if (doorPos)
-                this.addDoor(plane, doorPos, posWallExt / 2 * this.grid.conversionToDDD, rotateX);
-            else
-                this.scene.add(plane);
+
+            this.scene.add(plane);
         }
     }
 
-    addDoor(wall, pos, XorZ, rotateX) {
+    addDoorExt(wall, pos, XorZ, rotateX) {
 
-        const geometry = new THREE.BoxGeometry(this.doorWidth, this.doorHeight, 1);
+        const geometry = new THREE.BoxGeometry(this.doorWidth, this.doorHeight, this.doorWidth);
         const material = new THREE.MeshBasicMaterial({ color: 0x6d6d6d, side: THREE.DoubleSide });
         const plane = new THREE.Mesh(geometry, material);
 
@@ -95,5 +122,35 @@ class PlaneFormWalls {
 
         this.scene.remove(wall);
         this.scene.add(bsp_mesh);
+    }
+
+    addDoor(x, y) {
+        const geometry = new THREE.BoxGeometry(this.doorWidth, this.doorHeight, this.doorWidth);
+        const material = new THREE.MeshBasicMaterial({ color: 0x6d6d6d, side: THREE.DoubleSide });
+        const plane = new THREE.Mesh(geometry, material);
+
+        plane.position.set(x * this.grid.conversionToDDD, this.grid.doorHeight / 2, y * this.grid.conversionToDDD);
+
+        let doorMesh = new THREE.Mesh(plane);
+        doorMesh.updateMatrix();
+        this.allDoors.mergeMesh(doorMesh.geometry, doorMesh.matrix);
+    }
+
+    // Librairie pour soustraire un cube d'un autre cube: THREEBSP
+    removeDoorsfromWalls() {
+        var bsp_A = new ThreeBSP(this.allWalls);
+        if (this.doorCount != 0) {
+            var bsp_Y = new ThreeBSP(this.allDoors);
+
+            var bsp_YsubA = bsp_A.subtract(bsp_Y);
+            var bsp_mesh = bsp_YsubA.toMesh();
+            bsp_mesh.material = new THREE.MeshBasicMaterial({ color: this.grid.wallsColor, side: THREE.DoubleSide });
+
+            this.scene.add(bsp_mesh);
+        } else {
+            let mesh = bsp_A.toMesh();
+            mesh.material = new THREE.MeshBasicMaterial({ color: this.grid.wallsColor, side: THREE.DoubleSide });
+            this.scene.add(mesh);
+        }
     }
 }

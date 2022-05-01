@@ -1,32 +1,38 @@
 class Grille {
     constructor(grille, packImports, gridInfo) {
         const WALLHEIGHT = 5;
-        const CONVERSIONTODDD = 5
+        const CONVERSIONTODDD = 5;
+        const WALLSCOLOR = 0x919191;
+        const EXTWALLSCOLOR = 0x6d6d6d;
 
         this.grille = grille;
         this.packImports = packImports;
         this.gridInfo = gridInfo;
 
         this.arrayWalls = [];
+        this.dictInd = {};
 
         let sizeX = grille.maxX - grille.minX;
         let sizeY = grille.maxY - grille.minY;
-        let doorWidth = 0.5 * WALLHEIGHT;
-        let doorHeight = 0.8 * WALLHEIGHT;
+        let doorWidth = 0.7 * WALLHEIGHT;
+        let doorHeight = 0.9 * WALLHEIGHT;
 
+        console.log(this.grille)
         this.gridInfo = {
             sizeX: sizeX,
             sizeY: sizeY,
-            minX: this.grille.grille.minX,
-            minY: this.grille.grille.minY,
-            maxX: this.grille.grille.maxX,
-            maxY: this.grille.grille.maxY,
+            minX: this.grille.minX,
+            minY: this.grille.minY,
+            maxX: this.grille.maxX,
+            maxY: this.grille.maxY,
             wallHeight: WALLHEIGHT,
             doorWidth: doorWidth,
             doorHeight: doorHeight,
-            conversionToDDD: CONVERSIONTODDD
+            conversionToDDD: CONVERSIONTODDD,
+            wallsColor: WALLSCOLOR,
+            extWallsColor: EXTWALLSCOLOR,
         }
-
+        this.size = 50
     }
 
     start() {
@@ -36,7 +42,17 @@ class Grille {
         this.planeFormWalls = new PlaneFormWalls(this.packImports, this.gridInfo);
         this.planeFormWalls.setExtWalls(); // Porte a passer en params
 
-        this.setInsideWalls();
+        this.arrayWalls.forEach(wall => {
+            if (wall.state != "Porte")
+                this.planeFormWalls.addWall(wall);
+            else {
+                this.planeFormWalls.addWall(wall, true);
+            }
+        });
+        this.planeFormWalls.removeDoorsfromWalls();
+
+        this.individus = new Individus(this.grille, this.packImports, this.gridInfo);
+        this.individus.addIndividus();
     }
 
     getWalls() {
@@ -84,7 +100,6 @@ class Grille {
             lookVoisinXUp = 0;
             isACorner = true;
         }
-
         this.checkWallconditionArray = [
             this.grille.grille[x][y + lookVoisinYUp].state == null || this.grille.grille[x][y + lookVoisinYUp].state == "Couloir",
             this.grille.grille[x][y - lookVoisinYDown].state == null || this.grille.grille[x][y - lookVoisinYDown].state == "Couloir",
@@ -93,7 +108,7 @@ class Grille {
         ];
 
         this.checkWallconditionArray.forEach(element => {
-            if (this.grille.grille[x][y].state == "Salle" && element) {
+            if ((this.grille.grille[x][y].state == "Salle" || this.grille.grille[x][y].state == "Porte") && element) {
                 isAWall = true;
                 countSideCorner++;
             }
@@ -115,11 +130,5 @@ class Grille {
             }
         }
         return [isHorizontal, isACorner, isAWall];
-    }
-
-    setInsideWalls() {
-        this.arrayWalls.forEach(wall => {
-            this.planeFormWalls.addWall(wall);
-        });
     }
 }

@@ -15,6 +15,7 @@
     <script src="./js/vis/Grille.js"></script>
     <script src="./js/vis/PlaneFormBase.js"></script>
     <script src="./js/vis/PlaneFormWalls.js"></script>
+    <script src="./js/vis/Individus.js"></script>
 </head>
 <body>
     <div id="canvas" class="canvas"></div>
