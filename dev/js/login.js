@@ -35,6 +35,7 @@ function loginClickedView() {
     }
     document.querySelector(".login-error-container").style.display = "none";
     document.querySelector(".login-working-container").style.display = "none";
+    document.querySelector(".login-form-forgetmdp").style.display = "block";
 
     let newInputUsername = document.createElement("input");
     let newInputPassword = document.createElement("input");
@@ -79,6 +80,7 @@ function signupClickedView() {
     }
     document.querySelector(".login-error-container").style.display = "none";
     document.querySelector(".login-working-container").style.display = "none";
+    document.querySelector(".login-form-forgetmdp").style.display = "none";
 
     let newInputUsername = document.createElement("input");
     let newInputMail = document.createElement("input");
@@ -142,10 +144,11 @@ function login() {
         })
         .then(response => response.json())
         .then(response => {
-            if (response) {
+            if (response.length < 1) {
                 document.querySelector(".login-error-container").style.display = "inline-flex";
-                document.querySelector(".login-error-text").innerHTML = response;
+                document.querySelector(".login-error-text").innerHTML = response[0];
             } else {
+                localStorage.setItem("id", response);
                 window.location.href = "build";
             }
         })

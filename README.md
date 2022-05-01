@@ -3,4 +3,12 @@ Projet Synthèse de fin de DEC au Cégep Du Vieux-Montréal. Simulation d'évacu
 
 Présenté par: Alexandre Homier et Mathieu Fournier.
 
-pip install pygame 
+
+ - py -m pip install virtualenv (Only @ first use)
+ - py -m venv projetSynthese
+ - projetSynthese\Scripts\activate
+ - pip install flask
+ - pip install flask-cors
+ - F5 Python Run
+ - SUPPRIMER LE DOSSIER PS (VENV) AVANT DE PUSH
+ - pip install pygame (temp)

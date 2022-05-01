@@ -13,12 +13,15 @@ class AjaxActionIndex extends CommonAction
     protected function executeAction()
     {
         $result = null;
-
         if(isset($_POST["action"])){
             if($_POST["action"] == "login"){
                 if(isset($_POST["username"]) && isset($_POST["password"])){
-                    if(!password_verify($_POST["password"], LoginDAO::login($_POST["username"]))){
-                        $result = "Le nom d'utilisateur ou le mot de passe est incorrect, veuillez réessayer.";
+                    $info = LoginDAO::login($_POST["username"]);
+                    if(!password_verify($_POST["password"], $info[0]["password"])){
+                        $result[0] = "Le nom d'utilisateur ou le mot de passe est incorrect, veuillez réessayer.";
+                        $result[1] = true;
+                    } else {
+                        $result = $info[0]["id"];
                     }
         
                 }

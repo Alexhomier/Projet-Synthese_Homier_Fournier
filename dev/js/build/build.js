@@ -82,6 +82,7 @@ function setSelectionDoor() {
 
 function setSelectionEfface() {
     currentSelection = "Efface";
+    grille.reinitMinMax();
     setCurrentSelectionText();
 }
 
@@ -121,6 +122,15 @@ function updateScrollBar() {
 
     grille.setIndBySalle(scrollbarValue);
     textIndSalle.innerHTML = `Individus par salle : ${scrollbarValue}`;
+}
+
+function saveGrid() {
+    grille.fillEmptyCase();
+    localStorage.setItem("grille", grille.getGrille());
+}
+
+function seeLeaderboard() {
+    window.location.href = "leaderboard.php";
 }
 
 

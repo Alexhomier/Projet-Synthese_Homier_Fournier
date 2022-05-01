@@ -5,18 +5,20 @@
         public static function login($username) {
             $connection = Connection::getConnection();
 
-            $statement = $connection->prepare("SELECT password FROM users WHERE username = ?");
+            $statement = $connection->prepare("SELECT password, id FROM users WHERE username = ?");
             $statement->bindParam(1, $username);
             $statement->setFetchMode(PDO::FETCH_ASSOC);
             $statement->execute();
-            $hash = $statement->fetchAll();
+            $info = $statement->fetchAll();
             
-            if(sizeof($hash) <= 0)
+            if(sizeof($info[0]) <= 0)
                 $hash = "";
             else
-                $hash = $hash[0]["password"];
+                $hash = $info[0]["password"];
 
-            return $hash;
+            $info[0]["password"] = $hash;
+
+            return $info;
         }
 
         public static function inscription($username, $password, $mail) {

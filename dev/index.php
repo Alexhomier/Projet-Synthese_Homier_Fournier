@@ -20,6 +20,15 @@ $data = $action->execute();
   <script src="js/login.js"></script>
   <script src="SpriteLogin/login.js"></script>
   <script src="SpriteLogin/header.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3WF2KHEJM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-K3WF2KHEJM');
+  </script>
 </head>
 <body id="body">
   <div class="background-blacken" onclick="loginButton()"></div>
@@ -68,10 +77,10 @@ $data = $action->execute();
             vos besoins.
           </p>
         </div>
+        <div class="container-pres-start" id="container-pres-start" onclick="signupButton()">
+          <h3 class="item-pres-start-text" onclick="signupButton()">Commencer maintenant</h3>
+          <div class="item-pres-start-button"></div>
       </div>
-      <div class="container-pres-start" id="container-pres-start" onclick="signupButton()">
-        <h3 class="item-pres-start-text" onclick="signupButton()">Commencer maintenant</h3>
-        <div class="item-pres-start-button"></div>
       </div>
     </div>
   </div>
@@ -210,7 +219,7 @@ $data = $action->execute();
   <div class="login-background">
     <button class="login-exit" onclick="loginButton()">x</button>
     <div class="login-ia-img"></div>
-    <div class="login-form">
+    <form class="login-form" onsubmit="return false"">
       <div class="login-form-title-container">
         <div class="login-form-title-item-login" onclick="loginClickedView()"><h2>Connexion</h2></div>
         <div class="login-form-title-item-signup" onclick="signupClickedView()"><h2>Inscription</h2></div>
@@ -222,8 +231,9 @@ $data = $action->execute();
         <p class="login-working-text"></p>
       </div>
       <div class="login-container-form-input"></div>
-      <button type="submit" class="login-form-button" onclick="login()">Se connecter</button>
-    </div>
+      <a href="forgotpwd.php" class="login-form-forgetmdp">Mot de passe oublié?</a>
+      <button type="submit" class="login-form-button" onsubmit="login()">Se connecter</button>
+    </form>
   </div>
 
   <!-- footer -->
