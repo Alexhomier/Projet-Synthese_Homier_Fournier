@@ -1,7 +1,7 @@
 from urllib import request
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-# from State import *  
+# from State import *
 
 app = Flask(__name__)
 CORS(app)
@@ -25,4 +25,4 @@ if __name__ == '__main__':
 
 #     :return: json dict                       ?
 #      - {"grille": [OBJECT Grille], "walls": [Array of Walls], "ind": [Array of Individus], "visualisation": [Array of visualisation Frame]}
-# """ 
+# """

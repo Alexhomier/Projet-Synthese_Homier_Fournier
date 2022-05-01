@@ -1,71 +1,161 @@
 from sys import argv
 from abc import ABC, abstractmethod
 
-class Context():   #Classe Context (Représente l'interface graphique, initial)
-    _state = None
-    def __init__(self, state: State) -> None:
-        self.transition_to(state)
-
-    def transition_to(self, state: State):   #Change l'état de l'objet state, pour permettre de faire autre chose puisque l'état à changer.
-        print(f"Context: Transition to {type(state).__name__}")
-        self._state = state
-        self._state.context = self
-
-    def request1(self):
-        self._state.handle1()
-
-    def request2(self):
-        self._state.handle2()
-
-
 class State(ABC):  #Déclare les méthode qui devrait être implementer dans un "Concrete State", contient une backreference à l'objet context qui est associé au State, ce qui peut être utilisé par le State pour changer l'état
+    def __init__(self, parameters = None):
+        self.__parameters = parameters
+        self.__list_transit = []
 
     @property
-    def context(self) -> Context:
-        return self._context
+    def is_valid(self):
+        for transit in self.__list_transit:
+            if transit.is_valid() == False :
+                return False
+        return True
 
-    @context.setter
-    def context(self, context: Context) -> None:
-        self._context = context
+    @property
+    def is_terminal(self):
+        return True
+
+    @property
+    def is_transiting(self):
+        transit = None
+
+        for transition in self.__list_transit:
+            value = transition.is_transiting
+
+            if value:
+                transit = transition
+                break
+
+        return transit
+
+    def add_transition(self, transition):
+        self.__list_transit.append( transition )
+
+    def _exec_entering_action(self):
+        self._do_entering_action()
+
+    def _exec_in_state_action(self):
+        self._do_in_state_action()
+
+    def _exec_exiting_action(self):
+        self._do_exiting_action()
+
+    def _do_entering_action(self):
+        pass
+
+    def _do_in_state_action(self):
+        pass
+
+    def _do_exiting_action(self):
+        pass
+
+class Transition:
+    def __init__(self, next_state = None):
+        self.__next_state = next_state
+
+    @property
+    def is_valid(self):
+        return True
+
+    @property
+    def next_state(self):
+        return self.__next_state
+
+    @next_state.setter
+    def next_state(self, state):
+        self.__next_state = state
+
+    @property
+    def is_transiting(self):
+        return True
 
     @abstractmethod
-    def handle1(self) -> None:
-        pass
+    def _exec_transiting_action(self):
+        self._do_transiting_action()
 
     @abstractmethod
-    def handle2(self) -> None:
+    def _do_transiting_action(self):
         pass
 
-#Handle 1 : Code respectif de chacun des ConcreteState
-#Handle 2 : Code permettant un changement d'état lorsque le code du Handle 1 est exécuté correctement (sans erreur)
+class FiniteStateMachine:
+    def __init__(self, layout):
+        self.__continue = True
+        self.__layout = layout
+        self.__curent_state = None
 
-class StateWaiting(State):
-    def handle1(self) -> None:
-        #Code resectif à StateWaiting
+
+    @property
+    def is_valid(self):
+        if self.__layout.is_valid():
+            return True
+        else:
+            return False
+
+    # getter de l'etat courant
+    @property
+    def current_state(self):
+        return self.__curent_state
+
+    def reset(self):
+        if self.__curent_state == None:
+            self.__curent_state = self.__layout.initial_state
+
+    def transit_to(self, state):
+        self.__curent_state = state
+
+
+    # par quoi il effectue la transition
+    def _transit_by(self, transition):
+        self.__curent_state._exec_exiting_action()
+        transition._exec_transiting_action()
+
+        state = transition.next_state
+        state._exec_entering_action()
+        self.transit_to( state )
+
+    def track(self):
+        transit = self.__curent_state.is_transiting
+
+        if transit is None:
+            self.__curent_state._exec_in_state_action()
+        else:
+            self._transit_by(transit)
+
+    def run(self, reset: bool = True, time_budget: float = None ):
+        while self.__continue:
+            self.track()
+
+    @abstractmethod
+    def stop(self):
         pass
 
-    def handle2(self) -> None:
-        print("StateWaiting handles request2.")
-        self.context.transition_to(StateAlgo())
+    class Layout:
+        def __init__(self ):
+            self.__list_state = []
+            self.__initial_state = None
 
-class StateAlgo(State):
-    def handle1(self) -> None:
-        #Code resectif à StateAlgo
-        pass
+        @property
+        def is_valid(self):
+            if self.initial_state != None:
+                for state in self.__list_state:
+                    if state.is_valid() == False:
+                        return False
+                return True
 
-    def handle2(self) -> None:
-        print("StateAlgo handles request2.")
-        self.context.transition_to(StateDone())
+        @property
+        def initial_state(self):
+            return self.__initial_state
 
-class StateDone(State):
-    def handle1(self) -> None:
-        #Code resectif à StateDone
-        pass
-
-    def handle2(self) -> None:
-        print("StateDone handles request2.")
-        self.context.transition_to(StateWaiting())
+        @initial_state.setter
+        def initial_state(self, initial_state):
+            self.__initial_state = initial_state
 
 
-if __name__ == "__main__":
-    pass
+        def add_state(self, state):
+            self.__list_state.append(state)
+
+        def add_states(self, list_state):
+            for state in list_state:
+                self.__list_state.append(state)
