@@ -4,7 +4,7 @@ from queue import PriorityQueue # element based on highest priority is dequeued
 
 #Avec pygame, 0,0 est en haut a gauche. Donc plus on descends y monte et plus on va a droite x monte
 
-WIDTH = 800 #Taille de la fenêtre
+WIDTH = 900 #Taille de la fenêtre
 window = pygame.display.set_mode((WIDTH, WIDTH))
 pygame.display.set_caption("Visualisation of Path Finding Algorithm for Projet-Synthese_Homier_Fournier")
 
@@ -170,11 +170,11 @@ def get_clicked_pos(pos, rows, width): #Retourne la position cliqué
 	y, x = pos
 	row = y // gap
 	col = x // gap
-
+	print(row, col)
 	return row, col
 
 def main(window, width):
-	ROWS = 50 #Nombre de colonne dans le carré de 1000x1000
+	ROWS = 51 #Nombre de colonne dans le carré de 1000x1000
 	grid = make_grid(ROWS, width)
 	start = None #Position de départ
 	end = None #Position de fin
