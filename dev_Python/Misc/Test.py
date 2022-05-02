@@ -1,6 +1,3 @@
-import sys
-sys.path.insert(1, r'C:\Users\Poste\Documents\GitHub\Projet-Synthese_Homier_Fournier\dev_Python\State.py')
-
 from State import *
 import msvcrt
 
@@ -18,7 +15,7 @@ class LightState(State):
     def _on_finish(self):
         pass
 
-    def _exec_entering_action(self):
+    def _exec_entering_action(self): 
         self._do_entering_action()
 
     def _exec_in_state_action(self):

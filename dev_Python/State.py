@@ -1,7 +1,8 @@
 from sys import argv
 from abc import ABC, abstractmethod
 
-class State(ABC):  #Déclare les méthode qui devrait être implementer dans un "Concrete State", contient une backreference à l'objet context qui est associé au State, ce qui peut être utilisé par le State pour changer l'état
+#Déclare les méthode qui devrait être implementer dans un "Concrete State", contient une backreference à l'objet context qui est associé au State, ce qui peut être utilisé par le State pour changer l'état
+class State(ABC):  
     def __init__(self, parameters = None):
         self.__parameters = parameters
         self.__list_transit = []
@@ -105,8 +106,6 @@ class FiniteStateMachine:
     def transit_to(self, state):
         self.__curent_state = state
 
-
-    # par quoi il effectue la transition
     def _transit_by(self, transition):
         self.__curent_state._exec_exiting_action()
         transition._exec_transiting_action()

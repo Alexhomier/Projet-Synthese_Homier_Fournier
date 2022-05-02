@@ -174,7 +174,7 @@ def get_clicked_pos(pos, rows, width): #Retourne la position cliqué
 	return row, col
 
 def main(window, width):
-	ROWS = 51 #Nombre de colonne dans le carré de 1000x1000
+	ROWS = 50 #Nombre de colonne dans le carré de 1000x1000
 	grid = make_grid(ROWS, width)
 	start = None #Position de départ
 	end = None #Position de fin

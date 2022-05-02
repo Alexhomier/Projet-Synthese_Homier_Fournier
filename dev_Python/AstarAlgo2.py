@@ -1,5 +1,8 @@
+import math
+from queue import PriorityQueue # element based on highest priority is dequeued
+
 class Astar:
-	def __init__(grid, start, end):
+	def __init__(self, grid, start, end):
 		self.grid = grid
 		self.start = start
 		self.end = end
@@ -17,7 +20,7 @@ class Astar:
 		g_score = {case: float("inf") for row in self.grid for case in row} #Contient tout les G scores
 		g_score[self.start] = 0
 		f_score = {case: float("inf") for row in self.grid for case in row} # Contient les F scores
-		f_score[self.start] = h(self.start.get_position(), self.end.get_position()) #F score de start est la distance heuristique calculé dans la métohde h
+		f_score[self.start] = Astar.h(self.start.get_position(), self.end.get_position()) #F score de start est la distance heuristique calculé dans la métohde h
 
 		open_set_hash = {self.start}
 
@@ -36,7 +39,7 @@ class Astar:
 				if temp_g_score < g_score[voisin]:
 					came_from[voisin] = current_case # Ajoute la case au chemin le plus court
 					g_score[voisin] = temp_g_score
-					f_score[voisin] = temp_g_score + h(voisin.get_position(), self.end.get_position())
+					f_score[voisin] = temp_g_score + Astar.h(voisin.get_position(), self.end.get_position())
 					if voisin not in open_set_hash:
 						count += 1
 						open_set.put((f_score[voisin], count, voisin))

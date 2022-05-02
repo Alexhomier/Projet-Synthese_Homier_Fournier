@@ -12,14 +12,14 @@ class Case:
 
 
 def make_grid(rows, width):
-grid = []  #Cases envoyé par alex
-gap = width // rows
-for i in range(rows):
-	grid.append([])
-	for j in range(rows):
-		case = Case(i, j, gap, rows)
-		grid[i].append(case)
-return grid
+	grid = []  #Cases envoyé par alex
+	gap = width // rows
+	for i in range(rows):
+		grid.append([])
+		for j in range(rows):
+			case = Case(i, j, gap, rows)
+			grid[i].append(case)
+	return grid
 
 def closestToEnd():  #Méthode qui classera les individu du plus pret au plus loin.
 	pass
@@ -34,6 +34,3 @@ def main(window, width):
 	while run:
 		run = False
 		#Faire roulé l'algo
-
-if __name__ == '__main__':
-	main(window, WIDTH)
