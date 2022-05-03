@@ -94,7 +94,6 @@ class FiniteStateMachine:
         else:
             return False
 
-    # getter de l'etat courant
     @property
     def current_state(self):
         return self.__curent_state
