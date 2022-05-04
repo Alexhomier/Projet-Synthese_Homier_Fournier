@@ -1,11 +1,25 @@
 class Individus {
     constructor(grille, packImports, grid) {
         this.packImports = packImports;
+        this.grid = grid;
+        this.arrayInd = [];
+        this.arrayInd[0] = {
+            x: 5,
+            y: 5
+        }
     }
 
-    addIndividus() {
+    setAllIndividus() {
+        this.arrayInd.forEach(ind => {
+            console.log(ind);
+            this.addIndividus(ind)
+        });
+    }
+
+    addIndividus(individu) {
         const loader = new THREE.ObjectLoader();
-        let individu = this;
+        this.individu = individu;
+        let optionsThis = this;
 
         loader.load(
             // resource URL
@@ -13,7 +27,7 @@ class Individus {
 
             // onLoad callback
             function(obj) {
-                individu.createIndividus(obj)
+                optionsThis.createIndividus(obj, optionsThis.individu);
             },
 
             // onProgress callback
@@ -28,17 +42,12 @@ class Individus {
                 console.error(err);
             }
         );
-        return individu;
+        return optionsThis;
     }
 
-    createIndividus(data) {
-        data.scale.set(3, 3, 3);
-        data.position.set(0, data.scale.y / 2, 0);
-        // this.grille.individus.forEach(ind => {
-        // this.dictInd[(ind.id)] = data.clone();
-        // this.dictInd[(ind.id)].position.set(ind.x * this.gridInfo.conversionToDDD, data.scale.y / 2, ind.y * this.gridInfo.conversionToDDD)
-        // this.packImports.scene.add(this.dictInd[(ind.id)]);
-        // });
-        this.packImports.scene.add(data);
+    createIndividus(object, ind) {
+        object.scale.set(3, 3, 3);
+        object.position.set(ind.x * this.grid.conversionToDDD - this.grid.sizeX / 2, object.scale.y / 2, ind.y * this.grid.conversionToDDD - this.grid.sizeY / 2 - this.grid.minY);
+        this.packImports.scene.add(object);
     }
 }

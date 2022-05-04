@@ -9,11 +9,11 @@ CORS(app)
 @app.route('/post', methods = ['POST'])
 def post():
     grille = request.get_json()
-    manipulator = Manipulator(grille)
-    manipulator.reset()
-    manipulator.run()
+    # manipulator = Manipulator(grille)
+    # manipulator.reset()
+    # manipulator.run()
     #grille = manipulateur.run() si possible?
-    print(grille)
+    # print(grille)
     return jsonify(grille)
 
 if __name__ == '__main__':

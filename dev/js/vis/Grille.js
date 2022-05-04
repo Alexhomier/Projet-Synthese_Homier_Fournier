@@ -52,7 +52,7 @@ class Grille {
         this.planeFormWalls.removeDoorsfromWalls();
 
         this.individus = new Individus(this.grille, this.packImports, this.gridInfo);
-        this.individus.addIndividus();
+        this.individus.setAllIndividus();
     }
 
     getWalls() {
