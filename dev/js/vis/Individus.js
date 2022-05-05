@@ -4,8 +4,8 @@ class Individus {
         this.grid = grid;
         this.arrayInd = [];
         this.arrayInd[0] = {
-            x: 5,
-            y: 5
+            x: this.grid.maxX,
+            y: this.grid.maxY
         }
     }
 
@@ -47,7 +47,7 @@ class Individus {
 
     createIndividus(object, ind) {
         object.scale.set(3, 3, 3);
-        object.position.set(ind.x * this.grid.conversionToDDD - this.grid.sizeX / 2, object.scale.y / 2, ind.y * this.grid.conversionToDDD - this.grid.sizeY / 2 - this.grid.minY);
+        object.position.set((ind.x - this.grid.sizeX / 2 - this.grid.minX) * this.grid.conversionToDDD, object.scale.y / 2, (ind.y - this.grid.sizeY / 2 - this.grid.minY) * this.grid.conversionToDDD);
         this.packImports.scene.add(object);
     }
 }

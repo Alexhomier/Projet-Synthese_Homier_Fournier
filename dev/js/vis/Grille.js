@@ -1,7 +1,7 @@
 class Grille {
     constructor(grille, packImports, gridInfo) {
-        const WALLHEIGHT = 5;
-        const CONVERSIONTODDD = 5;
+        const WALLHEIGHT = 5.;
+        const CONVERSIONTODDD = 5.;
         const WALLSCOLOR = 0x919191;
         const EXTWALLSCOLOR = 0x6d6d6d;
 
@@ -49,6 +49,24 @@ class Grille {
                 this.planeFormWalls.addWall(wall, true);
             }
         });
+
+        for (let x = this.gridInfo.minX; x <= this.gridInfo.maxX; x++) {
+            if (this.grille.grille[x][0].state == "Porte") {
+                this.planeFormWalls.addDoor(x, 0);
+            }
+            if (this.grille.grille[x][this.gridInfo.sizeX - 1].state == "Porte") {
+                this.planeFormWalls.addDoor(x, this.gridInfo.sizeX - 1);
+            }
+        }
+        for (let y = this.gridInfo.minY; y <= this.gridInfo.maxY; y++) {
+            if (this.grille.grille[0][y].state == "Porte") {
+                this.planeFormWalls.addDoor(0, y);
+            }
+            if (this.grille.grille[this.gridInfo.sizeY - 1][y].state == "Porte") {
+                this.planeFormWalls.addDoor(this.gridInfo.sizeY - 1, y);
+            }
+        }
+
         this.planeFormWalls.removeDoorsfromWalls();
 
         this.individus = new Individus(this.grille, this.packImports, this.gridInfo);
