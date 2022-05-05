@@ -1,53 +1,26 @@
 class Individus {
-    constructor(grille, packImports, grid) {
+    constructor(packImports, grid, object) {
         this.packImports = packImports;
         this.grid = grid;
+        this.object = object;
         this.arrayInd = [];
         this.arrayInd[0] = {
-            x: this.grid.maxX,
-            y: this.grid.maxY
+            x: this.grid.maxX / 2 + 1,
+            y: this.grid.maxY / 2 + 1
         }
     }
 
-    setAllIndividus() {
-        this.arrayInd.forEach(ind => {
-            console.log(ind);
-            this.addIndividus(ind)
-        });
-    }
-
-    addIndividus(individu) {
-        const loader = new THREE.ObjectLoader();
-        this.individu = individu;
-        let optionsThis = this;
-
-        loader.load(
-            // resource URL
-            "../../../media/3dObject/Individu.json",
-
-            // onLoad callback
-            function(obj) {
-                optionsThis.createIndividus(obj, optionsThis.individu);
-            },
-
-            // onProgress callback
-            function(xhr) {
-                if (xhr.total * 100 == 100) {
-                    console.info("Individus chargés.");
-                }
-            },
-
-            // onError callback
-            function(err) {
-                console.error(err);
-            }
-        );
-        return optionsThis;
+    addIndividu(ind) {
+        this.createIndividus(this.object, ind);
     }
 
     createIndividus(object, ind) {
-        object.scale.set(3, 3, 3);
+        object.scale.set(this.grid.individusScale, this.grid.individusScale, this.grid.individusScale);
         object.position.set((ind.x - this.grid.sizeX / 2 - this.grid.minX) * this.grid.conversionToDDD, object.scale.y / 2, (ind.y - this.grid.sizeY / 2 - this.grid.minY) * this.grid.conversionToDDD);
         this.packImports.scene.add(object);
+    }
+
+    moveIndividus(newPosX, newPosY) {
+        object.position.set((newPosX - this.grid.sizeX / 2 - this.grid.minX) * this.grid.conversionToDDD, object.scale.y / 2, (newPosY - this.grid.sizeY / 2 - this.grid.minY) * this.grid.conversionToDDD);
     }
 }

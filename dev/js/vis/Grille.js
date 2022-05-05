@@ -4,21 +4,20 @@ class Grille {
         const CONVERSIONTODDD = 5.;
         const WALLSCOLOR = 0x919191;
         const EXTWALLSCOLOR = 0x6d6d6d;
+        const INDIVIDUSSCALE = 3.;
+        const BIGSIZE = 50;
 
         this.grille = grille;
         this.packImports = packImports;
         this.gridInfo = gridInfo;
-
-        this.arrayWalls = [];
-        this.dictInd = {};
 
         let sizeX = grille.maxX - grille.minX;
         let sizeY = grille.maxY - grille.minY;
         let doorWidth = 0.7 * WALLHEIGHT;
         let doorHeight = 0.9 * WALLHEIGHT;
 
-        console.log(this.grille)
         this.gridInfo = {
+            bigSize: BIGSIZE,
             sizeX: sizeX,
             sizeY: sizeY,
             minX: this.grille.minX,
@@ -31,8 +30,27 @@ class Grille {
             conversionToDDD: CONVERSIONTODDD,
             wallsColor: WALLSCOLOR,
             extWallsColor: EXTWALLSCOLOR,
+            individusScale: INDIVIDUSSCALE
         }
-        this.size = 50
+
+        this.arrayWalls = [];
+        this.dictInd = {};
+        // this.arrayIndividus = this.grille.arrayIndividus;
+        this.frame = new FrameList();
+
+        // temp
+        this.arrayIndividus = [];
+
+        this.arrayIndividus[0] = {
+            id: 0,
+            x: this.gridInfo.maxX / 2 + 1,
+            y: this.gridInfo.maxY / 2 + 1
+        }
+        this.arrayIndividus[1] = {
+            id: 1,
+            x: this.gridInfo.maxX / 2 + 3,
+            y: this.gridInfo.maxY / 2 + 3
+        }
     }
 
     start() {
@@ -69,8 +87,20 @@ class Grille {
 
         this.planeFormWalls.removeDoorsfromWalls();
 
-        this.individus = new Individus(this.grille, this.packImports, this.gridInfo);
-        this.individus.setAllIndividus();
+        this.getIndividusJSON()
+            .then(resolve => {
+                this.packImports.individusJSON = resolve;
+            })
+            .then(() => {
+                this.arrayIndividus.forEach(ind => {
+                    console.log(ind)
+                    this.dictInd[ind.id] = new Individus(this.packImports, this.gridInfo, this.packImports.individusJSON.clone());
+                    this.dictInd[ind.id].addIndividu(ind);
+                });
+            })
+            .then(() => {
+                this.setFrameArray();
+            })
     }
 
     getWalls() {
@@ -106,7 +136,7 @@ class Grille {
             lookVoisinYDown = 0;
             isACorner = true;
         }
-        if (y == this.size) {
+        if (y == this.gridInfo.bigSize) {
             lookVoisinYUp = 0;
             isACorner = true;
         }
@@ -114,7 +144,7 @@ class Grille {
             lookVoisinXDown = 0;
             isACorner = true;
         }
-        if (x == this.size) {
+        if (x == this.gridInfo.bigSize) {
             lookVoisinXUp = 0;
             isACorner = true;
         }
@@ -148,5 +178,45 @@ class Grille {
             }
         }
         return [isHorizontal, isACorner, isAWall];
+    }
+
+    getIndividusJSON() {
+        return new Promise((resolve, error) => {
+            const loader = new THREE.ObjectLoader();
+
+            loader.load(
+                // resource URL
+                "../../../media/3dObject/Individu.json",
+
+                // onLoad callback
+                function(obj) {
+                    resolve(obj);
+                },
+
+                // onProgress callback
+                function(xhr) {
+                    if (xhr.total * 100 == 100) {
+                        console.info("JSON individus chargé.");
+                    }
+                },
+
+                // onError callback
+                function(err) {
+                    error(err);
+                }
+            );
+        })
+    }
+
+    setFrameArray() {
+        this.grille.frameArray.forEach(frame => {
+            this.frame.add(frame);
+        });
+    }
+
+    getFrame(index = null) {
+        if (index) {
+            return this.frame.getNodeAtIndex(index);
+        }
     }
 }

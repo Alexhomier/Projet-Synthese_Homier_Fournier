@@ -1,4 +1,5 @@
 let spriteList = [];
+let currentFrameIndex = 0;
 
 window.addEventListener("load", () => {
     const canvas = document.getElementById("canvas");
