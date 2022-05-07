@@ -1,44 +1,31 @@
 class Individus {
-    constructor(grille, packImports, grid) {
+    constructor(packImports, grid, object) {
         this.packImports = packImports;
+        this.grid = grid;
+        this.object = object;
+        this.convertionTo3D = new ConversionTo3D(this.grid);
     }
 
-    addIndividus() {
-        const loader = new THREE.ObjectLoader();
-        let individu = this;
-
-        loader.load(
-            // resource URL
-            "../../../media/3dObject/Individu.json",
-
-            // onLoad callback
-            function(obj) {
-                individu.createIndividus(obj)
-            },
-
-            // onProgress callback
-            function(xhr) {
-                if (xhr.total * 100 == 100) {
-                    console.info("Individus chargés.");
-                }
-            },
-
-            // onError callback
-            function(err) {
-                console.error(err);
-            }
-        );
-        return individu;
+    addIndividu(ind) {
+        this.createIndividus(this.object, ind);
     }
 
-    createIndividus(data) {
-        data.scale.set(3, 3, 3);
-        data.position.set(0, data.scale.y / 2, 0);
-        // this.grille.individus.forEach(ind => {
-        // this.dictInd[(ind.id)] = data.clone();
-        // this.dictInd[(ind.id)].position.set(ind.x * this.gridInfo.conversionToDDD, data.scale.y / 2, ind.y * this.gridInfo.conversionToDDD)
-        // this.packImports.scene.add(this.dictInd[(ind.id)]);
-        // });
-        this.packImports.scene.add(data);
+    createIndividus(object, ind) {
+        object.scale.set(this.grid.individusScale, this.grid.individusScale, this.grid.individusScale);
+
+        let pos = this.convertionTo3D.get3DPositions(ind.x, ind.y);
+        let posX = pos.x;
+        let posY = pos.y;
+
+        object.position.set(posX, object.scale.y / 2, posY);
+        this.packImports.scene.add(object);
+    }
+
+    moveIndividus(x, y) {
+        let pos = this.convertionTo3D.get3DPositions(newPosX, newPosY);
+        let posX = pos.x;
+        let posY = pos.y;
+
+        object.position.set(posX, object.scale.y / 2, posY);
     }
 }

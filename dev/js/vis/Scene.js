@@ -18,8 +18,8 @@ class Scene {
         }
 
         // temp
-        const axesHelper = new THREE.AxesHelper(5);
-        // this.scene.add(axesHelper);
+        const axesHelper = new THREE.AxesHelper(20);
+        this.scene.add(axesHelper);
 
         const size = 400;
         const divisions = 75;

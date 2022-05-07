@@ -9,11 +9,11 @@ CORS(app)
 @app.route('/post', methods = ['POST'])
 def post():
     grille = request.get_json()
-    manipulator = Manipulator(grille)
-    manipulator.reset()
-    manipulator.run()
+    # manipulator = Manipulator(grille)
+    # manipulator.reset()
+    # manipulator.run()
     #grille = manipulateur.run() si possible?
-    print(grille)
+    # print(grille)
     return jsonify(grille)
 
 if __name__ == '__main__':
@@ -26,19 +26,29 @@ if __name__ == '__main__':
 #      - { "grille", "IndParSalle", "minX", "minY", "maxX", "maxY", "size",  }
 
 #     :return: json dict                       ?
-#      - {"grille": [OBJECT Grille], "individus": [Array of Individus], "visualisation": [Array of visualisation Frame]}
+#      - {"grille": [OBJECT Grille], "individus": [Array of Individus], "frame": [Array of visualisation Frame]}
 #      individus[
 #        ind: {
-#             id
-#             x
-#             y
+#             id : int
+#             x : float
+#             y : float
 #        }    
 #      ]
-#       visualisation[
-#           ind: {
-#               newPos = (x, y)
-#               isOut
-#           }
+#       Frame[
+#           ind[
+#               ind: {
+#                   newPosX : float
+#                   newPosY : float
+#                   isOut : bool
+#               },
+#           ], [
+#               ind: {
+#                   id: int
+#                   newPosX : float
+#                   newPosY : float
+#                   isOut : Bool
+#               }
+#           ]
 #       ]
 # 
 #       NE PAS MODIFIER LA GRILLE SVP

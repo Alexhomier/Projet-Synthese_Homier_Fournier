@@ -16,6 +16,9 @@
     <script src="./js/vis/PlaneFormBase.js"></script>
     <script src="./js/vis/PlaneFormWalls.js"></script>
     <script src="./js/vis/Individus.js"></script>
+    <script src="./js/vis/FrameList.js"></script>
+    <script src="./js/vis/Node.js"></script>
+    <script src="./js/vis/ConversionTo3D.js"></script>
 </head>
 <body>
     <div id="canvas" class="canvas"></div>
