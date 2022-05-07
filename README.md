@@ -9,6 +9,6 @@ Présenté par: Alexandre Homier et Mathieu Fournier.
  - projetSynthese\Scripts\activate
  - pip install flask
  - pip install flask-cors
- - F5 Python Run
+ - F5 Python Run DAO
  - SUPPRIMER LE DOSSIER PS (VENV) AVANT DE PUSH
  - pip install pygame (temp)

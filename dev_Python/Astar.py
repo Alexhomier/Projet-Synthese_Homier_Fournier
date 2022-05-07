@@ -43,3 +43,29 @@ class Astar:
 						open_set_hash.add(voisin)
 
 		return False
+
+	def single_algo(self, grid, start, end):
+		count = 0
+		open_set = PriorityQueue()
+		came_from = {}
+		g_score = {case: float("inf") for row in grid for case in row} #Contient tout les G scores
+		g_score[start] = 0
+		f_score = {case: float("inf") for row in grid for case in row} # Contient les F scores
+		f_score[start] = Astar.h(start.get_position(), end.get_position()) #F score de start est la distance heuristique calculé dans la métohde h
+		is_done = False
+
+		current_case = start 
+
+		for voisin in current_case.voisins:  #Analyse les voisin de la current_case
+			temp_g_score = g_score[current_case] + 1
+			if voisin.get_type() == "End":
+				is_done = True
+
+			if temp_g_score < g_score[voisin]:
+				came_from[voisin] = current_case # Ajoute la case au chemin le plus court
+				g_score[voisin] = temp_g_score
+				f_score[voisin] = temp_g_score + Astar.h(voisin.get_position(), end.get_position())
+				count += 1
+				open_set.put((f_score[voisin], count, voisin))
+
+		return is_done, open_set.get()[2]

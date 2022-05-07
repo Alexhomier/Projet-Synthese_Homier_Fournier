@@ -1,10 +1,10 @@
+import pygame
 from queue import PriorityQueue
 from State import *
-#from Algo import *
-from Transform import Scaling, GetWalls, PlaceIndividus, Traduction, GetWallsT, PlaceIndividusT
-import pygame
-from AstarAlgoTest import main
-from AstarAlgo2 import Astar
+from Transform import Scaling, GetWalls, PlaceIndividus, Traduction, GetWallsT, PlaceIndividusT, UpdateVoisinsIndividu, UpdateVoisinGrille
+from Algo import *
+
+from TEST_AstarAlgo import main
 
 WIDTH = 1000  # Taille de la fenêtre
 
@@ -36,19 +36,31 @@ class StateWaiting(State):
 class StateAlgo(State):
     def __init__(self, grille):
         super().__init__()
-        self.__grille = grille["grille"]
-        self.__grille_size = len(self.__grille)
+        self.__grille_size = len(grille["grille"])
         self.__nb_ind_par_salle = grille["IndParSalle"]
         self.__minX = grille["minX"]
         self.__maxX = grille["maxX"]
         self.__minY = grille["minY"]
         self.__maxY = grille["maxY"]
         self.__algo_done = False
-        self.__algo_started = False
-        self.__porte_array = []
-        self.__individu_array = []
         self.__closest_end = PriorityQueue()
-        self.__sortie = None
+        self.__final_array = []
+
+        self.__grille = Traduction(grille["grille"], 1000, self.__grille_size)
+        #resultScale = Scaling(self.__grille, 1000, self.__grille_size)
+        #self.__grille = resultScale[0]
+        #self.__porte_array = resultScale[1]
+        resultWalls = GetWallsT(self.__grille, self.__grille_size, self.__minX, self.__maxX, self.__minY, self.__maxY)
+        self.__grille = resultWalls[0]
+        self.__sortie = resultWalls[1]
+
+        self.__individu_array = []
+        resultIndividu = PlaceIndividusT(self.__grille, self.__nb_ind_par_salle, self.__minX, self.__maxX, self.__minY, self.__maxY)
+        self.__grille = resultIndividu[0]
+        for individu in resultIndividu[1]:
+            self.__individu_array.append(individu[0])
+        self.__nb_in = len(self.__individu_array)
+        self.__nb_out = 0
 
     def _exec_entering_action(self):
         self._do_entering_action()
@@ -64,40 +76,48 @@ class StateAlgo(State):
 
     def _do_in_state_action(self):
         if not self.__algo_done:
-            if not self.__algo_started:
-                self.__algo_started = True
-
-                #resultScale = Scaling(self.__grille, 1000, self.__grille_size)
-                #self.__grille = resultScale[0]
-                #self.__porte_array = resultScale[1]
-                #self.__grille = GetWalls(self.__grille, self.__grille_size, self.__minX, self.__maxX, self.__minY, self.__maxY)
-                #self.__closest_end = Algo.closestToEnd(self.__grille, self.__individu_array, self.__sortie)
-
-                self.__grille = Traduction(self.__grille, 1000, self.__grille_size)
-
-                resultWalls = self.__grille = GetWallsT(self.__grille, self.__grille_size, self.__minX, self.__maxX, self.__minY, self.__maxY)
-                self.__grille = resultWalls[0]
-                self.__sortie = resultWalls[1]
-
-                resultIndividu = PlaceIndividusT(self.__grille, self.__nb_ind_par_salle, self.__minX, self.__maxX, self.__minY, self.__maxY)
-                self.__grille = resultIndividu[0]
-                self.__individu_array = resultIndividu[1]
-
+            while self.__nb_out < self.__nb_in: #Boucle qui ne sort pas tant que tout le monde est sortie
+                self.__individu_array = UpdateVoisinsIndividu(self.__individu_array, self.__grille, "Closest")
+                self.__grille = UpdateVoisinGrille(self.__grille, self.__minX, self.__maxX, self.__minY, self.__maxY, "Closest")
+                
                 count = 0
                 for individu in self.__individu_array:
-                    came_from = Astar.algorithm(None, self.__grille, individu[0], self.__sortie)
+                    came_from = Astar.algorithm(None, self.__grille, individu, self.__sortie)
                     if came_from :
-                        self.__closest_end.put((len(came_from), count, individu[0]))
+                        self.__closest_end.put((len(came_from), count, individu)) #Rammene individus pour ensuite fait l'Algo un par un 
+                        #self.__closest_end.put((len(came_from), count, came_from)) #Rammene les chemin pour construire les frames prématurément
                         count += 1
-                
-                #closest_end_hash = {start} #ajoute individu plus proche pour start
-                
-                #while not self.__closest_end.empty():
-                    #current_individu = self.__closest_end.get()[2]
-                    #closest_end_hash.remove(current_individu)
-                    #Algo qui va retourner le chemin de l'individu
 
-                #main(pygame.display.set_mode((WIDTH, WIDTH)), WIDTH, self.__grille)
+                self.__grille = UpdateVoisinGrille(self.__grille, self.__minX, self.__maxX, self.__minY, self.__maxY, "Algo")
+                self.__individu_array = []  #Réinitialisation pour permettre au individu d'avoir une nouvelle position
+                
+# PROBLEME D'OSCILLATION
+
+                while not self.__closest_end.empty():
+                    current_individu = self.__closest_end.get()[2]
+                    current_individu.update_voisins_algo(self.__grille)
+                    result = Astar.single_algo(None, self.__grille, current_individu, self.__sortie)
+                    is_done = result[0]
+                    next_case = result[1]
+                    if is_done:
+                        next_case.type = "End"
+                        self.__final_array.append(next_case)
+                        self.__nb_out += 1
+                        print(self.__nb_out)
+                    elif current_individu != next_case:
+                        next_case.type = "Individu"
+                        current_individu.reset()
+                        pos_last = current_individu.get_position()
+                        next_case.came_from.append(pos_last)
+                        self.__grille[pos_last[0]][pos_last[1]] = current_individu
+                        pos_next = next_case.get_position()
+                        self.__grille[pos_next[0]][pos_next[1]] = next_case
+                            
+                        
+                    self.__individu_array.append(next_case)
+
+            self.__algo_done = True
+            #main(pygame.display.set_mode((WIDTH, WIDTH)), WIDTH, self.__grille)
 
     def _do_exiting_action(self):
         print("Exiting Algo")

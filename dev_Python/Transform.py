@@ -1,5 +1,5 @@
-#from Algo import *
-from AstarAlgoTest import *
+from Algo import *
+#from TEST_AstarAlgo import *
 
 def Scaling(grille, width, rows): #Méthode qui permet de faire en sorte que les salles sont 10 de larges et non 1. pour pouvoir y inserer des personnes a linterieur des petites cases
     grid = []
@@ -111,3 +111,22 @@ def PlaceIndividusT(grille, nb_individus_max, minX, maxX, minY, maxY):  #Méthod
                 individu_array.append([grille[x][y]])
             i += 1
     return grille, individu_array
+
+def UpdateVoisinsIndividu(caseArray, grille, type):
+    for case in caseArray:
+        if type == "Closest":
+            case.update_voisins_closest(grille)
+        elif type == "Algo":
+            case.update_voisins_algo(grille)
+    return caseArray
+
+def UpdateVoisinGrille(grille, minX, maxX, minY, maxY, type):
+    for x in range(minX, maxX + 1):
+        for y in range(minY, maxY + 1):
+            if type == "Closest":
+                grille[x][y].update_voisins_closest(grille)
+            elif type == "Algo":
+                grille[x][y].update_voisins_algo(grille)
+    return grille
+
+        
