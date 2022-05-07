@@ -3,11 +3,7 @@ class Individus {
         this.packImports = packImports;
         this.grid = grid;
         this.object = object;
-        this.arrayInd = [];
-        this.arrayInd[0] = {
-            x: this.grid.maxX / 2 + 1,
-            y: this.grid.maxY / 2 + 1
-        }
+        this.convertionTo3D = new ConversionTo3D(this.grid);
     }
 
     addIndividu(ind) {
@@ -16,11 +12,20 @@ class Individus {
 
     createIndividus(object, ind) {
         object.scale.set(this.grid.individusScale, this.grid.individusScale, this.grid.individusScale);
-        object.position.set((ind.x - this.grid.sizeX / 2 - this.grid.minX) * this.grid.conversionToDDD, object.scale.y / 2, (ind.y - this.grid.sizeY / 2 - this.grid.minY) * this.grid.conversionToDDD);
+
+        let pos = this.convertionTo3D.get3DPositions(ind.x, ind.y);
+        let posX = pos.x;
+        let posY = pos.y;
+
+        object.position.set(posX, object.scale.y / 2, posY);
         this.packImports.scene.add(object);
     }
 
-    moveIndividus(newPosX, newPosY) {
-        object.position.set((newPosX - this.grid.sizeX / 2 - this.grid.minX) * this.grid.conversionToDDD, object.scale.y / 2, (newPosY - this.grid.sizeY / 2 - this.grid.minY) * this.grid.conversionToDDD);
+    moveIndividus(x, y) {
+        let pos = this.convertionTo3D.get3DPositions(newPosX, newPosY);
+        let posX = pos.x;
+        let posY = pos.y;
+
+        object.position.set(posX, object.scale.y / 2, posY);
     }
 }

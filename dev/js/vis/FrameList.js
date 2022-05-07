@@ -1,11 +1,3 @@
-class Node {
-    constructor(value) {
-        this.value = value;
-        this.last = null;
-        this.next = null;
-    }
-}
-
 class FrameList {
     constructor() {
         this.head = null;
@@ -24,19 +16,25 @@ class FrameList {
             this.tail = newNode;
         }
         this.length++;
+        return newNode;
     }
 
     // Ajuster pour get next nodes
     getNextNode(currentNode) {
-        if (index >= this.length || index < 0) {
-            return false;
-        }
-        let currentIndex = 0;
-        let currentNode = this.head;
-        while (currentIndex != index) {
-            currentNode = currentNode.next;
-            currentIndex++;
-        }
+        currentNode = currentNode.next;
         return currentNode;
+    }
+
+    getPrevNode(currentNode) {
+        currentNode = currentNode.prev;
+        return currentNode;
+    }
+
+    getFirstNode() {
+        return this.head;
+    }
+
+    getLastNode() {
+        return this.tail;
     }
 }
