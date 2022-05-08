@@ -1,11 +1,11 @@
 class Grille {
     constructor(grille, packImports, gridInfo) {
-        const WALLHEIGHT = 5.;
-        const CONVERSIONTO3D = 5.;
+        const WALLHEIGHT = 5.0;
+        const CONVERSIONTO3D = 5.0;
         const WALLSCOLOR = 0x919191;
         const EXTWALLSCOLOR = 0x6d6d6d;
         const DOORFRAMECOLOR = 0xff0000;
-        const INDIVIDUSSCALE = 3.;
+        const INDIVIDUSSCALE = 3.0;
         const BIGSIZE = 50;
 
         this.grille = grille;
@@ -33,7 +33,7 @@ class Grille {
             extWallsColor: EXTWALLSCOLOR,
             doorFrameColor: DOORFRAMECOLOR,
             individusScale: INDIVIDUSSCALE
-        }
+        };
 
         this.arrayWalls = [];
         this.dictInd = [];
@@ -47,12 +47,12 @@ class Grille {
             id: 0,
             x: this.gridInfo.maxX / 2 + 1,
             y: this.gridInfo.maxY / 2 + 1
-        }
+        };
         this.arrayIndividus[1] = {
             id: 1,
             x: this.gridInfo.maxX / 2 + 3,
             y: this.gridInfo.maxY / 2 + 3
-        }
+        };
 
         let ind = [];
         this.frameArray = [];
@@ -65,13 +65,13 @@ class Grille {
             newPosX: this.gridInfo.maxX / 2 + 1,
             newPosY: this.gridInfo.maxY / 2 + 1,
             isOut: false
-        }
+        };
         ind[1] = {
             id: 1,
             newPosX: this.gridInfo.maxX / 2 + 3,
             newPosY: this.gridInfo.maxY / 2 + 3,
             isOut: false
-        }
+        };
 
         this.frameArray[0] = ind;
 
@@ -80,28 +80,28 @@ class Grille {
             newPosX: this.gridInfo.maxX / 2 + 2,
             newPosY: this.gridInfo.maxY / 2 + 2,
             isOut: false
-        }
+        };
         ind[1] = {
             id: 1,
             newPosX: this.gridInfo.maxX / 2 + 2.5,
             newPosY: this.gridInfo.maxY / 2 + 2.5,
             isOut: false
-        }
+        };
 
-        this.frameArray[1] = ind
+        this.frameArray[1] = ind;
 
         ind[0] = {
             id: 0,
             newPosX: this.gridInfo.maxX / 2 + 3,
             newPosY: this.gridInfo.maxY / 2 + 3,
             isOut: false
-        }
+        };
         ind[1] = {
             id: 1,
             newPosX: this.gridInfo.maxX / 2 + 3.5,
             newPosY: this.gridInfo.maxY / 2 + 3.5,
             isOut: false
-        }
+        };
         this.frameArray[2] = ind;
     }
 
@@ -149,7 +149,7 @@ class Grille {
                 });
 
                 this.setFrameArray();
-            })
+            });
     }
 
     getWalls() {
@@ -254,7 +254,7 @@ class Grille {
                     error(err);
                 }
             );
-        })
+        });
     }
 
     setFrameArray() {
@@ -269,10 +269,10 @@ class Grille {
     }
 
     getNextFrame(currentNode) {
-        console.log(this.dictInd)
+        console.log(this.dictInd);
         let nextFrame = this.frame.getNextNode(currentNode);
         nextFrame.value.forEach(ind => {
-            console.log(ind.id)
+            console.log(this.dictInd[0]);
             this.dictInd[ind.id].moveTo(ind.x, ind.y);
         });
         return nextFrame;
