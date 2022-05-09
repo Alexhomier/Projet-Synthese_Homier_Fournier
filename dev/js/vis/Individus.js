@@ -6,26 +6,25 @@ class Individus {
         this.convertionTo3D = new ConversionTo3D(this.grid);
     }
 
-    addIndividu(ind) {
-        this.createIndividus(this.object, ind);
-    }
-
-    createIndividus(object, ind) {
-        object.scale.set(this.grid.individusScale, this.grid.individusScale, this.grid.individusScale);
+    createIndividus(ind) {
+        this.object.scale.set(this.grid.individusScale, this.grid.individusScale, this.grid.individusScale);
 
         let pos = this.convertionTo3D.get3DPositions(ind.x, ind.y);
         let posX = pos.x;
         let posY = pos.y;
 
-        object.position.set(posX, object.scale.y / 2, posY);
-        this.packImports.scene.add(object);
+        this.object.position.set(posX, this.object.scale.y / 2, posY);
+        this.packImports.scene.add(this.object);
     }
 
-    moveIndividus(x, y) {
-        let pos = this.convertionTo3D.get3DPositions(newPosX, newPosY);
+    moveIndividus(id, x, y, animation) {
+        let pos = this.convertionTo3D.get3DPositions(x, y);
         let posX = pos.x;
         let posY = pos.y;
 
-        object.position.set(posX, object.scale.y / 2, posY);
+        animation.addAnimation(id, posX, posY, this.object);
+        // this.object.position.set(posX, this.object.scale.y / 2, posY);
     }
+
+
 }

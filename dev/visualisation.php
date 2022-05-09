@@ -19,6 +19,7 @@
     <script src="./js/vis/FrameList.js"></script>
     <script src="./js/vis/Node.js"></script>
     <script src="./js/vis/ConversionTo3D.js"></script>
+    <script src="./js/vis/IndAnimation.js"></script>
 </head>
 <body>
     <div id="canvas" class="canvas"></div>

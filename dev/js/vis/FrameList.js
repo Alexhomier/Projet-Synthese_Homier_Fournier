@@ -21,13 +21,11 @@ class FrameList {
 
     // Ajuster pour get next nodes
     getNextNode(currentNode) {
-        currentNode = currentNode.next;
-        return currentNode;
+        return currentNode.next;
     }
 
     getPrevNode(currentNode) {
-        currentNode = currentNode.prev;
-        return currentNode;
+        return currentNode.prev;
     }
 
     getFirstNode() {

@@ -1,5 +1,5 @@
 class Grille {
-    constructor(grille, packImports, gridInfo) {
+    constructor(grille, packImports, indAnimation) {
         const WALLHEIGHT = 5.0;
         const CONVERSIONTO3D = 5.0;
         const WALLSCOLOR = 0x919191;
@@ -10,7 +10,9 @@ class Grille {
 
         this.grille = grille;
         this.packImports = packImports;
-        this.gridInfo = gridInfo;
+        this.indAnimation = indAnimation;
+
+        this.indIsLoad = false;
 
         let sizeX = grille.maxX - grille.minX;
         let sizeY = grille.maxY - grille.minY;
@@ -55,6 +57,8 @@ class Grille {
         };
 
         let ind = [];
+        let ind2 = [];
+        let ind3 = [];
         this.frameArray = [];
 
         // newPosX: this.gridInfo.maxX / 2 + 4,
@@ -75,81 +79,83 @@ class Grille {
 
         this.frameArray[0] = ind;
 
-        ind[0] = {
+        ind2[0] = {
             id: 0,
-            newPosX: this.gridInfo.maxX / 2 + 2,
-            newPosY: this.gridInfo.maxY / 2 + 2,
+            newPosX: this.gridInfo.maxX / 2 + 10,
+            newPosY: this.gridInfo.maxY / 2 + 10,
             isOut: false
         };
-        ind[1] = {
+        ind2[1] = {
             id: 1,
             newPosX: this.gridInfo.maxX / 2 + 2.5,
             newPosY: this.gridInfo.maxY / 2 + 2.5,
             isOut: false
         };
 
-        this.frameArray[1] = ind;
+        this.frameArray[1] = ind2;
 
-        ind[0] = {
+        ind3[0] = {
             id: 0,
-            newPosX: this.gridInfo.maxX / 2 + 3,
-            newPosY: this.gridInfo.maxY / 2 + 3,
+            newPosX: this.gridInfo.maxX / 2 + 15,
+            newPosY: this.gridInfo.maxY / 2 + 15,
             isOut: false
         };
-        ind[1] = {
+        ind3[1] = {
             id: 1,
             newPosX: this.gridInfo.maxX / 2 + 3.5,
             newPosY: this.gridInfo.maxY / 2 + 3.5,
             isOut: false
         };
-        this.frameArray[2] = ind;
+        this.frameArray[2] = ind3;
     }
 
     start() {
-        this.getWalls();
+        return new Promise((resolve, error) => {
+            this.getWalls();
 
-        this.planeFormBase = new PlaneFormBase(this.packImports, this.gridInfo);
-        this.planeFormWalls = new PlaneFormWalls(this.packImports, this.gridInfo);
-        this.planeFormWalls.setExtWalls();
+            this.planeFormBase = new PlaneFormBase(this.packImports, this.gridInfo);
+            this.planeFormWalls = new PlaneFormWalls(this.packImports, this.gridInfo);
+            this.planeFormWalls.setExtWalls();
 
-        this.arrayWalls.forEach(wall => {
-            if (wall.state != "Porte")
-                this.planeFormWalls.addWall(wall);
-            else {
-                this.planeFormWalls.addWall(wall, true);
-            }
-        });
-
-        for (let x = this.gridInfo.minX; x <= this.gridInfo.maxX; x++) {
-            if (this.grille.grille[x][0].state == "Porte") {
-                this.planeFormWalls.addDoor(x, 0);
-            }
-            if (this.grille.grille[x][this.gridInfo.sizeX - 1].state == "Porte") {
-                this.planeFormWalls.addDoor(x, this.gridInfo.sizeX - 1);
-            }
-        }
-        for (let y = this.gridInfo.minY; y <= this.gridInfo.maxY; y++) {
-            if (this.grille.grille[0][y].state == "Porte") {
-                this.planeFormWalls.addDoor(0, y);
-            }
-            if (this.grille.grille[this.gridInfo.sizeY - 1][y].state == "Porte") {
-                this.planeFormWalls.addDoor(this.gridInfo.sizeY - 1, y);
-            }
-        }
-
-        this.planeFormWalls.removeDoorsfromWalls();
-
-        this.getIndividusJSON()
-            .then(resolve => {
-                this.packImports.individusJSON = resolve;
-
-                this.arrayIndividus.forEach(ind => {
-                    this.dictInd[ind.id] = new Individus(this.packImports, this.gridInfo, this.packImports.individusJSON.clone());
-                    this.dictInd[ind.id].addIndividu(ind);
-                });
-
-                this.setFrameArray();
+            this.arrayWalls.forEach(wall => {
+                if (wall.state != "Porte")
+                    this.planeFormWalls.addWall(wall);
+                else {
+                    this.planeFormWalls.addWall(wall, true);
+                }
             });
+
+            for (let x = this.gridInfo.minX; x <= this.gridInfo.maxX; x++) {
+                if (this.grille.grille[x][0].state == "Porte") {
+                    this.planeFormWalls.addDoor(x, 0);
+                }
+                if (this.grille.grille[x][this.gridInfo.sizeX - 1].state == "Porte") {
+                    this.planeFormWalls.addDoor(x, this.gridInfo.sizeX - 1);
+                }
+            }
+            for (let y = this.gridInfo.minY; y <= this.gridInfo.maxY; y++) {
+                if (this.grille.grille[0][y].state == "Porte") {
+                    this.planeFormWalls.addDoor(0, y);
+                }
+                if (this.grille.grille[this.gridInfo.sizeY - 1][y].state == "Porte") {
+                    this.planeFormWalls.addDoor(this.gridInfo.sizeY - 1, y);
+                }
+            }
+
+            this.planeFormWalls.removeDoorsfromWalls();
+
+            this.getIndividusJSON()
+                .then(resolve => {
+                    this.packImports.individusJSON = resolve;
+
+                    this.arrayIndividus.forEach(ind => {
+                        this.dictInd[ind.id] = new Individus(this.packImports, this.gridInfo, this.packImports.individusJSON.clone());
+                        this.dictInd[ind.id].createIndividus(ind);
+                    });
+
+                    this.setFrameArray();
+                });
+        });
     }
 
     getWalls() {
@@ -265,24 +271,52 @@ class Grille {
             this.frame.add(frame);
         });
 
+        this.indIsLoad = true;
+
+        return this.frame.getFirstNode();
+    }
+
+    getFirstFrame() {
         return this.frame.getFirstNode();
     }
 
     getNextFrame(currentNode) {
-        console.log(this.dictInd);
-        let nextFrame = this.frame.getNextNode(currentNode);
-        nextFrame.value.forEach(ind => {
-            console.log(this.dictInd[0]);
-            this.dictInd[ind.id].moveTo(ind.x, ind.y);
-        });
-        return nextFrame;
+        if (this.indIsLoad) {
+            if (currentNode) {
+                let nextFrame = this.frame.getNextNode(currentNode);
+                if (nextFrame) {
+                    nextFrame.value.forEach(ind => {
+                        this.dictInd[ind.id].moveIndividus(ind.id, ind.newPosX, ind.newPosY, this.indAnimation);
+                    });
+                    return nextFrame;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     getPrevFrame(currentNode) {
-        let prevFrame = this.frame.getNextNode(currentNode);
-        prevFrame.value.forEach(ind => {
-            this.dictInd[ind.id].moveTo(ind.x, ind.y);
-        });
-        return prevFrame;
+        if (this.indIsLoad) {
+            if (currentNode) {
+                let prevFrame = this.frame.getNextNode(currentNode);
+                if (prevFrame) {
+                    prevFrame.value.forEach(ind => {
+                        this.dictInd[ind.id].moveIndividus(ind.id, ind.newPosX, ind.newPosY, this.indAnimation);
+                    });
+                    return prevFrame;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }
