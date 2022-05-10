@@ -14,8 +14,8 @@ window.addEventListener("load", () => {
         .then(currentFrame = getFirstFrame());
 
     document.getElementById('canvas').addEventListener('click', function(e) {
-        // currentFrame = getNextFrame();
-        playFrame(true);
+        currentFrame = getNextFrame();
+        // playFrame(true);
     });
 
     tick();
