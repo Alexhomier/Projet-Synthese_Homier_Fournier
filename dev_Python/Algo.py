@@ -23,19 +23,41 @@ class Case:
     def get_position(self):
         return self.row, self.col
 
+    def add_came_from(self, came_from, last):
+        for case in came_from:
+            self.came_from.append(case)
+        self.came_from.append(last)
+
+    def get_came_from(self):
+        return self.came_from
+
     def update_voisins_algo(self, grid): #Regarde si voisin est mur ou non
         self.voisins = []
-        if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].get_type() == 'Wall' and not grid[self.row + 1][self.col].get_type() == 'Individu': # DOWN
+        if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].get_type() == 'Wall' and not grid[self.row + 1][self.col].get_type() == 'Individu' and not grid[self.row + 1][self.col] in self.came_from: # DOWN
             self.voisins.append(grid[self.row + 1][self.col])
 
-        if self.row > 0 and not grid[self.row - 1][self.col].get_type() == 'Wall' and not grid[self.row + 1][self.col].get_type() == 'Individu': # UP
+        if self.row > 0 and not grid[self.row - 1][self.col].get_type() == 'Wall' and not grid[self.row - 1][self.col].get_type() == 'Individu' and not grid[self.row - 1][self.col] in self.came_from: # UP
             self.voisins.append(grid[self.row - 1][self.col])
 
-        if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].get_type() == 'Wall' and not grid[self.row + 1][self.col].get_type() == 'Individu': # RIGHT
+        if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].get_type() == 'Wall' and not grid[self.row][self.col + 1].get_type() == 'Individu' and not grid[self.row][self.col + 1] in self.came_from: # RIGHT
             self.voisins.append(grid[self.row][self.col + 1])
 
-        if self.col > 0 and not grid[self.row][self.col - 1].get_type() == 'Wall' and not grid[self.row + 1][self.col].get_type() == 'Individu': # LEFT
+        if self.col > 0 and not grid[self.row][self.col - 1].get_type() == 'Wall' and not grid[self.row][self.col - 1].get_type() == 'Individu' and not grid[self.row][self.col - 1] in self.came_from: # LEFT
             self.voisins.append(grid[self.row][self.col - 1])
+
+    # def update_voisins_algo(self, grid): #Regarde si voisin est mur ou non
+    #     self.voisins = []
+    #     if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].get_type() == 'Wall' and not grid[self.row + 1][self.col].get_type() == 'Individu' and not grid[self.row + 1][self.col] in self.came_from: # DOWN
+    #         self.voisins.append(grid[self.row + 1][self.col])
+
+    #     if self.row > 0 and not grid[self.row - 1][self.col].get_type() == 'Wall' and not grid[self.row - 1][self.col].get_type() == 'Individu' and not grid[self.row - 1][self.col] in self.came_from: # UP
+    #         self.voisins.append(grid[self.row - 1][self.col])
+
+    #     if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].get_type() == 'Wall' and not grid[self.row][self.col + 1].get_type() == 'Individu' and not grid[self.row][self.col + 1] in self.came_from: # RIGHT
+    #         self.voisins.append(grid[self.row][self.col + 1])
+
+    #     if self.col > 0 and not grid[self.row][self.col - 1].get_type() == 'Wall' and not grid[self.row][self.col - 1].get_type() == 'Individu' and not grid[self.row][self.col - 1] in self.came_from: # LEFT
+    #         self.voisins.append(grid[self.row][self.col - 1])
 
     def update_voisins_closest(self, grid): #Regarde si voisin est mur ou non
         self.voisins = []
@@ -69,8 +91,8 @@ def closestToEnd(grille, individus, sortie):  #Méthode qui classera les individ
     closest_end = PriorityQueue()
     count = 0
     for individu in individu_array:
-        came_from = Astar.algorithm(grid, individu, end)
-        closest_end.put((len(came_from), count, individu))
+        chemin = Astar.algorithm(grid, individu, end)
+        closest_end.put((len(chemin), count, individu))
         count += 1
     return closest_end
 

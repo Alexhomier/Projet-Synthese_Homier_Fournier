@@ -109,7 +109,8 @@ def PlaceIndividusT(grille, nb_individus_max, minX, maxX, minY, maxY):  #Méthod
             if grille[x][y].type == "Salle" and i % 5 == 0:
                 grille[x][y].type = "Individu"
                 individu_array.append([grille[x][y]])
-            i += 1
+            elif grille[x][y].type == "Salle":
+                i += 1
     return grille, individu_array
 
 def UpdateVoisinsIndividu(caseArray, grille, type):
