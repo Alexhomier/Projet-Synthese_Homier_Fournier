@@ -1,7 +1,7 @@
 let spriteList = [];
 let grille;
 let currentFrame;
-let sleepTimePlay = 5;
+let sleepTimePlay = 1;
 let timeOutVar;
 
 window.addEventListener("load", () => {

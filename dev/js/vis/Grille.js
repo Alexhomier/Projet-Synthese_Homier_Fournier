@@ -277,6 +277,10 @@ class Grille {
     }
 
     getFirstFrame() {
+        if (!this.indIsLoad) {
+            console.warn("Wrong initialisation for : Frame, OverPass error.");
+            return this.setFrameArray();
+        }
         return this.frame.getFirstNode();
     }
 

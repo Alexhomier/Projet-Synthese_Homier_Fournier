@@ -35,4 +35,8 @@ class FrameList {
     getLastNode() {
         return this.tail;
     }
+
+    getLength() {
+        return this.length;
+    }
 }

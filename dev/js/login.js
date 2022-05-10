@@ -144,14 +144,14 @@ function login() {
         })
         .then(response => response.json())
         .then(response => {
-            if (response.length < 1) {
+            if (response[1]) {
                 document.querySelector(".login-error-container").style.display = "inline-flex";
                 document.querySelector(".login-error-text").innerHTML = response[0];
             } else {
-                localStorage.setItem("id", response);
+                localStorage.setItem("id", response[0]);
                 window.location.href = "build";
             }
-        })
+        });
 }
 
 function signup() {
@@ -193,9 +193,9 @@ function signup() {
 function scrollEvent() {
     document.addEventListener("scroll", event => {
         if (window.scrollY > 100) {
-            spriteList[1].openHeader()
+            spriteList[1].openHeader();
         } else {
-            spriteList[1].closeHeader()
+            spriteList[1].closeHeader();
         }
 
     }, { passive: true });

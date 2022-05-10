@@ -1,6 +1,6 @@
 class IndAnimation {
     constructor() {
-        this.speed = 0.5;
+        this.speed = 1.5;
         this.arrAnimation = [];
     }
 
