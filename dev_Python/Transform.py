@@ -1,5 +1,8 @@
 from Algo import *
-#from TEST_AstarAlgo import *
+from Astar import *
+from queue import PriorityQueue
+
+### Méthodes pour la transformation des données en ce qui est necessaire pour l'aglorithme. ###
 
 def Scaling(grille, width, rows): #Méthode qui permet de faire en sorte que les salles sont 10 de larges et non 1. pour pouvoir y inserer des personnes a linterieur des petites cases
     grid = []
@@ -55,23 +58,7 @@ def checkWalls(x, y, size, grille):
 
     return isWall   
 
-def GetWalls(grille, size, minX, maxX, minY, maxY): #Méthode qui identifie les murs (trouve entre une salle et un couloir pour mettre un mur)
-    grille_size = size * 10
-    GRID_FOR_CHECKING = grille  
-    for x in range(minX * 10, maxX * 10 + 1):
-        for y in range(minY * 10, maxY * 10 + 1):
-            checkWall = checkWalls(x, y, grille_size, GRID_FOR_CHECKING)
-            if checkWall:
-                grille[x][y].type = "Wall"
-    return grille
-
-def PlaceIndividus(grille, nb_individus_max):  #Méthode qui va, aléatoirement, placer des individus dans une salle dépendement de son nombre max
-    return grille
-
-
-################ MÉTHODES SANS SCALING POUR UTILISATION EFFICACE DE PYGAME ######################
-
-def GetWallsT(grille, size, minX, maxX, minY, maxY):
+def GetWalls(grille, size, minX, maxX, minY, maxY):
     grille_size = size
     GRID_FOR_CHECKING = grille  
     for x in range(minX, maxX + 1):
@@ -101,7 +88,7 @@ def Traduction(grille, width, rows):
             grid[i].append(case)
     return grid
 
-def PlaceIndividusT(grille, nb_individus_max, minX, maxX, minY, maxY):  #Méthode qui va, aléatoirement, placer des individus dans une salle dépendement de son nombre max
+def PlaceIndividus(grille, nb_individus_max, minX, maxX, minY, maxY):  #Méthode qui va, aléatoirement, placer des individus dans une salle dépendement de son nombre max
     i = 0
     individu_array = []
     for x in range(minX, maxX + 1):
@@ -109,17 +96,8 @@ def PlaceIndividusT(grille, nb_individus_max, minX, maxX, minY, maxY):  #Méthod
             if grille[x][y].type == "Salle" and i % 5 == 0:
                 grille[x][y].type = "Individu"
                 individu_array.append([grille[x][y]])
-            elif grille[x][y].type == "Salle":
-                i += 1
+            i += 1
     return grille, individu_array
-
-def UpdateVoisinsIndividu(caseArray, grille, type):
-    for case in caseArray:
-        if type == "Closest":
-            case.update_voisins_closest(grille)
-        elif type == "Algo":
-            case.update_voisins_algo(grille)
-    return caseArray
 
 def UpdateVoisinGrille(grille, minX, maxX, minY, maxY, type):
     for x in range(minX, maxX + 1):
@@ -130,4 +108,17 @@ def UpdateVoisinGrille(grille, minX, maxX, minY, maxY, type):
                 grille[x][y].update_voisins_algo(grille)
     return grille
 
-        
+#Astar.algorithm() retourne false, ce qui fait en sorte que je perds des individus qui ne sons pas rajouter dans le self.__closest_end *1
+def ClosestEnd(individu_array, grid, end):
+    count = 0
+    closest_end = PriorityQueue()
+    for individu in individu_array:
+        individu.update_voisins_closest(grid)
+        chemin = Astar.algorithm(None, grid, individu, end) #*1
+        if chemin :
+            closest_end.put((len(chemin), count, individu)) #Rammene individus pour ensuite fait l'Algo un par un 
+            count += 1
+        else: 
+            closest_end.put((len(chemin), count, individu))   # TROUVER QUOI METTRE A LA PLACE DU CHEMIN POUR QUIL SOIT APRES OU AVANT WTV
+            count += 1
+    return closest_end
