@@ -56,7 +56,11 @@ class Astar:
 
 		current_case = start 
 
-		if not len(current_case.voisins) == 0:
+		if len(current_case.voisins) == 1:
+			if current_case.voisins[0].get_type() == 'End':
+				is_done = True
+			return is_done, current_case.voisins[0]
+		elif not len(current_case.voisins) == 0:
 			for voisin in current_case.voisins:  #Analyse les voisin de la current_case
 				temp_g_score = g_score[current_case] + 1
 				if voisin.get_type() == "End":
@@ -65,16 +69,11 @@ class Astar:
 				if temp_g_score < g_score[voisin]:
 					came_from[voisin] = current_case # Ajoute la case au chemin le plus court
 					g_score[voisin] = temp_g_score
-					f_score[voisin] = temp_g_score + Astar.h(voisin.get_position(), end.get_position())
+					f_score[voisin] = temp_g_score + Astar.h(voisin.get_position(), end.get_position())   #Priority queue pour savoir quelle est le meilleur f score pour savoir ver quelle fin il ira.?
 					count += 1
 					open_set.put((f_score[voisin], count, voisin))
 			return is_done, open_set.get()[2]
-		elif len(current_case.voisins) == 1:
-			if current_case.voisins.get_type() == 'End':
-				is_done = True
-			return is_done, current_case.voisins[0]
 		else:
-			print("no voisins")
 			return False
 
 		

@@ -1,4 +1,4 @@
-from Algo import *
+from Case import *
 from Astar import *
 from queue import PriorityQueue
 
@@ -111,6 +111,7 @@ def UpdateVoisinGrille(grille, minX, maxX, minY, maxY, type):
 #Astar.algorithm() retourne false, ce qui fait en sorte que je perds des individus qui ne sons pas rajouter dans le self.__closest_end *1
 def ClosestEnd(individu_array, grid, end):
     count = 0
+    BLOCKED_VALUE = 1000
     closest_end = PriorityQueue()
     for individu in individu_array:
         individu.update_voisins_closest(grid)
@@ -119,6 +120,7 @@ def ClosestEnd(individu_array, grid, end):
             closest_end.put((len(chemin), count, individu)) #Rammene individus pour ensuite fait l'Algo un par un 
             count += 1
         else: 
-            closest_end.put((len(chemin), count, individu))   # TROUVER QUOI METTRE A LA PLACE DU CHEMIN POUR QUIL SOIT APRES OU AVANT WTV
+            print("Failed Algo Shortest")
+            closest_end.put((BLOCKED_VALUE, count, individu))   # TROUVER QUOI METTRE A LA PLACE DU CHEMIN POUR QUIL SOIT APRES OU AVANT WTV
             count += 1
     return closest_end

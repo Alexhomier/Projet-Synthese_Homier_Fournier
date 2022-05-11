@@ -1,10 +1,7 @@
-import pygame
 from queue import PriorityQueue
 from State import *
 from Transform import Scaling, Traduction, GetWalls, PlaceIndividus, UpdateVoisinGrille, ClosestEnd
-from Algo import *
-
-from TEST_AstarAlgo import main
+from Astar import *
 
 WIDTH = 1000  # Taille de la fenêtre
 
@@ -45,12 +42,13 @@ class StateAlgo(State):
         self.__algo_done = False
         self.__closest_end = PriorityQueue()
         self.__final_array = []
+        self.__frames = []
 
         self.__grille = Traduction(grille["grille"], 1000, self.__grille_size)
         #resultScale = Scaling(self.__grille, 1000, self.__grille_size)
         #self.__grille = resultScale[0]
         #self.__porte_array = resultScale[1]
-        resultWalls = GetWalls(self.__grille, self.__grille_size, self.__minX, self.__maxX, self.__minY, self.__maxY)
+        resultWalls = GetWalls(self.__grille, self.__grille_size, self.__minX, self.__maxX, self.__minY, self.__maxY) #Gestion d'erreur s'il n'y a pas de porte extérieur
         self.__grille = resultWalls[0]
         self.__sortie = resultWalls[1]
 
@@ -74,9 +72,8 @@ class StateAlgo(State):
     def _do_entering_action(self):
         print("Entering Algo")
 
-# TROUVER MOYEN DAJOUTER INDIVIDU MEME SI ON A PAS SON CHEMIN
-# Problème d'oscillation, certain vont retourner sur une case précédente et sortent malgré tout ##
-# Les individus se retrouvent sans voisins, donc bloqué sans pouvoir (Trouver manière de debug) *2
+
+# Les individus se retrouvent bloqué dans un coin, j'imagine que c'est parce que le voisins est forcé s'il y en a uniquement un.
 #
     def _do_in_state_action(self):
         if not self.__algo_done:
@@ -86,18 +83,24 @@ class StateAlgo(State):
                 self.__grille = UpdateVoisinGrille(self.__grille, self.__minX, self.__maxX, self.__minY, self.__maxY, "Algo")
                 self.__individu_array = [] 
 
+
+                ### Créer méthode qui retournera les frames avec le code ci-dessous. ###
+
                 while not self.__closest_end.empty():
                     current_individu = self.__closest_end.get()[2]
                     current_individu.update_voisins_algo(self.__grille)
-                    if not current_individu.voisins == [None]:  #*2
+                    if not len(current_individu.voisins) == 0:  #*2
                         result = Astar.single_algo(None, self.__grille, current_individu, self.__sortie)
                         if result:
                             is_done = result[0]
                             next_case = result[1]
                             if is_done:
-                                next_case.type = "End"
+                                current_individu.reset()
+                                pos_last = current_individu.get_position()
+                                self.__grille[pos_last[0]][pos_last[1]] = current_individu
                                 came_from_last = current_individu.get_came_from()
                                 next_case.add_came_from(came_from_last, current_individu)
+                                next_case.type = "End"
                                 self.__final_array.append(next_case)
                                 self.__nb_out += 1
                                 print(self.__nb_out)
@@ -112,18 +115,17 @@ class StateAlgo(State):
                                 self.__grille[pos_next[0]][pos_next[1]] = next_case
                                 self.__individu_array.append(next_case)
                             else:
-                                print("Case Identique")
+                                print("Didn't move")
                                 self.__individu_array.append(current_individu)
                         else:
-                            print("Blocked NOT GOOD", current_individu.get_position())
+                            print("Blocked, Algo", current_individu.get_position())
                             self.__individu_array.append(current_individu)
                     else:
                         print("Blocked, sans voisins", current_individu.get_position())
                         self.__individu_array.append(current_individu)
                         
-                    #Ajouter une sauvegarde de individu_arry qui sera l'équivalent d'un frame
+                    self.__frames.append(self.__individu_array) #Ajouter une sauvegarde de individu_arry qui sera l'équivalent d'un frame
             self.__algo_done = True
-            #main(pygame.display.set_mode((WIDTH, WIDTH)), WIDTH, self.__grille)
 
     def _do_exiting_action(self):
         print("Exiting Algo")
@@ -138,6 +140,34 @@ class StateAlgo(State):
 
     def _algo_done(self):
         return self.__algo_done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class StateDone(State):
     def __init__(self):

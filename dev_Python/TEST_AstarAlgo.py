@@ -1,5 +1,4 @@
 from cgitb import reset
-import pygame
 import math
 from queue import PriorityQueue  # element based on highest priority is dequeued
 
