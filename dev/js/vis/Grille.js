@@ -1,16 +1,18 @@
 class Grille {
-    constructor(grille, packImports, gridInfo) {
-        const WALLHEIGHT = 5.;
-        const CONVERSIONTO3D = 5.;
+    constructor(grille, packImports, indAnimation) {
+        const WALLHEIGHT = 5.0;
+        const CONVERSIONTO3D = 5.0;
         const WALLSCOLOR = 0x919191;
         const EXTWALLSCOLOR = 0x6d6d6d;
         const DOORFRAMECOLOR = 0xff0000;
-        const INDIVIDUSSCALE = 3.;
+        const INDIVIDUSSCALE = 3.0;
         const BIGSIZE = 50;
 
         this.grille = grille;
         this.packImports = packImports;
-        this.gridInfo = gridInfo;
+        this.indAnimation = indAnimation;
+
+        this.indIsLoad = false;
 
         let sizeX = grille.maxX - grille.minX;
         let sizeY = grille.maxY - grille.minY;
@@ -33,7 +35,7 @@ class Grille {
             extWallsColor: EXTWALLSCOLOR,
             doorFrameColor: DOORFRAMECOLOR,
             individusScale: INDIVIDUSSCALE
-        }
+        };
 
         this.arrayWalls = [];
         this.dictInd = [];
@@ -47,14 +49,16 @@ class Grille {
             id: 0,
             x: this.gridInfo.maxX / 2 + 1,
             y: this.gridInfo.maxY / 2 + 1
-        }
+        };
         this.arrayIndividus[1] = {
             id: 1,
             x: this.gridInfo.maxX / 2 + 3,
             y: this.gridInfo.maxY / 2 + 3
-        }
+        };
 
         let ind = [];
+        let ind2 = [];
+        let ind3 = [];
         this.frameArray = [];
 
         // newPosX: this.gridInfo.maxX / 2 + 4,
@@ -65,91 +69,93 @@ class Grille {
             newPosX: this.gridInfo.maxX / 2 + 1,
             newPosY: this.gridInfo.maxY / 2 + 1,
             isOut: false
-        }
+        };
         ind[1] = {
             id: 1,
             newPosX: this.gridInfo.maxX / 2 + 3,
             newPosY: this.gridInfo.maxY / 2 + 3,
             isOut: false
-        }
+        };
 
         this.frameArray[0] = ind;
 
-        ind[0] = {
+        ind2[0] = {
             id: 0,
-            newPosX: this.gridInfo.maxX / 2 + 2,
-            newPosY: this.gridInfo.maxY / 2 + 2,
+            newPosX: this.gridInfo.maxX / 2 + 10,
+            newPosY: this.gridInfo.maxY / 2 + 10,
             isOut: false
-        }
-        ind[1] = {
+        };
+        ind2[1] = {
             id: 1,
             newPosX: this.gridInfo.maxX / 2 + 2.5,
             newPosY: this.gridInfo.maxY / 2 + 2.5,
             isOut: false
-        }
+        };
 
-        this.frameArray[1] = ind
+        this.frameArray[1] = ind2;
 
-        ind[0] = {
+        ind3[0] = {
             id: 0,
-            newPosX: this.gridInfo.maxX / 2 + 3,
-            newPosY: this.gridInfo.maxY / 2 + 3,
+            newPosX: this.gridInfo.maxX / 2 + 15,
+            newPosY: this.gridInfo.maxY / 2 + 15,
             isOut: false
-        }
-        ind[1] = {
+        };
+        ind3[1] = {
             id: 1,
             newPosX: this.gridInfo.maxX / 2 + 3.5,
             newPosY: this.gridInfo.maxY / 2 + 3.5,
             isOut: false
-        }
-        this.frameArray[2] = ind;
+        };
+        this.frameArray[2] = ind3;
     }
 
     start() {
-        this.getWalls();
+        return new Promise((resolve, error) => {
+            this.getWalls();
 
-        this.planeFormBase = new PlaneFormBase(this.packImports, this.gridInfo);
-        this.planeFormWalls = new PlaneFormWalls(this.packImports, this.gridInfo);
-        this.planeFormWalls.setExtWalls();
+            this.planeFormBase = new PlaneFormBase(this.packImports, this.gridInfo);
+            this.planeFormWalls = new PlaneFormWalls(this.packImports, this.gridInfo);
+            this.planeFormWalls.setExtWalls();
 
-        this.arrayWalls.forEach(wall => {
-            if (wall.state != "Porte")
-                this.planeFormWalls.addWall(wall);
-            else {
-                this.planeFormWalls.addWall(wall, true);
+            this.arrayWalls.forEach(wall => {
+                if (wall.state != "Porte")
+                    this.planeFormWalls.addWall(wall);
+                else {
+                    this.planeFormWalls.addWall(wall, true);
+                }
+            });
+
+            for (let x = this.gridInfo.minX; x <= this.gridInfo.maxX; x++) {
+                if (this.grille.grille[x][0].state == "Porte") {
+                    this.planeFormWalls.addDoor(x, 0);
+                }
+                if (this.grille.grille[x][this.gridInfo.sizeX - 1].state == "Porte") {
+                    this.planeFormWalls.addDoor(x, this.gridInfo.sizeX - 1);
+                }
             }
-        });
-
-        for (let x = this.gridInfo.minX; x <= this.gridInfo.maxX; x++) {
-            if (this.grille.grille[x][0].state == "Porte") {
-                this.planeFormWalls.addDoor(x, 0);
+            for (let y = this.gridInfo.minY; y <= this.gridInfo.maxY; y++) {
+                if (this.grille.grille[0][y].state == "Porte") {
+                    this.planeFormWalls.addDoor(0, y);
+                }
+                if (this.grille.grille[this.gridInfo.sizeY - 1][y].state == "Porte") {
+                    this.planeFormWalls.addDoor(this.gridInfo.sizeY - 1, y);
+                }
             }
-            if (this.grille.grille[x][this.gridInfo.sizeX - 1].state == "Porte") {
-                this.planeFormWalls.addDoor(x, this.gridInfo.sizeX - 1);
-            }
-        }
-        for (let y = this.gridInfo.minY; y <= this.gridInfo.maxY; y++) {
-            if (this.grille.grille[0][y].state == "Porte") {
-                this.planeFormWalls.addDoor(0, y);
-            }
-            if (this.grille.grille[this.gridInfo.sizeY - 1][y].state == "Porte") {
-                this.planeFormWalls.addDoor(this.gridInfo.sizeY - 1, y);
-            }
-        }
 
-        this.planeFormWalls.removeDoorsfromWalls();
+            this.planeFormWalls.removeDoorsfromWalls();
 
-        this.getIndividusJSON()
-            .then(resolve => {
-                this.packImports.individusJSON = resolve;
+            this.getIndividusJSON()
+                .then(resolve => {
+                    this.packImports.individusJSON = resolve;
 
-                this.arrayIndividus.forEach(ind => {
-                    this.dictInd[ind.id] = new Individus(this.packImports, this.gridInfo, this.packImports.individusJSON.clone());
-                    this.dictInd[ind.id].addIndividu(ind);
+                    this.arrayIndividus.forEach(ind => {
+                        this.dictInd[ind.id] = new Individus(this.packImports, this.gridInfo, this.packImports.individusJSON.clone());
+                        this.dictInd[ind.id].createIndividus(ind);
+                    });
+
+                    this.setFrameArray();
                 });
-
-                this.setFrameArray();
-            })
+        });
     }
 
     getWalls() {
@@ -254,7 +260,7 @@ class Grille {
                     error(err);
                 }
             );
-        })
+        });
     }
 
     setFrameArray() {
@@ -265,24 +271,56 @@ class Grille {
             this.frame.add(frame);
         });
 
+        this.indIsLoad = true;
+
+        return this.frame.getFirstNode();
+    }
+
+    getFirstFrame() {
+        if (!this.indIsLoad) {
+            console.warn("Wrong initialisation for : Frame, OverPass error.");
+            return this.setFrameArray();
+        }
         return this.frame.getFirstNode();
     }
 
     getNextFrame(currentNode) {
-        console.log(this.dictInd)
-        let nextFrame = this.frame.getNextNode(currentNode);
-        nextFrame.value.forEach(ind => {
-            console.log(ind.id)
-            this.dictInd[ind.id].moveTo(ind.x, ind.y);
-        });
-        return nextFrame;
+        if (this.indIsLoad) {
+            if (currentNode) {
+                let nextFrame = this.frame.getNextNode(currentNode);
+                if (nextFrame) {
+                    nextFrame.value.forEach(ind => {
+                        this.dictInd[ind.id].moveIndividus(ind.id, ind.newPosX, ind.newPosY, this.indAnimation);
+                    });
+                    return nextFrame;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     getPrevFrame(currentNode) {
-        let prevFrame = this.frame.getNextNode(currentNode);
-        prevFrame.value.forEach(ind => {
-            this.dictInd[ind.id].moveTo(ind.x, ind.y);
-        });
-        return prevFrame;
+        if (this.indIsLoad) {
+            if (currentNode) {
+                let prevFrame = this.frame.getNextNode(currentNode);
+                if (prevFrame) {
+                    prevFrame.value.forEach(ind => {
+                        this.dictInd[ind.id].moveIndividus(ind.id, ind.newPosX, ind.newPosY, this.indAnimation);
+                    });
+                    return prevFrame;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }

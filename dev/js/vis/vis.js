@@ -8,25 +8,28 @@ window.addEventListener("load", () => {
     const canvas = document.getElementById("canvas");
 
     spriteList.push(new Scene(canvas));
-    grille = new Grille(getGrille(), spriteList[0].getPackImport());
-    grille.start();
-    console.clear();
+    spriteList.push(new IndAnimation());
+    grille = new Grille(getGrille(), spriteList[0].getPackImport(), spriteList[1]);
+    grille.start()
+        .then(currentFrame = getFirstFrame());
 
-    currentFrame = grille.setFrameArray();
-
-    getNextFrame();
-    console.log(currentFrame)
+    document.getElementById('canvas').addEventListener('click', function(e) {
+        currentFrame = getNextFrame();
         // playFrame(true);
+    });
 
     tick();
 });
+
+function getFirstFrame() {
+    return grille.getFirstFrame();
+}
 
 function getNextFrame() {
     let nextFrame = grille.getNextFrame(currentFrame);
     if (nextFrame) {
         currentFrame = nextFrame;
-        grille.moveInd(currentFrame.value);
-        return true;
+        return currentFrame;
     } else {
         // fin de la simulation
         return false;
@@ -37,8 +40,7 @@ function getPrevFrame() {
     let prevFrame = grille.getPrevFrame(currentFrame);
     if (prevFrame) {
         currentFrame = nextFrame;
-        grille.moveInd(currentFrame);
-        return true;
+        return currentFrame;
     } else {
         // Début de la simulation
         return false;
@@ -46,7 +48,7 @@ function getPrevFrame() {
 }
 
 function playFrame(play = false) {
-    let nextFrame = getNextFrame();
+    nextFrame = getNextFrame();
 
     if (play && nextFrame) {
         timeOutVar = setTimeout(function() { playFrame(true); }, sleepTimePlay * 1000);
@@ -70,4 +72,4 @@ const tick = () => {
         sprite.tick();
     }
     requestAnimationFrame(tick);
-}
+};

@@ -19,8 +19,28 @@
     <script src="./js/vis/FrameList.js"></script>
     <script src="./js/vis/Node.js"></script>
     <script src="./js/vis/ConversionTo3D.js"></script>
+    <script src="./js/vis/IndAnimation.js"></script>
 </head>
 <body>
-    <div id="canvas" class="canvas"></div>
+    <div id="canvas" class="canvas">
+        <div class="control-bg">
+            <div class="control-container-compas">
+
+            </div>
+            <div class="control-container-infos-commands">
+                <div class="control-container-infos">
+                    <div class="control-container-infos-little">
+
+                    </div>
+                </div>
+                <div class="control-container-commands">
+                    <div class="control-container-commands-little">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
