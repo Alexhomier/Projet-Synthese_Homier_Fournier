@@ -16,8 +16,46 @@
     <script src="./js/vis/PlaneFormBase.js"></script>
     <script src="./js/vis/PlaneFormWalls.js"></script>
     <script src="./js/vis/Individus.js"></script>
+    <script src="./js/vis/FrameList.js"></script>
+    <script src="./js/vis/Node.js"></script>
+    <script src="./js/vis/ConversionTo3D.js"></script>
+    <script src="./js/vis/IndAnimation.js"></script>
 </head>
 <body>
-    <div id="canvas" class="canvas"></div>
+    <div id="canvas" class="canvas">
+    <div class="control-bg">
+        <div class="control-container-compas">
+            <h4 class="control-compas-title">Compas</h4>
+            <div class="control-container-compas-little">
+                <div class="control-item-compas">
+                    <div class="control-item-north-compas"></div>
+                </div>
+            </div>
+        </div>
+        <div class="control-container-infos-commands">
+            <div class="control-container-infos">
+                <h4 class="control-infos-title">Infos</h4>
+                <div class="control-container-infos-little">
+                    <h5 class="control-info" id="indEvac">Individus évacués : 0</h5>
+                    <h5 class="control-info" id="currentFrameCount">Position de la simulation : 0</h5>
+                </div>
+            </div>
+            <div class="control-container-commands">
+                <h4 class="control-commands-title">Commandes</h4>
+                <div class="control-container-commands-little">
+                    <button class="control-command-backward"></button>
+                    <button class="control-command-play"></button>
+                    <button class="control-command-forward"></button>
+                    <button class="control-command-pause" style="display: none;"></button>
+                </div>
+            </div>
+        </div>
+        <h3 class="control-north">N</h3>
+        <h3 class="control-south">S</h3>
+        <h3 class="control-west">O</h3>
+        <h3 class="control-est">E</h3>
+    </div>
+    </div>
+
 </body>
 </html>

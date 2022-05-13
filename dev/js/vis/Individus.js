@@ -1,53 +1,30 @@
 class Individus {
-    constructor(grille, packImports, grid) {
+    constructor(packImports, grid, object) {
         this.packImports = packImports;
         this.grid = grid;
-        this.arrayInd = [];
-        this.arrayInd[0] = {
-            x: 5,
-            y: 5
-        }
+        this.object = object;
+        this.convertionTo3D = new ConversionTo3D(this.grid);
     }
 
-    setAllIndividus() {
-        this.arrayInd.forEach(ind => {
-            console.log(ind);
-            this.addIndividus(ind)
-        });
+    createIndividus(ind) {
+        this.object.scale.set(this.grid.individusScale, this.grid.individusScale, this.grid.individusScale);
+
+        let pos = this.convertionTo3D.get3DPositions(ind.x, ind.y);
+        let posX = pos.x;
+        let posY = pos.y;
+
+        this.object.position.set(posX, this.object.scale.y / 2, posY);
+        this.packImports.scene.add(this.object);
     }
 
-    addIndividus(individu) {
-        const loader = new THREE.ObjectLoader();
-        this.individu = individu;
-        let optionsThis = this;
+    moveIndividus(id, x, y, animation) {
+        let pos = this.convertionTo3D.get3DPositions(x, y);
+        let posX = pos.x;
+        let posY = pos.y;
 
-        loader.load(
-            // resource URL
-            "../../../media/3dObject/Individu.json",
-
-            // onLoad callback
-            function(obj) {
-                optionsThis.createIndividus(obj, optionsThis.individu);
-            },
-
-            // onProgress callback
-            function(xhr) {
-                if (xhr.total * 100 == 100) {
-                    console.info("Individus chargés.");
-                }
-            },
-
-            // onError callback
-            function(err) {
-                console.error(err);
-            }
-        );
-        return optionsThis;
+        animation.addAnimation(id, posX, posY, this.object);
+        // this.object.position.set(posX, this.object.scale.y / 2, posY);
     }
 
-    createIndividus(object, ind) {
-        object.scale.set(3, 3, 3);
-        object.position.set(ind.x * this.grid.conversionToDDD - this.grid.sizeX / 2, object.scale.y / 2, ind.y * this.grid.conversionToDDD - this.grid.sizeY / 2 - this.grid.minY);
-        this.packImports.scene.add(object);
-    }
+
 }

@@ -13,6 +13,7 @@ class AjaxActionIndex extends CommonAction
     protected function executeAction()
     {
         $result = null;
+
         if(isset($_POST["action"])){
             if($_POST["action"] == "login"){
                 if(isset($_POST["username"]) && isset($_POST["password"])){
@@ -21,7 +22,8 @@ class AjaxActionIndex extends CommonAction
                         $result[0] = "Le nom d'utilisateur ou le mot de passe est incorrect, veuillez réessayer.";
                         $result[1] = true;
                     } else {
-                        $result = $info[0]["id"];
+                        $result[0] = $info[0]["id"];
+                        $result[1] = false;
                     }
         
                 }

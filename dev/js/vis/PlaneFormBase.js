@@ -7,7 +7,7 @@ class PlaneFormBase {
     }
 
     createPlane() {
-        const geometry = new THREE.PlaneGeometry(this.grid.sizeX * this.grid.conversionToDDD, this.grid.sizeY * this.grid.conversionToDDD);
+        const geometry = new THREE.PlaneGeometry(this.grid.sizeX * this.grid.conversionTo3D, this.grid.sizeY * this.grid.conversionTo3D);
         const material = new THREE.MeshBasicMaterial({ color: 0x4d4d4d, side: THREE.DoubleSide });
         const plane = new THREE.Mesh(geometry, material);
         plane.rotateX(-Math.PI / 2)

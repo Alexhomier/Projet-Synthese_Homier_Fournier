@@ -15,3 +15,296 @@ body {
     width: 100%;
     height: 100%;
 }
+
+.control-bg {
+    width: 30%;
+    height: 20%;
+    display: flex;
+    position: absolute;
+    top: 2%;
+    left: 1%;
+    -webkit-box-shadow: 0px 0px 14px 2px #000000;
+    box-shadow: 0px 0px 14px 2px #000000;
+    justify-content: space-between;
+}
+
+.control-container-compas {
+    width: 40%;
+    height: 100%;
+    background-color: rgb(15, 15, 15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-container-compas-little {
+    height: 90%;
+    width: 90%;
+    border: 1px solid rgb(171, 171, 171);
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-compas-title {
+    display: inline-flex;
+    width: 12%;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: rgb(171, 171, 171);
+    font-family: 'Hind Siliguri', sans-serif;
+    background-color: rgb(15, 15, 15);
+    position: absolute;
+    top: 0%;
+    left: 3.5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-item-compas {
+    width: 150px;
+    height: 150px;
+    background-color: rgb(4, 4, 4);
+    border: 1px solid rgb(77, 77, 77);
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 50%;
+    transform: rotate(0deg);
+}
+
+.control-item-north-compas {
+    width: 1px;
+    height: 50%;
+    background-color: red;
+    transform: rotate(0);
+}
+
+.control-container-infos-commands {
+    width: 59.8%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.control-container-infos {
+    width: 100%;
+    height: 49.9%;
+    background-color: rgb(15, 15, 15);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-container-infos-little {
+    height: 80%;
+    width: 90%;
+    border: 1px solid rgb(171, 171, 171);
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.control-infos-title {
+    display: inline-flex;
+    width: 8%;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: rgb(171, 171, 171);
+    font-family: 'Hind Siliguri', sans-serif;
+    background-color: rgb(15, 15, 15);
+    position: absolute;
+    top: 0%;
+    left: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-info {
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5%;
+    color: rgb(171, 171, 171);
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 0.7rem;
+    margin: 0%;
+}
+
+.control-container-commands {
+    width: 100%;
+    height: 49.9%;
+    background-color: rgb(15, 15, 15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-container-commands-little {
+    height: 80%;
+    width: 90%;
+    border: 1px solid rgb(171, 171, 171);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-commands-title {
+    display: inline-flex;
+    width: 16%;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: rgb(171, 171, 171);
+    font-family: 'Hind Siliguri', sans-serif;
+    background-color: rgb(15, 15, 15);
+    position: absolute;
+    top: 42%;
+    left: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-command-backward {
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../media/img/vis/backward.png');
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    margin: 2%;
+    cursor: pointer;
+}
+
+.control-command-backward:hover {
+    background-image: url('../media/img/vis/backward-hover.png');
+}
+
+.control-command-play {
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../media/img/vis/play.png');
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    margin: 2%;
+    cursor: pointer;
+}
+
+.control-command-play:hover {
+    background-image: url('../media/img/vis/play-hover.png');
+}
+
+.control-command-pause {
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../media/img/vis/pause.png');
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    margin: 2%;
+    cursor: pointer;
+}
+
+.control-command-pause:hover {
+    background-image: url('../media/img/vis/pause-hover.png');
+}
+
+.control-command-forward {
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../media/img/vis/forward.png');
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    margin: 2%;
+    cursor: pointer;
+}
+
+.control-command-forward:hover {
+    background-image: url('../media/img/vis/forward-hover.png');
+}
+
+.control-north {
+    position: absolute;
+    top: 17%;
+    left: 18%;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(171, 171, 171);
+    opacity: 0.3;
+    z-index: 3;
+    font-family: 'Hind Siliguri', sans-serif;
+}
+
+.control-south {
+    position: absolute;
+    top: 62%;
+    left: 18%;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(171, 171, 171);
+    opacity: 0.3;
+    z-index: 3;
+    font-family: 'Hind Siliguri', sans-serif;
+}
+
+.control-est {
+    position: absolute;
+    top: 40%;
+    left: 9%;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(171, 171, 171);
+    opacity: 0.3;
+    z-index: 3;
+    font-family: 'Hind Siliguri', sans-serif;
+}
+
+.control-west {
+    position: absolute;
+    top: 40%;
+    left: 27%;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(171, 171, 171);
+    opacity: 0.3;
+    z-index: 3;
+    font-family: 'Hind Siliguri', sans-serif;
+}
