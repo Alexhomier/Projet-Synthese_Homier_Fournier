@@ -1,6 +1,7 @@
 let spriteList = [];
 let grille;
 let currentFrame;
+let currentFrameCount = 0;
 let sleepTimePlay = 1;
 let timeOutVar;
 
@@ -13,15 +14,43 @@ window.addEventListener("load", () => {
     grille.start()
         .then(currentFrame = getFirstFrame());
 
-    document.getElementById('canvas').addEventListener('click', function(e) {
-        currentFrame = getNextFrame();
-        // playFrame(true);
-    });
+    setOnClick();
 
     tick();
 });
 
+function setOnClick() {
+    document.querySelector('.control-command-backward').addEventListener('click', function(e) {
+        currentFrame = getPrevFrame();
+    });
+    setOnClickPlay();
+    document.querySelector('.control-command-forward').addEventListener('click', function(e) {
+        currentFrame = getNextFrame();
+    });
+}
+
+function setOnClickPlay() {
+    document.querySelector('.control-command-play').addEventListener('click', function(e) {
+        if (!!document.querySelector('.control-command-play')) {
+            document.querySelector('.control-command-play').className = "control-command-pause";
+            setOnClickPause();
+            currentFrame = playFrame(true);
+        }
+    });
+}
+
+function setOnClickPause() {
+    document.querySelector('.control-command-pause').addEventListener('click', function(e) {
+        if (!!document.querySelector('.control-command-pause')) {
+            document.querySelector('.control-command-pause').className = "control-command-play";
+            setOnClickPlay();
+            currentFrame = playFrame(false);
+        }
+    });
+}
+
 function getFirstFrame() {
+    currentFrameCount = 0;
     return grille.getFirstFrame();
 }
 
@@ -29,6 +58,7 @@ function getNextFrame() {
     let nextFrame = grille.getNextFrame(currentFrame);
     if (nextFrame) {
         currentFrame = nextFrame;
+        ++currentFrameCount;
         return currentFrame;
     } else {
         // fin de la simulation
@@ -40,6 +70,7 @@ function getPrevFrame() {
     let prevFrame = grille.getPrevFrame(currentFrame);
     if (prevFrame) {
         currentFrame = nextFrame;
+        --currentFrameCount;
         return currentFrame;
     } else {
         // Début de la simulation
@@ -51,8 +82,13 @@ function playFrame(play = false) {
     nextFrame = getNextFrame();
 
     if (play && nextFrame) {
+        ++currentFrameCount;
         timeOutVar = setTimeout(function() { playFrame(true); }, sleepTimePlay * 1000);
     } else {
+        if (!!document.querySelector('.control-command-pause')) {
+            document.querySelector('.control-command-pause').className = "control-command-play";
+            setOnClickPlay();
+        }
         clearTimeout(timeOutVar);
     }
 }
@@ -71,5 +107,7 @@ const tick = () => {
         const sprite = spriteList[i];
         sprite.tick();
     }
+
+    document.querySelector("#currentFrameCount").innerHTML = `Position de la simulation : ${currentFrameCount}`;
     requestAnimationFrame(tick);
 };

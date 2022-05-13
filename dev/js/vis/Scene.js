@@ -15,7 +15,7 @@ class Scene {
             scene,
             renderer,
             camera,
-        }
+        };
 
         // temp
         const axesHelper = new THREE.AxesHelper(20);
@@ -78,6 +78,7 @@ class Scene {
     }
 
     tick() {
+        document.querySelector(".control-item-compas").style.transform = `rotate(${this.orbitcontrol.getAzimuthalAngle()}rad)`;
         this.renderer.render(this.scene, this.camera);
     }
 
