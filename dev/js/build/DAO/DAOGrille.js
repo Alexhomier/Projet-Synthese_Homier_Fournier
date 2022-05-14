@@ -14,10 +14,10 @@ class DAOGrille {
             }
             fetch(`http://159.89.124.82:8500/algo/`, {
                     method: "post",
-                    credentials: "omit",
+                    credentials: "include",
                     body: JSON.stringify(this.dictValues),
                     headers: new Headers({
-                        "content-type": "application/x-www-form-urlencoded\r\n"
+                        "content-type": "application/json"
                     })
                 })
                 .then(response => response.json())
