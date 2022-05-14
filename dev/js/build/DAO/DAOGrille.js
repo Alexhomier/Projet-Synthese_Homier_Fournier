@@ -12,7 +12,7 @@ class DAOGrille {
             } else {
                 loading.innerHTML = "Chargement de la simulation en cours...";
             }
-            fetch(`http://127.0.0.1:5000/post`, {
+            fetch(`https://masimulation.ca/algo`, {
                     method: "post",
                     credentials: "omit",
                     body: JSON.stringify(this.dictValues),

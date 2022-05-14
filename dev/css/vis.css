@@ -281,7 +281,7 @@ body {
     font-family: 'Hind Siliguri', sans-serif;
 }
 
-.control-est {
+.control-west {
     position: absolute;
     top: 40%;
     left: 9%;
@@ -295,7 +295,7 @@ body {
     font-family: 'Hind Siliguri', sans-serif;
 }
 
-.control-west {
+.control-est {
     position: absolute;
     top: 40%;
     left: 27%;
