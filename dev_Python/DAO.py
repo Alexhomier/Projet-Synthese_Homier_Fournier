@@ -17,7 +17,7 @@ def post():
     return jsonify(grille)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='159.89.124.82', port=5000)
 
 # """
 #     run is the main of the algo.
