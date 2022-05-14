@@ -12,7 +12,7 @@ class DAOGrille {
             } else {
                 loading.innerHTML = "Chargement de la simulation en cours...";
             }
-            fetch(`https://159.89.124.82:5000/algo`, {
+            fetch(`http://159.89.124.82:5000/algo`, {
                     method: "post",
                     credentials: "omit",
                     body: JSON.stringify(this.dictValues),
