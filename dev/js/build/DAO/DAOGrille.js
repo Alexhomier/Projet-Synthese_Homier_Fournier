@@ -12,12 +12,12 @@ class DAOGrille {
             } else {
                 loading.innerHTML = "Chargement de la simulation en cours...";
             }
-            fetch(`http://159.89.124.82:5000/algo`, {
+            fetch(`http://159.89.124.82:443/algo/`, {
                     method: "post",
                     credentials: "omit",
                     body: JSON.stringify(this.dictValues),
                     headers: new Headers({
-                        "content-type": "application/json"
+                        "content-type": "application/x-www-form-urlencoded\r\n"
                     })
                 })
                 .then(response => response.json())
