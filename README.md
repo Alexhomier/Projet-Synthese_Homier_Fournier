@@ -19,4 +19,5 @@ Présenté par: Alexandre Homier et Mathieu Fournier.
  - source projetSynthese/bin/activate
  - pip install flask
  - pip install flask-cors
+ - pip install pyopenssl
  - python3 DAO.py
