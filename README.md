@@ -12,3 +12,11 @@ Présenté par: Alexandre Homier et Mathieu Fournier.
  - F5 Python Run
  - SUPPRIMER LE DOSSIER PS (VENV) AVANT DE PUSH
  - pip install pygame (temp)
+
+ ---------UBUNTU------------------
+ - apt-get install -y python3-venv
+ - python3 -m venv projetSynthese
+ - source projetSynthese/bin/activate
+ - pip install flask
+ - pip install flask-cors
+ - python3 DAO.py
