@@ -1,6 +1,6 @@
 from queue import PriorityQueue
 from State import *
-from Transform import Scaling, Traduction, GetWalls, PlaceIndividus, UpdateVoisinGrille, ClosestEnd
+from Transform import Scaling, Traduction, GetWalls, PlaceIndividus, UpdateVoisinGrille, ClosestEnd, ChooseEnd
 from Astar import *
 
 WIDTH = 1000  # Taille de la fenêtre
@@ -45,18 +45,19 @@ class StateAlgo(State):
         self.__frames = []
 
         self.__grille = Traduction(grille["grille"], 1000, self.__grille_size)
-        #resultScale = Scaling(self.__grille, 1000, self.__grille_size)
+        #resultScale = Scaling(grille["grille"], 1000, self.__grille_size)
         #self.__grille = resultScale[0]
         #self.__porte_array = resultScale[1]
         resultWalls = GetWalls(self.__grille, self.__grille_size, self.__minX, self.__maxX, self.__minY, self.__maxY) #Gestion d'erreur s'il n'y a pas de porte extérieur
         self.__grille = resultWalls[0]
-        self.__sortie = resultWalls[1]
+        self.__end_array = resultWalls[1]
 
         self.__individu_array = []
         resultIndividu = PlaceIndividus(self.__grille, self.__nb_ind_par_salle, self.__minX, self.__maxX, self.__minY, self.__maxY)
         self.__grille = resultIndividu[0]
         for individu in resultIndividu[1]:
             self.__individu_array.append(individu[0])
+    
         self.__nb_in = len(self.__individu_array)
         self.__nb_out = 0
 
@@ -79,10 +80,10 @@ class StateAlgo(State):
         if not self.__algo_done:
             while self.__nb_out < self.__nb_in: 
                 self.__grille = UpdateVoisinGrille(self.__grille, self.__minX, self.__maxX, self.__minY, self.__maxY, "Closest")
-                self.__closest_end = ClosestEnd(self.__individu_array, self.__grille, self.__sortie)
+                self.__individu_array = ChooseEnd(self.__grille, self.__end_array, self.__individu_array)
+                self.__closest_end = ClosestEnd(self.__individu_array, self.__grille)
                 self.__grille = UpdateVoisinGrille(self.__grille, self.__minX, self.__maxX, self.__minY, self.__maxY, "Algo")
                 self.__individu_array = [] 
-
 
                 ### Créer méthode qui retournera les frames avec le code ci-dessous. ###
 
@@ -90,7 +91,7 @@ class StateAlgo(State):
                     current_individu = self.__closest_end.get()[2]
                     current_individu.update_voisins_algo(self.__grille)
                     if not len(current_individu.voisins) == 0:  #*2
-                        result = Astar.single_algo(None, self.__grille, current_individu, self.__sortie)
+                        result = Astar.single_algo(None, self.__grille, current_individu, current_individu.get_end())
                         if result:
                             is_done = result[0]
                             next_case = result[1]
