@@ -4,36 +4,50 @@ class DAOGrille {
     }
 
     sendToPy(isSave = false) {
-        try {
-            document.querySelector(".loading").style.display = "flex";
-            let loading = document.querySelector(".loading-title");
-            if (isSave) {
-                loading.innerHTML = "Sauvegarde en cours...";
-            } else {
-                loading.innerHTML = "Chargement de la simulation en cours...";
+
+        $.ajax({
+            url: "http://masimulation.ca/algo",
+            dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
+            success: function(json) {
+                // do stuff with json (in this case an array)
+                return json;
+            },
+            error: function() {
+                console.error("Erreur lors du chargement de l'algorithme.");
             }
-            fetch(`https://159.89.124.82:8500/`, {
-                    method: "post",
-                    credentials: "include",
-                    body: JSON.stringify(this.dictValues),
-                    headers: new Headers({
-                        "content-type": "application/json"
-                    })
-                })
-                .then(response => response.json())
-                .then(response => {
-                    response = JSON.stringify(response);
-                    localStorage.setItem('grille', response);
-                    if (!isSave)
-                        window.location.href = "visualisation.php";
-                    else {
-                        this.saveGridBD(response);
-                        // window.location.href = "leaderboard.php";
-                    }
-                });
-        } catch (error) {
-            console.error("La console python est éteinte");
-        }
+        });
+
+
+        // try {
+        //     document.querySelector(".loading").style.display = "flex";
+        //     let loading = document.querySelector(".loading-title");
+        //     if (isSave) {
+        //         loading.innerHTML = "Sauvegarde en cours...";
+        //     } else {
+        //         loading.innerHTML = "Chargement de la simulation en cours...";
+        //     }
+        //     fetch(`https://159.89.124.82:8500/`, {
+        //             method: "post",
+        //             credentials: "include",
+        //             body: JSON.stringify(this.dictValues),
+        //             headers: new Headers({
+        //                 "content-type": "application/json"
+        //             })
+        //         })
+        //         .then(response => response.json())
+        //         .then(response => {
+        //             response = JSON.stringify(response);
+        //             localStorage.setItem('grille', response);
+        //             if (!isSave)
+        //                 window.location.href = "visualisation.php";
+        //             else {
+        //                 this.saveGridBD(response);
+        //                 // window.location.href = "leaderboard.php";
+        //             }
+        //         });
+        // } catch (error) {
+        //     console.error("La console python est éteinte");
+        // }
 
     }
 

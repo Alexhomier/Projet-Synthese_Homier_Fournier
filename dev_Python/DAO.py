@@ -6,7 +6,7 @@ from Manipulator import *
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/', methods = ['POST'])
+@app.route('/algo', methods = ['POST'])
 @cross_origin()
 def post():
     grille = request.get_json()

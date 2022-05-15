@@ -1,7 +1,5 @@
 RewriteEngine on
 
-Header add Access-Control-Allow-Origin "*"
-
 # Si le nom du fichier + ".php" est un fichier (-f)
 RewriteCond  %{REQUEST_FILENAME}.php -f
 
