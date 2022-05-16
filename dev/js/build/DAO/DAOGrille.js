@@ -4,37 +4,39 @@ class DAOGrille {
     }
 
     sendToPy(isSave = false) {
-        try {
-            document.querySelector(".loading").style.display = "flex";
-            let loading = document.querySelector(".loading-title");
-            if (isSave) {
-                loading.innerHTML = "Sauvegarde en cours...";
-            } else {
-                loading.innerHTML = "Chargement de la simulation en cours...";
-            }
-            fetch(`AjaxBuild.php`, {
-                    method: "post",
-                    credentials: "include",
-                    // body: JSON.stringify(this.dictValues),
-                    headers: new Headers({
-                        "content-type": "application/json",
-                    })
-                })
-                .then(response => response.json())
-                .then(response => {
-                    response = JSON.stringify(response);
-                    localStorage.setItem('grille', response);
-                    if (!isSave)
-                        console.log(response);
-                    // window.location.href = "visualisation.php";
-                    else {
-                        this.saveGridBD(response);
-                        // window.location.href = "leaderboard.php";
-                    }
-                });
-        } catch (error) {
-            console.error("La console python est éteinte");
+        document.querySelector(".loading").style.display = "flex";
+        let loading = document.querySelector(".loading-title");
+        if (isSave) {
+            loading.innerHTML = "Sauvegarde en cours...";
+        } else {
+            loading.innerHTML = "Chargement de la simulation en cours...";
         }
+        // https://reqbin.com/req/c-dwjszac0/curl-post-json-example
+        var url = "http://masimulation.ca:8500/algo";
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                localStorage.setItem('grille', xhr.responseText);
+                console.log(xhr.responseText);
+                if (!isSave)
+                    window.location.href = "visualisation.php";
+                else {
+                    this.saveGridBD(response);
+                    window.location.href = "leaderboard.php";
+                }
+            } else {
+                console.error("L' algorithme n'est pas disponible pour le moment.");
+            }
+        };
+
+        var data = JSON.stringify(this.dictValues);
+
+        xhr.send(data);
 
     }
 
