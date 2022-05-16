@@ -170,6 +170,7 @@ function setUpMultipleSelection() {
             } else {
                 grille.setCase(tempPos[0], [tempPos[1]], currentSelection);
             }
+            console.log(grille)
         });
 
         if (currentSelection == "Porte") {

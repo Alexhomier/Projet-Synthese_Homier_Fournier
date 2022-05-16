@@ -81,7 +81,7 @@ class Grille {
     }
 
     getminMax(x, y) {
-        if (this.grille[x][y].state) {
+        if (this.grille[x][y].state == "Salle" || this.grille[x][y].state == "Couloir") {
             if (this.minX > x)
                 this.minX = x;
             if (this.minY > y)
@@ -91,8 +91,6 @@ class Grille {
             if (this.maxY < y)
                 this.maxY = y;
         }
-
-        console.log(this.maxX, this.minX, this.maxY, this.minY)
     }
 
     setDoorValid(x, y) {

@@ -17,11 +17,6 @@ def post():
     # print(grille)
     return jsonify(grille)
 
-@app.route('/test', methods = ['GET'])
-@cross_origin()
-def get():
-    return "Hello world"
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8500)
 
