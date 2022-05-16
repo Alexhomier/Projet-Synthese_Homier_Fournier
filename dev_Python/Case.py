@@ -1,10 +1,15 @@
 from queue import PriorityQueue
 from turtle import end_fill
+
+from flask import jsonify
 from Astar import Astar
+from ClassJson import *
+import json
 
 
 class Case:
     def __init__(self, row, col, width, total_rows, type):
+        self.id = None
         self.type = type
         self.row = row
         self.col = col
@@ -16,11 +21,34 @@ class Case:
         self.came_from = []
         self.end = None
 
+    def to_json(self):
+        temp = CaseJson(self.row, self.col, self.type)
+        return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+
+    def to_json_individu(self):
+        temp = IndividuJson(self.row, self.col, self.id)
+        return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+    
+    def to_json_frames(self):
+        if self.type == "End":
+            temp = FramesJson(self.row, self.col, self.id, True)
+            return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        else:
+            temp = FramesJson(self.row, self.col, self.id, False)
+            return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+
+
     def set_end(self, end):
         self.end = end
-        
+            
     def get_end(self):
         return self.end
+    
+    def set_id(self, id):
+        self.id = id
+
+    def get_id(self):
+        return self.id
 
     def reset(self):
         self.type = "Salle"

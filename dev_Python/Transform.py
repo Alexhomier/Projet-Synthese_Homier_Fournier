@@ -4,7 +4,7 @@ from queue import PriorityQueue
 
 ### Méthodes pour la transformation des données en ce qui est necessaire pour l'aglorithme. ###
 
-BLOCKED_VALUE = 1000
+BLOCKED_VALUE = 1000  
 
 def Scaling(grille, width, rows): #Méthode qui permet de faire en sorte que les salles sont 10 de larges et non 1. pour pouvoir y inserer des personnes a linterieur des petites cases
     grid = []
@@ -19,11 +19,6 @@ def Scaling(grille, width, rows): #Méthode qui permet de faire en sorte que les
                 case = Case(i, j, gap, rows, "Salle")
             elif(grille[i // 10][j // 10]["state"] == "Porte"):
                 case = Case(i, j, gap, rows, "Porte")
-                # if i % 10 == 0 and j % 10 == 10 :
-                #     case = Case(i, j, gap, rows, "Porte")
-                #     porteArray.append([case])
-                # else :
-                #     case = Case(i, j, gap, rows, "Couloir")
             else :
                 case = Case(i, j, gap, rows, None)
             grid[i].append(case)
@@ -56,8 +51,6 @@ def checkWalls(x, y, size, grille):
     for condtion in conditionArray:
         if grille[x][y].type == "Salle" and condtion :
             isWall = True
-
-    # Trouver une condition qui permettera de trouver si un porte est collé sur un extrémité. Sinon il n'y a pas de "end"
 
     return isWall   
 
@@ -94,12 +87,15 @@ def Traduction(grille, width, rows):
 
 def PlaceIndividus(grille, nb_individus_max, minX, maxX, minY, maxY):  #Méthode qui va, aléatoirement, placer des individus dans une salle dépendement de son nombre max
     i = 0
+    counter = 0
     individu_array = []
     for x in range(minX, maxX + 1):
         for y in range(minY, maxY + 1):
             if grille[x][y].type == "Salle" and i % 5 == 0:
                 grille[x][y].type = "Individu"
+                grille[x][y].set_id(counter)
                 individu_array.append([grille[x][y]])
+                counter += 1
             i += 1
     return grille, individu_array
 
@@ -112,7 +108,6 @@ def UpdateVoisinGrille(grille, minX, maxX, minY, maxY, type):
                 grille[x][y].update_voisins_algo(grille)
     return grille
 
-#Astar.algorithm() retourne false, ce qui fait en sorte que je perds des individus qui ne sons pas rajouter dans le self.__closest_end *1
 def ClosestEnd(individu_array, grid):
     count = 0
     closest_end = PriorityQueue()
@@ -124,7 +119,7 @@ def ClosestEnd(individu_array, grid):
             count += 1
         else: 
             print("Failed Algo Shortest")
-            closest_end.put((BLOCKED_VALUE + count, count, individu))   # TROUVER QUOI METTRE A LA PLACE DU CHEMIN POUR QUIL SOIT APRES OU AVANT WTV
+            closest_end.put((BLOCKED_VALUE + count, count, individu)) 
             count += 1
     return closest_end
 
@@ -140,8 +135,25 @@ def ChooseEnd(grid, end_array, individu_array):
                     closest_end.put((len(chemin), count, sortie))
                     count += 1
                 else:
-                    closest_end.put((BLOCKED_VALUE + count, count, sortie))   # TROUVER QUOI METTRE A LA PLACE DU CHEMIN POUR QUIL SOIT APRES OU AVANT WTV
+                    closest_end.put((BLOCKED_VALUE + count, count, sortie))   
                     count += 1
                     print("Failed Algo Choix Sortie")
             individu.set_end(closest_end.get()[2])
     return individu_array
+
+def toJson(grid, param):
+    jsonString = ""
+    if param == "grid":
+        for x in range(len(grid)):
+            for y in range(len(grid)):
+                jsonString = jsonString + " " + grid[x][y].to_json()
+    elif param == "individu":
+        for individu in grid:
+            jsonString = jsonString + " " + individu.to_json_individu()
+    elif param == "frames":
+        for frames in grid:
+            jsonString += '"Frame" : [ '
+            for individu in frames:
+                jsonString = jsonString + " " + individu.to_json_frames()
+            jsonString += "] "
+    return jsonString

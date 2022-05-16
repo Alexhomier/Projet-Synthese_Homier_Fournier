@@ -1,6 +1,8 @@
 from queue import PriorityQueue
+
+from flask import jsonify
 from State import *
-from Transform import Scaling, Traduction, GetWalls, PlaceIndividus, UpdateVoisinGrille, ClosestEnd, ChooseEnd
+from Transform import Scaling, Traduction, GetWalls, PlaceIndividus, UpdateVoisinGrille, ClosestEnd, ChooseEnd, toJson
 from Astar import *
 
 WIDTH = 1000  # Taille de la fenêtre
@@ -25,7 +27,7 @@ class StateWaiting(State):
         pass
 
     def _do_exiting_action(self):
-        pass
+        super()._do_exiting_action()
 
     def _add_transition(self, transit):
         self.__list_transit.append(transit)
@@ -57,6 +59,8 @@ class StateAlgo(State):
         self.__grille = resultIndividu[0]
         for individu in resultIndividu[1]:
             self.__individu_array.append(individu[0])
+        self.__initial_individus = self.__individu_array
+        self.jsonIndividu = toJson(self.__initial_individus, "individu")
     
         self.__nb_in = len(self.__individu_array)
         self.__nb_out = 0
@@ -87,6 +91,7 @@ class StateAlgo(State):
 
                 ### Créer méthode qui retournera les frames avec le code ci-dessous. ###
 
+                framesTemp = []
                 while not self.__closest_end.empty():
                     current_individu = self.__closest_end.get()[2]
                     current_individu.update_voisins_algo(self.__grille)
@@ -96,79 +101,64 @@ class StateAlgo(State):
                             is_done = result[0]
                             next_case = result[1]
                             if is_done:
+                                next_case.set_id(current_individu.get_id())  #Fuck up les ids
                                 current_individu.reset()
-                                pos_last = current_individu.get_position()
-                                self.__grille[pos_last[0]][pos_last[1]] = current_individu
                                 came_from_last = current_individu.get_came_from()
                                 next_case.add_came_from(came_from_last, current_individu)
                                 next_case.type = "End"
+                                current_individu.set_id(None)
+                                pos_last = current_individu.get_position()
+                                self.__grille[pos_last[0]][pos_last[1]] = current_individu
                                 self.__final_array.append(next_case)
+                                framesTemp.append(next_case)
                                 self.__nb_out += 1
                                 print(self.__nb_out)
                             elif current_individu != next_case:
-                                next_case.type = "Individu"
+                                next_case.set_id(current_individu.get_id())
                                 current_individu.reset()
-                                pos_last = current_individu.get_position()
                                 came_from_last = current_individu.get_came_from()
                                 next_case.add_came_from(came_from_last, current_individu)
+                                next_case.type = "Individu"
+                                current_individu.set_id(None)
+                                pos_last = current_individu.get_position()
                                 self.__grille[pos_last[0]][pos_last[1]] = current_individu
                                 pos_next = next_case.get_position()
                                 self.__grille[pos_next[0]][pos_next[1]] = next_case
                                 self.__individu_array.append(next_case)
+                                framesTemp.append(next_case)
                             else:
                                 print("Didn't move")
                                 self.__individu_array.append(current_individu)
+                                framesTemp.append(current_individu)
                         else:
                             print("Blocked, Algo", current_individu.get_position())
                             self.__individu_array.append(current_individu)
+                            framesTemp.append(current_individu)
                     else:
                         print("Blocked, sans voisins", current_individu.get_position())
                         self.__individu_array.append(current_individu)
+                        framesTemp.append(current_individu)
                         
-                    self.__frames.append(self.__individu_array) #Ajouter une sauvegarde de individu_arry qui sera l'équivalent d'un frame
+                self.__frames.append(framesTemp) #Ajouter une sauvegarde de individu_arry qui sera l'équivalent d'un frame
+            jsonGrille = toJson(self.__grille, "grid")
+            jsonFrames = toJson(self.__frames, "frames")
+            print(jsonGrille)
+            print(self.jsonIndividu)
+            print(jsonFrames)
             self.__algo_done = True
 
     def _do_exiting_action(self):
         print("Exiting Algo")
-        #CRÉER ARRAY PORU RETURN A PARTIR DE final_array 
-        # ex : for case in final_array: 
-        #       for voisin in case.voisins: 
-        #         frame.append(voisin.get_position())
-        # super()._do_exiting_action()
+        # jsonGrille = toJson(self.__grille, "grid")
+        # jsonIndividu = toJson(self.__initial_individus, "individu")
+        # jsonFrames = toJson(self.__frames, "frames")
+        super()._do_exiting_action()
 
     def _add_transition(self, transit):
         self.__list_transit.append(transit)
 
     def _algo_done(self):
         return self.__algo_done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class StateDone(State):
     def __init__(self):
@@ -199,7 +189,7 @@ class StateDone(State):
         pass 
 
     def _do_exiting_action(self):
-        pass
+        super()._do_exiting_action()
 
     def _add_transition(self, transit):
         self.__list_transit.append(transit)
