@@ -160,7 +160,7 @@ function setUpMultipleSelection() {
 
     selection.on('start', evt => {
         selection.clearSelection(true);
-        arrayLastSelection = []
+        arrayLastSelection = [];
     }).on('move', evt => {
         arrayLastSelection.forEach(select => {
             if (!evt.store.selected.includes(select)) {
@@ -184,12 +184,12 @@ function setUpMultipleSelection() {
 
         if (currentSelection == "Porte") {
             let lastPoint = evt.store.selected.pop().id.split(",");
-            let x = lastPoint[0]
-            let y = lastPoint[1]
+            let x = lastPoint[0];
+            let y = lastPoint[1];
             if (grille.setDoorValid(parseInt(x), parseInt(y))) {
                 document.getElementById(grille.getCase(x, y).id).style.backgroundColor = "red";
             } else {
-                alert("Vous ne pouvez pas placer de porte à cet endroit.")
+                alert("Vous ne pouvez pas placer de porte à cet endroit.");
             }
         }
         grille.checkState();
