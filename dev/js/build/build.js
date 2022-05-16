@@ -7,6 +7,7 @@ let keysPressed = {};
 const GRIDSIZE = 2500;
 
 window.addEventListener("load", () => {
+    getCompatibility();
     grille = new Grille(GRIDSIZE);
     grille.setHeight();
     grille.createGrid();
@@ -15,7 +16,14 @@ window.addEventListener("load", () => {
     updateScrollBar();
     setUpMultipleSelection();
     keylistener();
+    tick();
 });
+
+function getCompatibility() {
+    if (window.innerWidth <= 977 || window.innerHeight <= 709) {
+        alert("Votre système n'est malheureusement pas compatible avec nos services, veuillez réessayer avec un autre appareil.");
+    }
+}
 
 function keylistener() {
     document.addEventListener('keydown', (event) => {
@@ -36,7 +44,7 @@ function keylistener() {
     });
 
     document.addEventListener('keyup', (event) => {
-        delete this.keysPressed[event.key];
+        delete keysPressed[event.key];
     });
 }
 
@@ -156,7 +164,7 @@ function setUpMultipleSelection() {
             if (!evt.store.selected.includes(select)) {
                 document.getElementById(select.id).style.backgroundColor = "transparent";
             }
-        })
+        });
         evt.store.selected.forEach(element => {
             document.getElementById(element.id).style.backgroundColor = "#444444";
         });
@@ -186,3 +194,8 @@ function setUpMultipleSelection() {
         grille.checkState();
     });
 }
+
+const tick = () => {
+    getCompatibility();
+    requestAnimationFrame(tick);
+};

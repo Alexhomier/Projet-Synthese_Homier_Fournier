@@ -19,6 +19,12 @@ window.addEventListener("load", () => {
     tick();
 });
 
+function getCompatibility() {
+    if (window.innerWidth <= 1555 || window.innerHeight <= 818) {
+        alert("Votre système n'est malheureusement pas compatible avec nos services, veuillez réessayer avec un autre appareil.");
+    }
+}
+
 function setOnClick() {
     document.querySelector('.control-command-backward').addEventListener('click', function(e) {
         currentFrame = getPrevFrame();
@@ -108,6 +114,7 @@ const tick = () => {
         sprite.tick();
     }
 
+    getCompatibility();
     document.querySelector("#currentFrameCount").innerHTML = `Position de la simulation : ${currentFrameCount}`;
     requestAnimationFrame(tick);
 };

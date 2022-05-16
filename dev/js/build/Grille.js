@@ -105,9 +105,9 @@ class Grille {
         if (y == this.size)
             lookVoisinYUp = 0;
         if (x == 0)
-            lookVoisinXDown = 0
+            lookVoisinXDown = 0;
         if (x == this.size)
-            lookVoisinXUp = 0
+            lookVoisinXUp = 0;
 
         const conditionsArray = [
             this.grille[x][y + lookVoisinYUp].state == "Couloir",
@@ -141,14 +141,14 @@ class Grille {
     }
 
     getGrille() {
-        let daoGrille = new DAOGrille(this)
+        let daoGrille = new DAOGrille(this);
         daoGrille.sendToPy(true);
     }
 
     sendGrilleToPy() {
         this.fillEmptyCase();
-        let daoGrille = new DAOGrille(this)
+        let daoGrille = new DAOGrille(this);
         console.log(this);
-        daoGrille.sendToPy()
+        daoGrille.sendToPy();
     }
 }
