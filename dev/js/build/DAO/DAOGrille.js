@@ -21,23 +21,26 @@ class DAOGrille {
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
-                localStorage.setItem('grille', xhr.responseText);
-                console.log(xhr.responseText);
-                if (!isSave)
-                    window.location.href = "visualisation.php";
-                else {
-                    this.saveGridBD(response);
-                    window.location.href = "leaderboard.php";
+                if (xhr.readyState == 200) {
+                    localStorage.setItem('grille', xhr.responseText);
+                    console.log(xhr.responseText);
+                    if (!isSave) {
+                        console.log(xhr.responseText);
+                        // window.location.href = "visualisation";
+                    } else {
+                        this.saveGridBD(xhr.responseText);
+                        window.location.href = "leaderboard";
+                    }
+                } else {
+                    console.error("L'algorithme n'a pas pu charger.");
                 }
-            } else {
-                console.error("L' algorithme n'est pas disponible pour le moment.");
             }
+
+            var data = JSON.stringify(this.dictValues);
+
+            xhr.send(data);
+
         };
-
-        var data = JSON.stringify(this.dictValues);
-
-        xhr.send(data);
-
     }
 
     saveGridBD(grille) {
@@ -45,7 +48,7 @@ class DAOGrille {
 
         let iduser = localStorage.getItem("id");
         if (iduser == null) {
-            window.location.href = "index.php";
+            window.location.href = "index";
         }
 
         console.log(grille);
@@ -61,6 +64,6 @@ class DAOGrille {
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-            })
+            });
     }
 }

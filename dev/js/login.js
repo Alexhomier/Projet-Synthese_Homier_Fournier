@@ -5,20 +5,18 @@ window.addEventListener("load", () => {
     spriteList.push(new Header());
 
     loginClickedView();
-
     scrollEvent();
-
 
     tick();
 });
 
 function loginButton() {
-    loginClickedView() // set login to login
+    loginClickedView(); // set login to login
     spriteList[0].openCloseMenu();
 }
 
 function signupButton() {
-    signupClickedView() // set login to signup
+    signupClickedView(); // set login to signup
     spriteList[0].openCloseMenu();
 }
 
@@ -183,7 +181,7 @@ function signup() {
                     document.querySelector(".login-working-container").style.display = "inline-flex";
                     document.querySelector(".login-working-text").innerHTML = "Inscription terminée, veuillez-vous connecter.";
                 }
-            })
+            });
     } else {
         document.querySelector(".login-error-container").style.display = "inline-flex";
         document.querySelector(".login-error-text").innerHTML = "Les mots de passe ne correspondes pas, veuillez réessayer.";
@@ -208,4 +206,4 @@ const tick = () => {
     }
 
     window.requestAnimationFrame(tick);
-}
+};

@@ -52,7 +52,6 @@ class ErrorMSG {
                     }
                 }
                 document.querySelector(".error-container").style.top = `${this.currentPos}%`;
-                console.log(this.currentPos)
             }
         }
     }

@@ -3,10 +3,12 @@ let isfullscreen = false;
 let currentSelection = "Salle";
 let controlPanelIsOpen = true;
 let keysPressed = {};
+let isPresent = false;
 
 const GRIDSIZE = 2500;
 
 window.addEventListener("load", () => {
+    getCompatibility();
     grille = new Grille(GRIDSIZE);
     grille.setHeight();
     grille.createGrid();
@@ -15,7 +17,15 @@ window.addEventListener("load", () => {
     updateScrollBar();
     setUpMultipleSelection();
     keylistener();
+    document.querySelector(".loading").style.display = "none";
+    tick();
 });
+
+function getCompatibility() {
+    if (window.innerWidth <= 977 || window.innerHeight <= 709) {
+        alert("Votre système n'est malheureusement pas compatible avec nos services, veuillez réessayer avec un autre appareil.");
+    }
+}
 
 function keylistener() {
     document.addEventListener('keydown', (event) => {
@@ -36,7 +46,7 @@ function keylistener() {
     });
 
     document.addEventListener('keyup', (event) => {
-        delete this.keysPressed[event.key];
+        delete keysPressed[event.key];
     });
 }
 
@@ -130,7 +140,7 @@ function saveGrid() {
 }
 
 function seeLeaderboard() {
-    window.location.href = "leaderboard.php";
+    window.location.href = "leaderboard";
 }
 
 
@@ -150,13 +160,13 @@ function setUpMultipleSelection() {
 
     selection.on('start', evt => {
         selection.clearSelection(true);
-        arrayLastSelection = []
+        arrayLastSelection = [];
     }).on('move', evt => {
         arrayLastSelection.forEach(select => {
             if (!evt.store.selected.includes(select)) {
                 document.getElementById(select.id).style.backgroundColor = "transparent";
             }
-        })
+        });
         evt.store.selected.forEach(element => {
             document.getElementById(element.id).style.backgroundColor = "#444444";
         });
@@ -170,19 +180,23 @@ function setUpMultipleSelection() {
             } else {
                 grille.setCase(tempPos[0], [tempPos[1]], currentSelection);
             }
-            console.log(grille)
         });
 
         if (currentSelection == "Porte") {
             let lastPoint = evt.store.selected.pop().id.split(",");
-            let x = lastPoint[0]
-            let y = lastPoint[1]
+            let x = lastPoint[0];
+            let y = lastPoint[1];
             if (grille.setDoorValid(parseInt(x), parseInt(y))) {
                 document.getElementById(grille.getCase(x, y).id).style.backgroundColor = "red";
             } else {
-                alert("Vous ne pouvez pas placer de porte à cet endroit.")
+                alert("Vous ne pouvez pas placer de porte à cet endroit.");
             }
         }
         grille.checkState();
     });
 }
+
+const tick = () => {
+    getCompatibility();
+    requestAnimationFrame(tick);
+};

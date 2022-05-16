@@ -45,7 +45,7 @@ function addVote(element) {
             } else {
                 spriteList[1].run();
             }
-        })
+        });
 }
 
 function changeBoardSelect() {
@@ -80,7 +80,7 @@ function getLeaderBoard() {
 
     formData.append("page", currentPage);
     formData.append("currentSelection", currentBoardSelection);
-    formData.append("iduser", userid)
+    formData.append("iduser", userid);
 
     fetch("AjaxLB.php", {
             method: "POST",
@@ -95,7 +95,7 @@ function getLeaderBoard() {
                 addElementLB(i + 1 + ((currentPage - 1) * 5), response.lb[i].username, response.lb[i].vote);
                 layoutTab.push(response.lb[i].layout);
             }
-        })
+        });
 }
 
 function setPageArrow() {
@@ -107,7 +107,6 @@ function setPageArrow() {
         statePageArrowLeft = false;
         statePageArrowRight = true;
     }
-    console.log(currentPage, maxPage)
     if (currentPage == maxPage) {
         arrowRight.backgroundImage = "url('../media/img/leaderboard/arrow-right-hover.png')";
         statePageArrowRight = false;
@@ -153,7 +152,7 @@ function addElementLB(posArr, username, nbVote) {
     clone.children[0].children[1].innerHTML = `${username}`;
     clone.children[1].children[2].innerHTML = `${nbVote}`;
     clone.style.display = "inline-flex";
-    parent.appendChild(clone)
+    parent.appendChild(clone);
 }
 
 function goToVis(element) {
@@ -169,4 +168,4 @@ const tick = () => {
     }
 
     window.requestAnimationFrame(tick);
-}
+};
