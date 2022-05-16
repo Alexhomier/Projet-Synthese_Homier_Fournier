@@ -12,12 +12,12 @@ class DAOGrille {
             } else {
                 loading.innerHTML = "Chargement de la simulation en cours...";
             }
-            fetch(`https://159.89.124.82:8500/`, {
+            fetch(`AjaxBuild.php`, {
                     method: "post",
                     credentials: "include",
-                    body: JSON.stringify(this.dictValues),
+                    // body: JSON.stringify(this.dictValues),
                     headers: new Headers({
-                        "content-type": "application/json"
+                        "content-type": "application/json",
                     })
                 })
                 .then(response => response.json())
@@ -25,7 +25,8 @@ class DAOGrille {
                     response = JSON.stringify(response);
                     localStorage.setItem('grille', response);
                     if (!isSave)
-                        window.location.href = "visualisation.php";
+                        console.log(response);
+                    // window.location.href = "visualisation.php";
                     else {
                         this.saveGridBD(response);
                         // window.location.href = "leaderboard.php";

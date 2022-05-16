@@ -23,7 +23,7 @@ def get():
     return "Hello world"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8500, ssl_context='adhoc')
+    app.run(host='0.0.0.0', port=8500)
 
 # """
 #     run is the main of the algo.
