@@ -3,6 +3,7 @@ let isfullscreen = false;
 let currentSelection = "Salle";
 let controlPanelIsOpen = true;
 let keysPressed = {};
+let isPresent = false;
 
 const GRIDSIZE = 2500;
 
@@ -16,6 +17,7 @@ window.addEventListener("load", () => {
     updateScrollBar();
     setUpMultipleSelection();
     keylistener();
+    document.querySelector(".loading").style.display = "none";
     tick();
 });
 
@@ -138,7 +140,7 @@ function saveGrid() {
 }
 
 function seeLeaderboard() {
-    window.location.href = "leaderboard.php";
+    window.location.href = "leaderboard";
 }
 
 
@@ -178,7 +180,6 @@ function setUpMultipleSelection() {
             } else {
                 grille.setCase(tempPos[0], [tempPos[1]], currentSelection);
             }
-            console.log(grille)
         });
 
         if (currentSelection == "Porte") {

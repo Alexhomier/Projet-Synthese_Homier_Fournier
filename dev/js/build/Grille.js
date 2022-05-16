@@ -148,7 +148,6 @@ class Grille {
     sendGrilleToPy() {
         this.fillEmptyCase();
         let daoGrille = new DAOGrille(this);
-        console.log(this);
         daoGrille.sendToPy();
     }
 }
