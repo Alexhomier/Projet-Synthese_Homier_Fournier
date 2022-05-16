@@ -1,7 +1,7 @@
 from urllib import request
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
-from Manipulator import *
+# from Manipulator import *
 
 app = Flask(__name__)
 CORS(app)
