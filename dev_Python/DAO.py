@@ -1,7 +1,7 @@
 from urllib import request
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from Manipulator import *
+from Manipulateur import * 
 
 app = Flask(__name__)
 CORS(app)
@@ -9,12 +9,21 @@ CORS(app)
 @app.route('/post', methods = ['POST'])
 def post():
     grille = request.get_json()
-    manipulator = Manipulator(grille)
-    manipulator.reset()
-    manipulator.run()
+    # manipulator = Manipulator(grille)
+    # manipulator.reset()
+    # manipulator.run()
+    manipulateur = Manipulateur(grille)
+    tempResult = manipulateur._do_individus_frames()
+    jsonStrings = ''
+    if tempResult:
+        jsonStrings = manipulateur._get_json()
+    else:
+        print("Problème avec algo")
+    
+    
     #grille = manipulateur.run() si possible?
     # print(grille)
-    return jsonify(grille)
+    return jsonStrings
 
 if __name__ == '__main__':
     app.run()

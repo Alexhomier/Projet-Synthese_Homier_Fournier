@@ -24,6 +24,23 @@ def Scaling(grille, width, rows): #Méthode qui permet de faire en sorte que les
             grid[i].append(case)
     return grid, porteArray
 
+def Traduction(grille, width, rows): 
+    grid = []
+    gap = width // rows
+    for i in range(rows):
+        grid.append([])
+        for j in range(rows):
+            if(grille[i][j]["state"]  == "Couloir"):
+                case = Case(i, j, gap, rows, "Couloir")
+            elif(grille[i][j]["state"]  == "Salle"):
+                case = Case(i, j, gap, rows, "Salle")
+            elif(grille[i][j]["state"] == "Porte"):
+                case = Case(i, j, gap, rows, "Porte")
+            else :
+                case = Case(i, j, gap, rows, None)
+            grid[i].append(case)
+    return grid
+
 def checkWalls(x, y, size, grille):
     isWall = False
     lookVoisinXDown = 1
@@ -67,23 +84,6 @@ def GetWalls(grille, size, minX, maxX, minY, maxY):
                 grille[x][y].type = "End"
                 end_array.append(grille[x][y])
     return grille, end_array
-
-def Traduction(grille, width, rows): 
-    grid = []
-    gap = width // rows
-    for i in range(rows):
-        grid.append([])
-        for j in range(rows):
-            if(grille[i][j]["state"]  == "Couloir"):
-                case = Case(i, j, gap, rows, "Couloir")
-            elif(grille[i][j]["state"]  == "Salle"):
-                case = Case(i, j, gap, rows, "Salle")
-            elif(grille[i][j]["state"] == "Porte"):
-                case = Case(i, j, gap, rows, "Porte")
-            else :
-                case = Case(i, j, gap, rows, None)
-            grid[i].append(case)
-    return grid
 
 def PlaceIndividus(grille, nb_individus_max, minX, maxX, minY, maxY):  #Méthode qui va, aléatoirement, placer des individus dans une salle dépendement de son nombre max
     i = 0

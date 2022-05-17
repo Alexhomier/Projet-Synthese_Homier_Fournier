@@ -106,22 +106,22 @@ class StateAlgo(State):
                                 came_from_last = current_individu.get_came_from()
                                 next_case.add_came_from(came_from_last, current_individu)
                                 next_case.type = "End"
-                                current_individu.set_id(None)
+                                current_individu.set_id(None)   #Fuck up les ids
                                 pos_last = current_individu.get_position()
-                                self.__grille[pos_last[0]][pos_last[1]] = current_individu
+                                self.__grille[pos_last[0]][pos_last[1]] = current_individu   #Fuck up les ids
                                 self.__final_array.append(next_case)
                                 framesTemp.append(next_case)
                                 self.__nb_out += 1
                                 print(self.__nb_out)
                             elif current_individu != next_case:
-                                next_case.set_id(current_individu.get_id())
-                                current_individu.reset()
+                                next_case.set_id(current_individu.get_id())   #Fuck up les ids
+                                current_individu.reset() 
                                 came_from_last = current_individu.get_came_from()
                                 next_case.add_came_from(came_from_last, current_individu)
                                 next_case.type = "Individu"
-                                current_individu.set_id(None)
+                                current_individu.set_id(None)   #Fuck up les ids
                                 pos_last = current_individu.get_position()
-                                self.__grille[pos_last[0]][pos_last[1]] = current_individu
+                                self.__grille[pos_last[0]][pos_last[1]] = current_individu   #Fuck up les ids
                                 pos_next = next_case.get_position()
                                 self.__grille[pos_next[0]][pos_next[1]] = next_case
                                 self.__individu_array.append(next_case)

@@ -1,11 +1,5 @@
-from queue import PriorityQueue
-from turtle import end_fill
-
-from flask import jsonify
-from Astar import Astar
 from ClassJson import *
 import json
-
 
 class Case:
     def __init__(self, row, col, width, total_rows, type):
@@ -20,23 +14,6 @@ class Case:
         self.voisins = []
         self.came_from = []
         self.end = None
-
-    def to_json(self):
-        temp = CaseJson(self.row, self.col, self.type)
-        return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
-
-    def to_json_individu(self):
-        temp = IndividuJson(self.row, self.col, self.id)
-        return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
-    
-    def to_json_frames(self):
-        if self.type == "End":
-            temp = FramesJson(self.row, self.col, self.id, True)
-            return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
-        else:
-            temp = FramesJson(self.row, self.col, self.id, False)
-            return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
-
 
     def set_end(self, end):
         self.end = end
@@ -97,14 +74,18 @@ class Case:
         if self.col > 0 and not grid[self.row][self.col - 1].get_type() == 'Wall': # LEFT
             self.voisins.append(grid[self.row][self.col - 1])
 
+    def to_json(self):
+        temp = CaseJson(self.row, self.col, self.type)
+        return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
-def make_grid(rows, width):
-    grid = [] 
-    gap = width // rows
-    for i in range(rows):
-        grid.append([])
-        for j in range(rows):
-            case = Case(i, j, gap, rows)
-            grid[i].append(case)
-    return grid
-
+    def to_json_individu(self):
+        temp = IndividuJson(self.row, self.col, self.id)
+        return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+    
+    def to_json_frames(self):
+        if self.type == "End":
+            temp = FramesJson(self.row, self.col, self.id, True)
+            return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        else:
+            temp = FramesJson(self.row, self.col, self.id, False)
+            return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
