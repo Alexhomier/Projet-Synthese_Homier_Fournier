@@ -1,3 +1,5 @@
+import json
+
 class CaseJson:
     def __init__(self, row, col, type):
         self.id = [row, col]
@@ -16,3 +18,6 @@ class FramesJson:
         self.x = row
         self.y = col
         self.isOut = is_done
+
+    def to_json_frames(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)

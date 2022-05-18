@@ -1,5 +1,4 @@
-import math
-from queue import PriorityQueue # element based on highest priority is dequeued
+from queue import PriorityQueue 
 
 class Astar:
 	def __init__(self):

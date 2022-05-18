@@ -1,7 +1,7 @@
 from urllib import request
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
-from Manipulator import *
+from Manipulateur import *
 
 app = Flask(__name__)
 CORS(app)
@@ -10,12 +10,18 @@ CORS(app)
 @cross_origin()
 def post():
     grille = request.get_json()
-    manipulator = Manipulator(grille)
-    manipulator.reset()
-    manipulator.run()
-    #grille = manipulateur.run() si possible?
-    # print(grille)
-    return jsonify(grille)
+    manipulateur = Manipulateur(grille)
+    jsonIndividu = manipulateur._get_individus_json()
+    manipulateur._do_individus_frames()
+    jsonGrille = ''
+    jsonFrames = ''
+    result = manipulateur._get_json()
+    jsonGrille = result[0]
+    jsonFrames = result[1]
+    print(jsonGrille)
+    print(jsonFrames)
+    print(jsonIndividu)
+    return jsonGrille, jsonFrames, jsonIndividu #, blacklist_individu
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8500)
