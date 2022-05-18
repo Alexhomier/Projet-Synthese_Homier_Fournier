@@ -21,27 +21,24 @@ class DAOGrille {
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
-                if (xhr.readyState == 200) {
-                    localStorage.setItem('grille', xhr.responseText);
+                localStorage.setItem('grille', xhr.responseText);
+                console.log(xhr.responseText);
+                if (!isSave) {
                     console.log(xhr.responseText);
-                    if (!isSave) {
-                        console.log(xhr.responseText);
-                        // window.location.href = "visualisation";
-                    } else {
-                        this.saveGridBD(xhr.responseText);
-                        window.location.href = "leaderboard";
-                    }
+                    window.location.href = "visualisation";
                 } else {
-                    console.error("L'algorithme n'a pas pu charger.");
+                    this.saveGridBD(xhr.responseText);
+                    window.location.href = "leaderboard";
                 }
             }
-
-            var data = JSON.stringify(this.dictValues);
-
-            xhr.send(data);
-
         };
+
+        var data = JSON.stringify(this.dictValues);
+
+        xhr.send(data);
+
     }
+
 
     saveGridBD(grille) {
         let formData = new FormData();
