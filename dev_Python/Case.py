@@ -3,7 +3,7 @@ import json
 
 class Case:
     def __init__(self, row, col, width, total_rows, type):
-        self.id = None
+        self.iden = None
         self.type = type
         self.row = row
         self.col = col
@@ -15,20 +15,18 @@ class Case:
         self.came_from = []
         self.end = None
 
+    def reset(self):
+        self.type = "Salle"
+        self.voisins = []
+        self.came_from = []
+        self.end = None
+        self.iden = None
+
     def set_end(self, end):
         self.end = end
             
     def get_end(self):
         return self.end
-    
-    def set_id(self, id):
-        self.id = id
-
-    def get_id(self):
-        return self.id
-
-    def reset(self):
-        self.type = "Salle"
 
     def get_type(self):
         return self.type
@@ -36,8 +34,8 @@ class Case:
     def get_position(self):
         return self.row, self.col
 
-    def add_came_from(self, chemin, last):
-        for case in chemin:
+    def add_came_from(self, last):
+        for case in last.get_came_from():
             if not case in self.came_from:
                 self.came_from.append(case)
         self.came_from.append(last)
@@ -79,13 +77,6 @@ class Case:
         return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
     def to_json_individu(self):
-        temp = IndividuJson(self.row, self.col, self.id)
+        temp = IndividuJson(self.row, self.col, self.iden)
         return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
     
-    def to_json_frames(self):
-        if self.type == "End":
-            temp = FramesJson(self.row, self.col, self.id, True)
-            return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)
-        else:
-            temp = FramesJson(self.row, self.col, self.id, False)
-            return json.dumps(temp, default=lambda o: o.__dict__, sort_keys=True, indent=4)

@@ -9,21 +9,18 @@ CORS(app)
 @app.route('/post', methods = ['POST'])
 def post():
     grille = request.get_json()
-    # manipulator = Manipulator(grille)
-    # manipulator.reset()
-    # manipulator.run()
     manipulateur = Manipulateur(grille)
-    tempResult = manipulateur._do_individus_frames()
-    jsonStrings = ''
-    if tempResult:
-        jsonStrings = manipulateur._get_json()
-    else:
-        print("Problème avec algo")
-    
-    
-    #grille = manipulateur.run() si possible?
-    # print(grille)
-    return jsonStrings
+    jsonIndividu = manipulateur._get_individus_json()
+    manipulateur._do_individus_frames()
+    jsonGrille = ''
+    jsonFrames = ''
+    result = manipulateur._get_json()
+    jsonGrille = result[0]
+    jsonFrames = result[1]
+    print(jsonGrille)
+    print(jsonFrames)
+    print(jsonIndividu)
+    return jsonGrille, jsonFrames, jsonIndividu #, blacklist_individu
 
 if __name__ == '__main__':
     app.run()
