@@ -8,7 +8,6 @@ BLOCKED_VALUE = 1000
 
 def Scaling(grille, width, rows): #Méthode probablement non utilisé
     grid = []
-    porteArray = []
     gap = width // rows * 10
     for i in range(rows * 10):
         grid.append([])
@@ -22,7 +21,7 @@ def Scaling(grille, width, rows): #Méthode probablement non utilisé
             else:
                 case = Case(i, j, gap, rows, None)
             grid[i].append(case)
-    return grid, porteArray
+    return grid
 
 def Traduction(grille, width, rows):
     grid = []

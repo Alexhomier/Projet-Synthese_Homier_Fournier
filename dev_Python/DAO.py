@@ -11,19 +11,23 @@ def post():
     grille = request.get_json()
     manipulateur = Manipulateur(grille)
     jsonIndividu = manipulateur._get_individus_json()
-    manipulateur._do_individus_frames()
+    succes = manipulateur._do_individus_frames()
     jsonGrille = ''
     jsonFrames = ''
     jsonBlocked = ''
-    result = manipulateur._get_json()
-    jsonGrille = result[0]
-    jsonFrames = result[1]
-    jsonBlocked = result[2]
-    print(jsonGrille)
-    print(jsonFrames)
-    print(jsonIndividu)
-    print(jsonBlocked)
-    return jsonGrille, jsonFrames, jsonIndividu, jsonBlocked
+    if succes:
+        result = manipulateur._get_json()
+        jsonGrille = result[0]
+        jsonFrames = result[1]
+        jsonBlocked = result[2]
+        print(jsonGrille)
+        print(jsonFrames)
+        print(jsonIndividu)
+        print(jsonBlocked)
+        return jsonGrille, jsonFrames, jsonIndividu, jsonBlocked
+    else:
+        print("No doors are on the building")
+        return False  #Jsp sque tu veux la
 
 if __name__ == '__main__':
     app.run()

@@ -12,11 +12,11 @@ def checkWalls(x, y, size, grille):
 
     if y == 0:
         lookVoisinYDown = 0
-    if y == size:
+    if y == size-1:
         lookVoisinYUp = 0
     if x == 0:
         lookVoisinXDown = 0
-    if x == size:
+    if x == size-1:
         lookVoisinXUp = 0
 
     conditionArray = [
