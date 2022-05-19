@@ -14,13 +14,16 @@ def post():
     manipulateur._do_individus_frames()
     jsonGrille = ''
     jsonFrames = ''
+    jsonBlocked = ''
     result = manipulateur._get_json()
     jsonGrille = result[0]
     jsonFrames = result[1]
+    jsonBlocked = result[2]
     print(jsonGrille)
     print(jsonFrames)
     print(jsonIndividu)
-    return jsonGrille, jsonFrames, jsonIndividu #, blacklist_individu
+    print(jsonBlocked)
+    return jsonGrille, jsonFrames, jsonIndividu, jsonBlocked
 
 if __name__ == '__main__':
     app.run()
