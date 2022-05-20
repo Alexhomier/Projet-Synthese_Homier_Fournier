@@ -17,16 +17,17 @@ def post():
     jsonFrames = ''
     jsonBlocked = ''
     if succes:
-        
+
         result = manipulateur._get_json()
         jsonGrille = result[0]
         jsonFrames = result[1]
         jsonBlocked = result[2]
-        print(jsonGrille)
-        print(jsonFrames)
+        print(result[0])
+        print(result[1])
         print(jsonIndividu)
-        print(jsonBlocked)
-        return jsonGrille, jsonFrames, jsonIndividu, jsonBlocked
+        print(result[2])
+        result[3] = jsonIndividu
+        return jsonify(result)
     else:
         print("No doors are on the building")
         return False  #Jsp sque tu veux la
