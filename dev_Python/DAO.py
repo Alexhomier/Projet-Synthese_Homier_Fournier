@@ -22,12 +22,17 @@ def post():
         jsonGrille = result[0]
         jsonFrames = result[1]
         jsonBlocked = result[2]
-        print(result[0])
-        print(result[1])
+        print(jsonGrille)
+        print(jsonFrames)
         print(jsonIndividu)
-        print(result[2])
+        print(jsonBlocked)
         result[3] = jsonIndividu
-        return jsonify(result)
+        return jsonify(
+            Grille = jsonGrille,
+            Frames = jsonFrames,
+            Individu = jsonIndividu,
+            Blocked = jsonBlocked
+        )
     else:
         print("No doors are on the building")
         return False  #Jsp sque tu veux la
