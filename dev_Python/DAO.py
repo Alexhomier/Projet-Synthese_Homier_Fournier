@@ -32,7 +32,7 @@ def post():
         #     Individu = jsonIndividu,
         #     Blocked = jsonBlocked
         # )
-        return jsonGrille
+        return "jsonGrille"
     else:
         print("No doors are on the building")
         return False  #Jsp sque tu veux la
