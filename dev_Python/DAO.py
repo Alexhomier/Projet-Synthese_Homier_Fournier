@@ -27,7 +27,7 @@ def post():
         print(jsonIndividu)
         print(jsonBlocked)
         return jsonify(
-            Grille = jsonGrille,
+            Grille = jsonify(grille),
             Frames = jsonFrames,
             Individu = jsonIndividu,
             Blocked = jsonBlocked

@@ -22,7 +22,9 @@ class DAOGrille {
             })
             .then(response => response.json())
             .then(response => {
-                console.log(response);
+                let bigDict = JSON.parse(response);
+                let dict = JSON.parse(bigDict.Grille);
+                console.log(dict);
             });
 
     }
