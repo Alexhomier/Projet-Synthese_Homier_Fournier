@@ -17,6 +17,7 @@ def post():
     jsonFrames = ''
     jsonBlocked = ''
     if succes:
+        
         result = manipulateur._get_json()
         jsonGrille = result[0]
         jsonFrames = result[1]

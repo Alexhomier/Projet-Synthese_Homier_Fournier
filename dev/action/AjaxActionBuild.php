@@ -13,34 +13,35 @@ class AjaxActionBuild extends CommonAction
     protected function executeAction()
     {
         $result = null;
-        // if(isset($_POST["grille"]) && isset($_POST["iduser"])){
-            // $result = BuildDAO::saveGrid($_POST["grille"], $_POST["iduser"]);
-        // } else {
-            if(isset($_POST["grille"])){
-                $url = 'http://masimulation.ca:8500/test';
-                $data = array('grille' => $_POST["grille"]);
+        if(isset($_POST["grille"]) && isset($_POST["iduser"])){
+            $result = BuildDAO::saveGrid($_POST["grille"], $_POST["iduser"]);
+        } else {
+            if(isset($_POST["infos"])){
+                $url = "http://masimulation.ca:8500/algo";
 
-                // use key 'http' even if you send the request to https://...
-                $options = array(
-                    'http' => array(
-                        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                        'method'  => 'GET',
-                        // 'content' => http_build_query($data)
-                    )
+                $curl = curl_init($url);
+                curl_setopt($curl, CURLOPT_URL, $url);
+                curl_setopt($curl, CURLOPT_POST, true);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+                $headers = array(
+                "Content-Type: application/json",
                 );
-                $context  = stream_context_create($options);
-                $result = file_get_contents($url, false, $context);
-                if ($result === FALSE) { /* Handle error */ }
+                curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
+                $data = $_POST["infos"];
+
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+                //for debug only!
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+                $result = curl_exec($curl);
+                curl_close($curl);
                 var_dump($result);
             }            
-        // }
-
-        if($result == null){
-            $result = "caliss";
         }
-
-
         return compact("result");
     }
 }

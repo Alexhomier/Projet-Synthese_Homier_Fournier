@@ -11,31 +11,19 @@ class DAOGrille {
         } else {
             loading.innerHTML = "Chargement de la simulation en cours...";
         }
-        // https://reqbin.com/req/c-dwjszac0/curl-post-json-example
-        var url = "http://masimulation.ca:8500/algo";
+        let formData = new FormData();
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", url);
+        formData.append("infos", JSON.stringify(this.dictValues));
 
-        xhr.setRequestHeader("Content-Type", "application/json");
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4) {
-                localStorage.setItem('grille', xhr.responseText);
-                console.log(xhr.responseText);
-                if (!isSave) {
-                    console.log(xhr.responseText);
-                    window.location.href = "visualisation";
-                } else {
-                    this.saveGridBD(xhr.responseText);
-                    window.location.href = "leaderboard";
-                }
-            }
-        };
-
-        var data = JSON.stringify(this.dictValues);
-
-        xhr.send(data);
+        fetch("AjaxBuild.php", {
+                method: "POST",
+                credentials: "include",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+            });
 
     }
 
