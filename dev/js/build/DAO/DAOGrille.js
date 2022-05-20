@@ -22,9 +22,15 @@ class DAOGrille {
             })
             .then(response => response.json())
             .then(response => {
-                let bigDict = JSON.parse(response);
-                let dict = JSON.parse(bigDict.Grille);
-                console.log(dict);
+                let jsonLoad = JSON.parse(response);
+                let grille = jsonLoad.Grille;
+                let individus = JSON.parse(jsonLoad.Individu);
+                let blocked = JSON.parse(jsonLoad.Blocked);
+                let frames = JSON.parse(jsonLoad.Frames);
+                console.log(grille);
+                console.log(individus);
+                console.log(blocked);
+                console.log(frames);
             });
 
     }
