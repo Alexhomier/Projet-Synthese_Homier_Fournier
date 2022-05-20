@@ -26,12 +26,13 @@ def post():
         print(jsonFrames)
         print(jsonIndividu)
         print(jsonBlocked)
-        return jsonify(
-            Grille = jsonGrille,
-            Frames = jsonFrames,
-            Individu = jsonIndividu,
-            Blocked = jsonBlocked
-        )
+        # return jsonify(
+        #     Grille = jsonGrille,
+        #     Frames = jsonFrames,
+        #     Individu = jsonIndividu,
+        #     Blocked = jsonBlocked
+        # )
+        return jsonGrille
     else:
         print("No doors are on the building")
         return False  #Jsp sque tu veux la

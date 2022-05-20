@@ -118,11 +118,8 @@ class Manipulateur():
     def _get_json(self):
         jsonGrille = toJsonGrid(self.__grille)
         jsonFrames = toJsonFrames(self.__frames)
-        if self.__blocked_array == []:
-            return jsonGrille, jsonFrames, None
-        else:
-            jsonBlocked = toJsonBlocked(self.__blocked_array)
-            return jsonGrille, jsonFrames, jsonBlocked
+        jsonBlocked = toJsonBlocked(self.__blocked_array)
+        return jsonGrille, jsonFrames, jsonBlocked
 
     def _get_individus_json(self):
         jsonIndividu = toJsonIndividu(self.__initial_individus)

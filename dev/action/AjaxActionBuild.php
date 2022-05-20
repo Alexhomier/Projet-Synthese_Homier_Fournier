@@ -42,6 +42,7 @@ class AjaxActionBuild extends CommonAction
                 var_dump($result);
             }            
         }
+        var_dump($result);
         return compact("result");
     }
 }
