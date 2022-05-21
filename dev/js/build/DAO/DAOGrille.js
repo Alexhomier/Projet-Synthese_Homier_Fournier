@@ -31,8 +31,15 @@ class DAOGrille {
                 console.log(individus);
                 console.log(blocked);
                 console.log(frames);
-            });
 
+                localStorage.setItem('grille', response);
+                if (isSave) {
+                    this.saveGridBD(response);
+                    window.location.href = "leaderboard";
+                } else {
+                    window.location.href = "visualisation";
+                }
+            });
     }
 
 

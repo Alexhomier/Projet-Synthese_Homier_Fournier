@@ -26,5 +26,9 @@ class Individus {
         // this.object.position.set(posX, this.object.scale.y / 2, posY);
     }
 
+    removeInd() {
+        this.packImports.scene.remove(this.object);
+    }
+
 
 }

@@ -43,9 +43,10 @@
             <div class="control-container-commands">
                 <h4 class="control-commands-title">Commandes</h4>
                 <div class="control-container-commands-little">
-                    <button class="control-command-backward"></button>
-                    <button class="control-command-play"></button>
-                    <button class="control-command-forward"></button>
+                    <button class="control-command-backward" onclick="getPrevFrame()"></button>
+                    <button class="control-command-play" onclick="onClickPlay()"></button>
+                    <button class="control-command-pause" onclick="onClickPause()"></button>
+                    <button class="control-command-forward" onclick="getNextFrame()"></button>
                     <button class="control-command-pause" style="display: none;"></button>
                 </div>
             </div>

@@ -2,8 +2,7 @@ let spriteList = [];
 let grille;
 let currentFrame;
 let currentFrameCount = 0;
-let sleepTimePlay = 1;
-let timeOutVar;
+let play = false;
 
 window.addEventListener("load", () => {
     const canvas = document.getElementById("canvas");
@@ -14,8 +13,6 @@ window.addEventListener("load", () => {
     grille.start()
         .then(currentFrame = getFirstFrame());
 
-    setOnClick();
-
     tick();
 });
 
@@ -25,34 +22,16 @@ function getCompatibility() {
     }
 }
 
-function setOnClick() {
-    document.querySelector('.control-command-backward').addEventListener('click', function(e) {
-        currentFrame = getPrevFrame();
-    });
-    setOnClickPlay();
-    document.querySelector('.control-command-forward').addEventListener('click', function(e) {
-        currentFrame = getNextFrame();
-    });
+function onClickPlay() {
+    document.querySelector('.control-command-play').style.display = "none";
+    document.querySelector('.control-command-pause').style.display = "inline-flex";
+    play = true;
 }
 
-function setOnClickPlay() {
-    document.querySelector('.control-command-play').addEventListener('click', function(e) {
-        if (!!document.querySelector('.control-command-play')) {
-            document.querySelector('.control-command-play').className = "control-command-pause";
-            setOnClickPause();
-            currentFrame = playFrame(true);
-        }
-    });
-}
-
-function setOnClickPause() {
-    document.querySelector('.control-command-pause').addEventListener('click', function(e) {
-        if (!!document.querySelector('.control-command-pause')) {
-            document.querySelector('.control-command-pause').className = "control-command-play";
-            setOnClickPlay();
-            currentFrame = playFrame(false);
-        }
-    });
+function onClickPause() {
+    document.querySelector('.control-command-play').style.display = "inline-flex";
+    document.querySelector('.control-command-pause').style.display = "none";
+    play = false;
 }
 
 function getFirstFrame() {
@@ -75,7 +54,7 @@ function getNextFrame() {
 function getPrevFrame() {
     let prevFrame = grille.getPrevFrame(currentFrame);
     if (prevFrame) {
-        currentFrame = nextFrame;
+        currentFrame = prevFrame;
         --currentFrameCount;
         return currentFrame;
     } else {
@@ -84,27 +63,23 @@ function getPrevFrame() {
     }
 }
 
-function playFrame(play = false) {
-    nextFrame = getNextFrame();
-
-    if (play && nextFrame) {
-        ++currentFrameCount;
-        timeOutVar = setTimeout(function() { playFrame(true); }, sleepTimePlay * 1000);
-    } else {
-        if (!!document.querySelector('.control-command-pause')) {
-            document.querySelector('.control-command-pause').className = "control-command-play";
-            setOnClickPlay();
-        }
-        clearTimeout(timeOutVar);
-    }
-}
-
 function getGrille() {
     if (localStorage.getItem("grille") != null) {
-        let grille = localStorage.getItem("grille");
-        return JSON.parse(grille);
+        let infos = localStorage.getItem("grille");
+        let jsonLoad = JSON.parse(infos);
+        let grille = jsonLoad.Grille;
+        let individus = JSON.parse(jsonLoad.Individu);
+        let blocked = JSON.parse(jsonLoad.Blocked);
+        let frames = JSON.parse(jsonLoad.Frames);
+        infos = {
+            grille: grille,
+            individus: individus.individus,
+            blocked: blocked.Blocked,
+            frames: frames.Frames
+        };
+        return infos;
     } else {
-        window.location.href = "build.php";
+        window.location.href = "build";
     }
 }
 
@@ -114,6 +89,12 @@ const tick = () => {
         sprite.tick();
     }
 
+    if (play) {
+        nextFrame = getNextFrame();
+        if (!nextFrame) {
+            onClickPause();
+        }
+    }
     getCompatibility();
     document.querySelector("#currentFrameCount").innerHTML = `Position de la simulation : ${currentFrameCount}`;
     requestAnimationFrame(tick);

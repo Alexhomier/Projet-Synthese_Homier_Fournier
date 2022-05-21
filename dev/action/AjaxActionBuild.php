@@ -17,7 +17,7 @@ class AjaxActionBuild extends CommonAction
             $result = BuildDAO::saveGrid($_POST["grille"], $_POST["iduser"]);
         } else {
             if(isset($_POST["infos"])){
-                $url = "http://masimulation.ca:8500/algo";
+                $url = "http://127.0.0.1:8500/algo";
 
                 $curl = curl_init($url);
                 curl_setopt($curl, CURLOPT_URL, $url);

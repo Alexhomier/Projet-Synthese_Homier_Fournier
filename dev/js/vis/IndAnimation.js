@@ -1,6 +1,6 @@
 class IndAnimation {
     constructor() {
-        this.speed = 1.5;
+        this.speed = 1;
         this.arrAnimation = [];
     }
 
@@ -20,15 +20,19 @@ class IndAnimation {
             let yFinished = false;
             let x = ind.x;
             let y = ind.y;
-            let directionX = null;
-            let directionY = null;
+            let directionX = 0;
+            let directionY = 0;
 
-            if (ind.object.position.x == x) {
+            if (ind.object.position.x >= x - 1 && ind.object.position.x <= x + 1) {
+                ind.object.position.x = x;
                 xFinished = true;
             }
-            if (ind.object.position.z == y) { // z, car conversion en 3d
+            if (ind.object.position.z >= y - 1 && ind.object.position.z <= y + 1) {
+                ind.object.position.z = y;
                 yFinished = true;
             }
+
+            // console.log(`x : ${ind.object.position.x}`, `y : ${ind.object.position.z}`);
 
             if (xFinished && yFinished) {
                 this.arrAnimation.slice(i, 1);

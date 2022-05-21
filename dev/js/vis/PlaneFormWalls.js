@@ -77,7 +77,7 @@ class PlaneFormWalls {
             if (!isX) {
                 plane.rotateY(Math.PI);
             } else {
-                plane.rotateY(-Math.PI / 2)
+                plane.rotateY(-Math.PI / 2);
             }
             plane.position.set(positionX, this.wallHeight / 2, positionY);
 
@@ -172,7 +172,7 @@ class PlaneFormWalls {
             var exterior_mesh = exterior.toMesh();
             exterior_mesh.material = new THREE.MeshBasicMaterial({ color: this.grid.extWallsColor, side: THREE.DoubleSide });
 
-            var doorFrame = doorFrame.subtract(doorHoleForFrame);
+            doorFrame = doorFrame.subtract(doorHoleForFrame);
             var doorFrame_mesh = doorFrame.toMesh();
             doorFrame_mesh.material = new THREE.MeshBasicMaterial({ color: this.grid.doorFrameColor, side: THREE.DoubleSide });
 
