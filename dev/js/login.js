@@ -1,4 +1,6 @@
 let spriteList = [];
+const PASSWORD_MIN_NBCHAR = 8;
+const PASSWORD_MAX_NBCHAR = 30;
 
 window.addEventListener("load", () => {
     spriteList.push(new Login());
@@ -158,34 +160,67 @@ function signup() {
     const mail = document.querySelector("#mail").value;
     const passwordConf = document.querySelector("#passwordConfSignup").value;
 
-    if (password == passwordConf) {
-        let formData = new FormData();
+    if (passwordSecured(password)) {
+        if (emailValid(mail)) {
+            if (password == passwordConf) {
+                let formData = new FormData();
 
-        formData.append("action", "signup");
-        formData.append("username", username);
-        formData.append("password", password);
-        formData.append("mail", mail);
+                formData.append("action", "signup");
+                formData.append("username", username);
+                formData.append("password", password);
+                formData.append("mail", mail);
 
-        fetch("AjaxIndex.php", {
-                method: "POST",
-                credentials: "include",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(response => {
-                if (response) {
-                    document.querySelector(".login-error-container").style.display = "inline-flex";
-                    document.querySelector(".login-error-text").innerHTML = response;
-                } else {
-                    loginClickedView();
-                    document.querySelector(".login-working-container").style.display = "inline-flex";
-                    document.querySelector(".login-working-text").innerHTML = "Inscription terminée, veuillez-vous connecter.";
-                }
-            });
+                fetch("AjaxIndex.php", {
+                        method: "POST",
+                        credentials: "include",
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(response => {
+                        if (response) {
+                            document.querySelector(".login-error-container").style.display = "inline-flex";
+                            document.querySelector(".login-error-text").innerHTML = response;
+                        } else {
+                            loginClickedView();
+                            document.querySelector(".login-working-container").style.display = "inline-flex";
+                            document.querySelector(".login-working-text").innerHTML = "Inscription terminée, veuillez-vous connecter.";
+                        }
+                    });
+            } else {
+                document.querySelector(".login-error-container").style.display = "inline-flex";
+                document.querySelector(".login-error-text").innerHTML = "Les mots de passe ne correspondes pas, veuillez réessayer.";
+            }
+        } else {
+            document.querySelector(".login-error-container").style.display = "inline-flex";
+            document.querySelector(".login-error-text").innerHTML = `Veuillez ajouter une adresse mail valide.`;
+        }
     } else {
         document.querySelector(".login-error-container").style.display = "inline-flex";
-        document.querySelector(".login-error-text").innerHTML = "Les mots de passe ne correspondes pas, veuillez réessayer.";
+        document.querySelector(".login-error-text").innerHTML = `Votre mot de passe doit contenir au moins ${PASSWORD_MIN_NBCHAR} et au maximum ${PASSWORD_MAX_NBCHAR} caractères. De plus, il doit contenir un nombre et un caractère spécial.`;
     }
+}
+
+function passwordSecured(password) {
+    let regex = /^[a-zA-Z0-9!@#$%^&*]{6,50}$/;
+    let passwordValid = true;
+
+    if (password.length < PASSWORD_MIN_NBCHAR || password.length > PASSWORD_MAX_NBCHAR) {
+        passwordValid = false;
+    }
+    if (!regex.test(password)) {
+        passwordValid = false;
+    }
+    return passwordValid;
+}
+
+function emailValid(mail) {
+    let regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let emailValid = true;
+
+    if (!regex.test(mail)) {
+        emailValid = false;
+    }
+    return emailValid;
 }
 
 function scrollEvent() {
