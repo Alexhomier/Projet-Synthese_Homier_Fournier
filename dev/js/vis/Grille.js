@@ -16,12 +16,12 @@ class Grille {
 
         this.arrayWalls = [];
         this.dictInd = [];
+        this.outIndiv = [];
         this.frame = new FrameList();
         this.grille = this.infos.grille;
         this.individus = this.infos.individus;
         this.blocked = this.infos.blocked;
         this.firstFrame = this.infos.frames;
-        console.log(this.infos);
 
         let sizeX = this.grille.maxX - this.grille.minX;
         let sizeY = this.grille.maxY - this.grille.minY;
@@ -237,10 +237,13 @@ class Grille {
                 if (nextFrame) {
                     this.dictInd[nextFrame.value.id].moveIndividus(nextFrame.value.id, nextFrame.value.x, nextFrame.value.y, this.indAnimation);
                     if (nextFrame.value.isOut) {
-                        this.dictInd[nextFrame.value.id].removeInd();
+                        this.outIndiv.push(nextFrame.value.id);
                     }
                     return nextFrame;
                 } else {
+                    this.outIndiv.forEach(ind => {
+                        this.dictInd[ind].removeInd();
+                    });
                     return false;
                 }
             } else {
