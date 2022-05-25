@@ -100,6 +100,4 @@ class Manipulateur():
         return jsonGrille, jsonFrames, jsonBlocked
 
     def _get_individus_json(self):
-        jsonIndividu = toJsonIndividu(self.__initial_individus)
-        print(jsonIndividu)
-        return jsonIndividu
+        return self.jsonIndividu
