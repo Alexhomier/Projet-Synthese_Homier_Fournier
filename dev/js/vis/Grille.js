@@ -1,5 +1,11 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Grille de la visualisation 3D                             //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
+
 class Grille {
-    constructor(grille, packImports, indAnimation) {
+    constructor(data, packImports, indAnimation) {
         const WALLHEIGHT = 5.0;
         const CONVERSIONTO3D = 5.0;
         const WALLSCOLOR = 0x919191;
@@ -8,14 +14,24 @@ class Grille {
         const INDIVIDUSSCALE = 3.0;
         const BIGSIZE = 50;
 
-        this.grille = grille;
+        this.infos = data;
         this.packImports = packImports;
         this.indAnimation = indAnimation;
 
         this.indIsLoad = false;
 
-        let sizeX = grille.maxX - grille.minX;
-        let sizeY = grille.maxY - grille.minY;
+        this.arrayWalls = [];
+        this.dictInd = [];
+        this.outIndiv = [];
+        this.frame = new FrameList();
+        this.grille = this.infos.grille;
+        this.individus = this.infos.individus;
+        this.blocked = this.infos.blocked;
+        this.firstFrame = this.infos.frames;
+        this.evacInd = 0;
+
+        let sizeX = this.grille.maxX - this.grille.minX;
+        let sizeY = this.grille.maxY - this.grille.minY;
         let doorWidth = 0.7 * WALLHEIGHT;
         let doorHeight = 0.9 * WALLHEIGHT;
 
@@ -36,77 +52,6 @@ class Grille {
             doorFrameColor: DOORFRAMECOLOR,
             individusScale: INDIVIDUSSCALE
         };
-
-        this.arrayWalls = [];
-        this.dictInd = [];
-        // this.arrayIndividus = this.grille.arrayIndividus;
-        this.frame = new FrameList();
-
-        // temp
-        this.arrayIndividus = [];
-
-        this.arrayIndividus[0] = {
-            id: 0,
-            x: this.gridInfo.maxX / 2 + 1,
-            y: this.gridInfo.maxY / 2 + 1
-        };
-        this.arrayIndividus[1] = {
-            id: 1,
-            x: this.gridInfo.maxX / 2 + 3,
-            y: this.gridInfo.maxY / 2 + 3
-        };
-
-        let ind = [];
-        let ind2 = [];
-        let ind3 = [];
-        this.frameArray = [];
-
-        // newPosX: this.gridInfo.maxX / 2 + 4,
-        // newPosY: this.gridInfo.maxY / 2 + 5,
-
-        ind[0] = {
-            id: 0,
-            newPosX: this.gridInfo.maxX / 2 + 1,
-            newPosY: this.gridInfo.maxY / 2 + 1,
-            isOut: false
-        };
-        ind[1] = {
-            id: 1,
-            newPosX: this.gridInfo.maxX / 2 + 3,
-            newPosY: this.gridInfo.maxY / 2 + 3,
-            isOut: false
-        };
-
-        this.frameArray[0] = ind;
-
-        ind2[0] = {
-            id: 0,
-            newPosX: this.gridInfo.maxX / 2 + 10,
-            newPosY: this.gridInfo.maxY / 2 + 10,
-            isOut: false
-        };
-        ind2[1] = {
-            id: 1,
-            newPosX: this.gridInfo.maxX / 2 + 2.5,
-            newPosY: this.gridInfo.maxY / 2 + 2.5,
-            isOut: false
-        };
-
-        this.frameArray[1] = ind2;
-
-        ind3[0] = {
-            id: 0,
-            newPosX: this.gridInfo.maxX / 2 + 15,
-            newPosY: this.gridInfo.maxY / 2 + 15,
-            isOut: false
-        };
-        ind3[1] = {
-            id: 1,
-            newPosX: this.gridInfo.maxX / 2 + 3.5,
-            newPosY: this.gridInfo.maxY / 2 + 3.5,
-            isOut: false
-        };
-        this.frameArray[2] = ind3;
     }
 
     start() {
@@ -125,20 +70,25 @@ class Grille {
                 }
             });
 
+            let conversion = new ConversionTo3D(this.gridInfo);
             for (let x = this.gridInfo.minX; x <= this.gridInfo.maxX; x++) {
-                if (this.grille.grille[x][0].state == "Porte") {
-                    this.planeFormWalls.addDoor(x, 0);
+                if (this.grille.grille[x][this.gridInfo.minY].state == "Porte") {
+                    let newPos = conversion.get3DPositions(x, this.gridInfo.minY);
+                    this.planeFormWalls.addDoor(newPos.x, newPos.y, false);
                 }
-                if (this.grille.grille[x][this.gridInfo.sizeX - 1].state == "Porte") {
-                    this.planeFormWalls.addDoor(x, this.gridInfo.sizeX - 1);
+                if (this.grille.grille[x][this.gridInfo.maxY].state == "Porte") {
+                    let newPos = conversion.get3DPositions(x, this.gridInfo.maxY);
+                    this.planeFormWalls.addDoor(newPos.x, newPos.y, false);
                 }
             }
             for (let y = this.gridInfo.minY; y <= this.gridInfo.maxY; y++) {
-                if (this.grille.grille[0][y].state == "Porte") {
-                    this.planeFormWalls.addDoor(0, y);
+                if (this.grille.grille[this.gridInfo.minX][y].state == "Porte") {
+                    let newPos = conversion.get3DPositions(this.gridInfo.minX, y);
+                    this.planeFormWalls.addDoor(newPos.x, newPos.y, true);
                 }
-                if (this.grille.grille[this.gridInfo.sizeY - 1][y].state == "Porte") {
-                    this.planeFormWalls.addDoor(this.gridInfo.sizeY - 1, y);
+                if (this.grille.grille[this.gridInfo.maxX][y].state == "Porte") {
+                    let newPos = conversion.get3DPositions(this.gridInfo.maxX, y);
+                    this.planeFormWalls.addDoor(newPos.x, newPos.y, true);
                 }
             }
 
@@ -148,12 +98,17 @@ class Grille {
                 .then(resolve => {
                     this.packImports.individusJSON = resolve;
 
-                    this.arrayIndividus.forEach(ind => {
-                        this.dictInd[ind.id] = new Individus(this.packImports, this.gridInfo, this.packImports.individusJSON.clone());
-                        this.dictInd[ind.id].createIndividus(ind);
+                    this.individus.forEach(ind => {
+                        let indisBlocked = false;
+                        this.blocked.forEach(blockInd => {
+                            if (ind.id == blockInd.id)
+                                indisBlocked = true;
+                        });
+                        if (!indisBlocked) {
+                            this.dictInd[ind.id] = new Individus(this.packImports, this.gridInfo, this.packImports.individusJSON.clone());
+                            this.dictInd[ind.id].createIndividus(ind);
+                        }
                     });
-
-                    this.setFrameArray();
                 });
         });
     }
@@ -264,11 +219,15 @@ class Grille {
     }
 
     setFrameArray() {
-        // this.grille.frame.forEach(frame => {
-        //     this.frame.add(frame);
-        // });
-        this.frameArray.forEach(frame => {
-            this.frame.add(frame);
+        this.firstFrame.forEach(frame => {
+            let indisBlocked = false;
+            this.blocked.forEach(indBlocked => {
+                if (frame.id == indBlocked.id) {
+                    indisBlocked = true;
+                }
+            });
+            if (!indisBlocked)
+                this.frame.add(frame);
         });
 
         this.indIsLoad = true;
@@ -278,8 +237,7 @@ class Grille {
 
     getFirstFrame() {
         if (!this.indIsLoad) {
-            console.warn("Wrong initialisation for : Frame, OverPass error.");
-            return this.setFrameArray();
+            this.setFrameArray();
         }
         return this.frame.getFirstNode();
     }
@@ -289,9 +247,11 @@ class Grille {
             if (currentNode) {
                 let nextFrame = this.frame.getNextNode(currentNode);
                 if (nextFrame) {
-                    nextFrame.value.forEach(ind => {
-                        this.dictInd[ind.id].moveIndividus(ind.id, ind.newPosX, ind.newPosY, this.indAnimation);
-                    });
+                    this.dictInd[nextFrame.value.id].moveIndividus(nextFrame.value.id, nextFrame.value.x, nextFrame.value.y, this.indAnimation);
+                    if (nextFrame.value.isOut) {
+                        this.outIndiv.push(nextFrame.value.id);
+                        this.evacInd += 1;
+                    }
                     return nextFrame;
                 } else {
                     return false;
@@ -307,11 +267,9 @@ class Grille {
     getPrevFrame(currentNode) {
         if (this.indIsLoad) {
             if (currentNode) {
-                let prevFrame = this.frame.getNextNode(currentNode);
+                let prevFrame = this.frame.getPrevNode(currentNode);
                 if (prevFrame) {
-                    prevFrame.value.forEach(ind => {
-                        this.dictInd[ind.id].moveIndividus(ind.id, ind.newPosX, ind.newPosY, this.indAnimation);
-                    });
+                    this.dictInd[prevFrame.value.id].moveIndividus(prevFrame.value.id, prevFrame.value.x, prevFrame.value.y, this.indAnimation);
                     return prevFrame;
                 } else {
                     return false;
@@ -322,5 +280,9 @@ class Grille {
         } else {
             return false;
         }
+    }
+
+    getEvacInd() {
+        return this.evacInd;
     }
 }

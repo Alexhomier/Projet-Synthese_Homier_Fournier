@@ -1,3 +1,8 @@
+<!-- 
+    Auteur: Alexandre Homier
+    Description: Page index.php.
+    Date: 25 mai 2022
+ -->
 <?php
 require_once("action/CommonAction.php");
 require_once("action/IndexAction.php");
@@ -34,7 +39,7 @@ $data = $action->execute();
   <div class="background-blacken" onclick="loginButton()"></div>
   <header class="header">
       <div class="header-container">
-        <a href="index" class="header-item-title">M.A.</a>
+        <a href="https://masimulation.ca" class="header-item-title">M.A.</a>
         <div class="header-item-link">
           <a href="#ma" class="header-item-link-decoration">M.A.</a>
           <p class="header-item-link-decoration">|</p>

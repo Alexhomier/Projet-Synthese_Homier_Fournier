@@ -6,13 +6,14 @@
 
 from urllib import request
 from flask import Flask, jsonify, request
-from flask_cors import CORS
-from Manipulateur import * 
+from flask_cors import CORS, cross_origin
+from Manipulateur import *
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/post', methods = ['POST'])
+@app.route('/algo', methods = ['POST'])
+@cross_origin()
 def post():
     grille = request.get_json()
     manipulateur = Manipulateur(grille)
@@ -26,14 +27,16 @@ def post():
         jsonGrille = result[0]
         jsonFrames = result[1]
         jsonBlocked = result[2]
-        print(jsonGrille)
-        print(jsonFrames)
-        print(jsonIndividu)
-        print(jsonBlocked)
-        return jsonGrille, jsonFrames, jsonIndividu, jsonBlocked
+        print("Starting...")
+        return jsonify(
+            Grille = grille,
+            Frames = jsonFrames,
+            Individu = jsonIndividu,
+            Blocked = jsonBlocked
+        )
     else:
         print("No doors are on the building")
-        return False  
+        return False 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=8500)

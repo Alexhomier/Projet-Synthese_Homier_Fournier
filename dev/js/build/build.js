@@ -1,21 +1,49 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Main JS pour la page build.php                            //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 let grille;
 let isfullscreen = false;
 let currentSelection = "Salle";
 let controlPanelIsOpen = true;
 let keysPressed = {};
+let isPresent = false;
 
 const GRIDSIZE = 2500;
 
 window.addEventListener("load", () => {
+    getIfIDValid();
     grille = new Grille(GRIDSIZE);
     grille.setHeight();
     grille.createGrid();
     grille.resizeGridStart();
+    if (localStorage.getItem("grilleBuild")) {
+        grille.setGrille(JSON.parse(localStorage.getItem("grilleBuild")));
+    }
     setCurrentSelectionText();
     updateScrollBar();
     setUpMultipleSelection();
     keylistener();
+    tick();
 });
+
+addEventListener('unload', () => {
+    localStorage.setItem("grilleBuild", JSON.stringify(grille.grille));
+    document.querySelector(".loading").style.display = "none";
+});
+
+function getIfIDValid() {
+    if (!localStorage.getItem("id")) {
+        location.href = "/";
+    }
+}
+
+function getCompatibility() {
+    if (window.innerWidth <= 977 || window.innerHeight <= 709) {
+        alert("Votre système n'est malheureusement pas compatible avec nos services, veuillez réessayer avec un autre appareil.");
+    }
+}
 
 function keylistener() {
     document.addEventListener('keydown', (event) => {
@@ -36,7 +64,7 @@ function keylistener() {
     });
 
     document.addEventListener('keyup', (event) => {
-        delete this.keysPressed[event.key];
+        delete keysPressed[event.key];
     });
 }
 
@@ -124,13 +152,8 @@ function updateScrollBar() {
     textIndSalle.innerHTML = `Individus par salle : ${scrollbarValue}`;
 }
 
-function saveGrid() {
-    grille.fillEmptyCase();
-    localStorage.setItem("grille", grille.getGrille());
-}
-
 function seeLeaderboard() {
-    window.location.href = "leaderboard.php";
+    window.location.href = "leaderboard";
 }
 
 
@@ -150,13 +173,13 @@ function setUpMultipleSelection() {
 
     selection.on('start', evt => {
         selection.clearSelection(true);
-        arrayLastSelection = []
+        arrayLastSelection = [];
     }).on('move', evt => {
         arrayLastSelection.forEach(select => {
             if (!evt.store.selected.includes(select)) {
                 document.getElementById(select.id).style.backgroundColor = "transparent";
             }
-        })
+        });
         evt.store.selected.forEach(element => {
             document.getElementById(element.id).style.backgroundColor = "#444444";
         });
@@ -174,14 +197,20 @@ function setUpMultipleSelection() {
 
         if (currentSelection == "Porte") {
             let lastPoint = evt.store.selected.pop().id.split(",");
-            let x = lastPoint[0]
-            let y = lastPoint[1]
+            let x = lastPoint[0];
+            let y = lastPoint[1];
             if (grille.setDoorValid(parseInt(x), parseInt(y))) {
                 document.getElementById(grille.getCase(x, y).id).style.backgroundColor = "red";
             } else {
-                alert("Vous ne pouvez pas placer de porte à cet endroit.")
+                alert("Vous ne pouvez pas placer de porte à cet endroit.");
             }
         }
         grille.checkState();
     });
 }
+
+const tick = () => {
+    getCompatibility();
+    getIfIDValid();
+    requestAnimationFrame(tick);
+};

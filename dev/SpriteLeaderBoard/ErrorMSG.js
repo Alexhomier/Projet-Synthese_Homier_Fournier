@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Message d'erreur leaderboard                              //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 class ErrorMSG {
     constructor() {
         this.action = false;
@@ -52,7 +57,6 @@ class ErrorMSG {
                     }
                 }
                 document.querySelector(".error-container").style.top = `${this.currentPos}%`;
-                console.log(this.currentPos)
             }
         }
     }

@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Création de la grille par l'utilisateur                   //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 class Grille {
     constructor(gridSize) {
         this.gridDOM = document.querySelector(".grid");
@@ -5,6 +10,16 @@ class Grille {
         this.gridisFullscreen = false;
         this.grille = [];
         this.indBySalle = 0;
+    }
+
+    setGrille(grille) {
+        for (let x = 0; x < this.grille.length; x++) {
+            for (let y = 0; y < this.grille[x].length; y++) {
+                this.grille[x][y].state = grille[x][y].state;
+                this.grille[x][y].checkStateCase();
+                this.getminMax(x, y);
+            }
+        }
     }
 
     setHeight() {
@@ -81,7 +96,7 @@ class Grille {
     }
 
     getminMax(x, y) {
-        if (this.grille[x][y].state) {
+        if (this.grille[x][y].state == "Salle" || this.grille[x][y].state == "Couloir") {
             if (this.minX > x)
                 this.minX = x;
             if (this.minY > y)
@@ -91,8 +106,6 @@ class Grille {
             if (this.maxY < y)
                 this.maxY = y;
         }
-
-        console.log(this.maxX, this.minX, this.maxY, this.minY)
     }
 
     setDoorValid(x, y) {
@@ -107,9 +120,9 @@ class Grille {
         if (y == this.size)
             lookVoisinYUp = 0;
         if (x == 0)
-            lookVoisinXDown = 0
+            lookVoisinXDown = 0;
         if (x == this.size)
-            lookVoisinXUp = 0
+            lookVoisinXUp = 0;
 
         const conditionsArray = [
             this.grille[x][y + lookVoisinYUp].state == "Couloir",
@@ -143,14 +156,13 @@ class Grille {
     }
 
     getGrille() {
-        let daoGrille = new DAOGrille(this)
+        let daoGrille = new DAOGrille(this);
         daoGrille.sendToPy(true);
     }
 
-    sendGrilleToPy() {
+    sendGrilleToPy(save) {
         this.fillEmptyCase();
-        let daoGrille = new DAOGrille(this)
-        console.log(this);
-        daoGrille.sendToPy()
+        let daoGrille = new DAOGrille(this);
+        daoGrille.sendToPy(save);
     }
 }

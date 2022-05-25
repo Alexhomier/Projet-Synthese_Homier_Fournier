@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Individus de la visualisation 3D                          //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 class Individus {
     constructor(packImports, grid, object) {
         this.packImports = packImports;
@@ -24,6 +29,10 @@ class Individus {
 
         animation.addAnimation(id, posX, posY, this.object);
         // this.object.position.set(posX, this.object.scale.y / 2, posY);
+    }
+
+    removeInd() {
+        this.packImports.scene.remove(this.object);
     }
 
 

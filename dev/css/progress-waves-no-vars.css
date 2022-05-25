@@ -20,6 +20,13 @@
 |*|
 \*/
 
+
+/*
+Auteur: Librarie externe
+Description: Style CSS pour la page build.php (Animation de chargement)
+Date: 25 mai 2022
+*/
+
 .in-progress {
     position: absolute;
     top: 85%;

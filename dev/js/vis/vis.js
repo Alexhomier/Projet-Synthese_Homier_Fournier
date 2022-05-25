@@ -1,10 +1,16 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Main JS pour la page visualisation.php                    //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 let spriteList = [];
 let grille;
 let currentFrame;
-let sleepTimePlay = 1;
-let timeOutVar;
+let currentFrameCount = 0;
+let play = false;
 
 window.addEventListener("load", () => {
+    getIfIDValid();
     const canvas = document.getElementById("canvas");
 
     spriteList.push(new Scene(canvas));
@@ -13,15 +19,36 @@ window.addEventListener("load", () => {
     grille.start()
         .then(currentFrame = getFirstFrame());
 
-    document.getElementById('canvas').addEventListener('click', function(e) {
-        currentFrame = getNextFrame();
-        // playFrame(true);
-    });
-
     tick();
 });
 
+function getIfIDValid() {
+    if (!localStorage.getItem("id")) {
+        location.href = "/";
+    }
+}
+
+
+function getCompatibility() {
+    if (window.innerWidth <= 1555 || window.innerHeight <= 818) {
+        alert("Votre système n'est malheureusement pas compatible avec nos services, veuillez réessayer avec un autre appareil.");
+    }
+}
+
+function onClickPlay() {
+    document.querySelector('.control-command-play').style.display = "none";
+    document.querySelector('.control-command-pause').style.display = "inline-flex";
+    play = true;
+}
+
+function onClickPause() {
+    document.querySelector('.control-command-play').style.display = "inline-flex";
+    document.querySelector('.control-command-pause').style.display = "none";
+    play = false;
+}
+
 function getFirstFrame() {
+    currentFrameCount = 0;
     return grille.getFirstFrame();
 }
 
@@ -29,6 +56,7 @@ function getNextFrame() {
     let nextFrame = grille.getNextFrame(currentFrame);
     if (nextFrame) {
         currentFrame = nextFrame;
+        ++currentFrameCount;
         return currentFrame;
     } else {
         // fin de la simulation
@@ -39,7 +67,8 @@ function getNextFrame() {
 function getPrevFrame() {
     let prevFrame = grille.getPrevFrame(currentFrame);
     if (prevFrame) {
-        currentFrame = nextFrame;
+        currentFrame = prevFrame;
+        --currentFrameCount;
         return currentFrame;
     } else {
         // Début de la simulation
@@ -47,22 +76,23 @@ function getPrevFrame() {
     }
 }
 
-function playFrame(play = false) {
-    nextFrame = getNextFrame();
-
-    if (play && nextFrame) {
-        timeOutVar = setTimeout(function() { playFrame(true); }, sleepTimePlay * 1000);
-    } else {
-        clearTimeout(timeOutVar);
-    }
-}
-
 function getGrille() {
     if (localStorage.getItem("grille") != null) {
-        let grille = localStorage.getItem("grille");
-        return JSON.parse(grille);
+        let infos = localStorage.getItem("grille");
+        let jsonLoad = JSON.parse(infos);
+        let grille = jsonLoad.Grille;
+        let individus = JSON.parse(jsonLoad.Individu);
+        let blocked = JSON.parse(jsonLoad.Blocked);
+        let frames = JSON.parse(jsonLoad.Frames);
+        infos = {
+            grille: grille,
+            individus: individus.individus,
+            blocked: blocked.Blocked,
+            frames: frames.Frames
+        };
+        return infos;
     } else {
-        window.location.href = "build.php";
+        window.location.href = "build";
     }
 }
 
@@ -71,5 +101,16 @@ const tick = () => {
         const sprite = spriteList[i];
         sprite.tick();
     }
+
+    if (play) {
+        nextFrame = getNextFrame();
+        if (!nextFrame) {
+            onClickPause();
+        }
+    }
+    getCompatibility();
+    getIfIDValid();
+    document.querySelector("#indEvac").innerHTML = `Individus évacués : ${grille.getEvacInd()}`;
+    document.querySelector("#currentFrameCount").innerHTML = `Position de la simulation : ${currentFrameCount}`;
     requestAnimationFrame(tick);
 };

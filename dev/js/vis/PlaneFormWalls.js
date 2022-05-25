@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Création des murs et des portes en 3D                     //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 class PlaneFormWalls {
     constructor(packImports, grid) {
         this.scene = packImports.scene;
@@ -77,7 +82,7 @@ class PlaneFormWalls {
             if (!isX) {
                 plane.rotateY(Math.PI);
             } else {
-                plane.rotateY(-Math.PI / 2)
+                plane.rotateY(-Math.PI / 2);
             }
             plane.position.set(positionX, this.wallHeight / 2, positionY);
 
@@ -136,23 +141,21 @@ class PlaneFormWalls {
         doorHoleForFrame.updateMatrix();
         this.doorHoleForFrame.mergeMesh(doorHoleForFrame.geometry, doorHoleForFrame.matrix);
 
-        if (isX != undefined) {
-            if (!isX) {
-                geometry = new THREE.BoxGeometry(this.doorWidth + 0.1, this.wallHeight - 0.2, this.doorWidth - 1);
-                plane.rotateY(Math.PI);
-            } else {
-                geometry = new THREE.BoxGeometry(this.doorWidth - 1, this.wallHeight - 0.2, this.doorWidth + 0.1);
-                plane.rotateY(-Math.PI / 2)
-            }
-            material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
-            plane = new THREE.Mesh(geometry, material);
-
-            plane.position.set(x, this.grid.wallHeight / 2, y);
-
-            let wallMesh = new THREE.Mesh(plane);
-            wallMesh.updateMatrix();
-            this.doorFrame.mergeMesh(wallMesh.geometry, wallMesh.matrix);
+        if (!isX) {
+            geometry = new THREE.BoxGeometry(this.doorWidth + 0.1, this.wallHeight - 0.2, this.doorWidth - 1);
+            plane.rotateY(Math.PI);
+        } else {
+            geometry = new THREE.BoxGeometry(this.doorWidth - 1, this.wallHeight - 0.2, this.doorWidth + 0.1);
+            plane.rotateY(-Math.PI / 2);
         }
+        material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
+        plane = new THREE.Mesh(geometry, material);
+
+        plane.position.set(x, this.grid.wallHeight / 2, y);
+
+        let wallMesh = new THREE.Mesh(plane);
+        wallMesh.updateMatrix();
+        this.doorFrame.mergeMesh(wallMesh.geometry, wallMesh.matrix);
     }
 
     // Librairie pour soustraire un cube d'un autre cube: THREEBSP
@@ -172,7 +175,7 @@ class PlaneFormWalls {
             var exterior_mesh = exterior.toMesh();
             exterior_mesh.material = new THREE.MeshBasicMaterial({ color: this.grid.extWallsColor, side: THREE.DoubleSide });
 
-            var doorFrame = doorFrame.subtract(doorHoleForFrame);
+            doorFrame = doorFrame.subtract(doorHoleForFrame);
             var doorFrame_mesh = doorFrame.toMesh();
             doorFrame_mesh.material = new THREE.MeshBasicMaterial({ color: this.grid.doorFrameColor, side: THREE.DoubleSide });
 

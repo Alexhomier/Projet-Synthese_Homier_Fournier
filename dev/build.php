@@ -1,3 +1,8 @@
+<!-- 
+    Auteur: Alexandre Homier
+    Description: Page build.php.
+    Date: 25 mai 2022
+ -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,6 +15,7 @@
     <link rel="stylesheet" href="./css/progress-waves-no-vars.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@viselect/vanilla/lib/viselect.cjs.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./js/build/build.js"></script>
     <script src="./js/build/Case.js"></script>
     <script src="./js/build/Grille.js"></script>
@@ -54,8 +60,8 @@
                     <div class="left-panel-info-value-container">
                         <h3 class="left-panel-info-value-selection">Sélection courante : </h3>
                         <div class="left-panel-info-scrollbar-container">
-                            <h3 class="left-panel-info-value-selection-sb">Individus par salle : </h3>
-                            <input title= "Individus par salle 1-100" type="range" min="1" max="100" class="left-panel-info-scrollbar" oninput="updateScrollBar()">
+                            <h3 class="left-panel-info-value-selection-sb">Individus total : </h3>
+                            <input title= "Individus total 1-100" type="range" min="1" max="100" class="left-panel-info-scrollbar" oninput="updateScrollBar()">
                         </div>
                     </div>
                 </div>
@@ -64,9 +70,9 @@
                         <h2 class="left-panel-title-item-cat">Options:</h2>
                     </div>
                     <div class="left-panel-options-button-container">
-                        <button title="Enregistrer le plan" class="left-panel-button-item-save" onclick="saveGrid()"></button>
+                        <button title="Enregistrer le plan" class="left-panel-button-item-save" onclick="grille.sendGrilleToPy(true)"></button>
                         <button title="Accéder au classement" class="left-panel-button-item-lb" onclick="seeLeaderboard()"></button>
-                        <button title="Simulation" class="left-panel-button-item-simu" onclick="grille.sendGrilleToPy()"></button>
+                        <button title="Simulation" class="left-panel-button-item-simu" onclick="grille.sendGrilleToPy(false)"></button>
                     </div>
                 </div>
             </div>

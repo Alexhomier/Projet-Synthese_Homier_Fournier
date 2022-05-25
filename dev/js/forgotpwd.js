@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Main JS pour la page forgotpwd.php                        //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 window.addEventListener("load", () => {
     getRecovery();
 });
@@ -29,12 +34,12 @@ function getInfo(username) {
 }
 
 function sendToSMTP(username, info) {
-    console.log(createJSONForMail(username, info))
+    console.log(createJSONForMail(username, info));
     fetch("https://api.smtp2go.com/v3/email/send", {
         method: "POST",
         credentials: "omit",
         body: createJSONForMail(username, info)
-    })
+    });
 }
 
 function createJSONForMail(username, response) {
@@ -50,7 +55,7 @@ function createJSONForMail(username, response) {
             // 'url': `https://wwww.masimulation.ca/recoverypwd.php?${response.url}`
             'reset_url': `http://projetsynthèse/forgotpwd.php?${response.url}?${username}`
         }
-    })
+    });
 }
 
 function getRecovery() {
@@ -60,12 +65,12 @@ function getRecovery() {
         document.querySelector(".mdp-container").style.display = "none";
         document.querySelector(".sent-container").style.display = "none";
         document.querySelector(".rec-container").style.display = "flex";
-        document.querySelector(".rec-text").innerHTML = `${splitUrl[2]}, Veuillez changer votre mot de passe.`
+        document.querySelector(".rec-text").innerHTML = `${splitUrl[2]}, Veuillez changer votre mot de passe.`;
 
         let formData = new FormData();
 
         formData.append("url", splitUrl[1]);
-        formData.append("usernameRecovery", splitUrl[2])
+        formData.append("usernameRecovery", splitUrl[2]);
 
         fetch("AjaxForgotpwd.php", {
                 method: "POST",
@@ -79,7 +84,7 @@ function getRecovery() {
                     document.querySelector(".sent-container").style.display = "none";
                     document.querySelector(".rec-container").style.display = "none";
                 }
-            })
+            });
     }
 }
 

@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Cases de la grille (build.php)                            //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 class Case {
     constructor(x, y) {
         this.id = [x, y];
@@ -24,8 +29,9 @@ class Case {
                 break;
             case null:
                 this.case.style.backgroundColor = "transparent";
-                this.state = "Vide";
+                this.state = null;
                 this.case.setAttribute("title", "Vide");
+                break;
             default:
                 break;
         }
@@ -39,6 +45,10 @@ class Case {
         if (this.state == "Salle") {
             this.case.style.backgroundColor = "white";
             this.case.setAttribute("title", "Salle");
+        }
+        if (this.state == "Porte") {
+            this.case.style.backgroundColor = "red";
+            this.case.setAttribute("title", "Porte");
         }
     }
 

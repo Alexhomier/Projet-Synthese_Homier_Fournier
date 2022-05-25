@@ -1,4 +1,7 @@
 <?php
+//  Auteur: Alexandre Homier
+//  Description: Ajax Build redirection.
+//  Date: 25 mai 2022
 require_once("action/AjaxActionBuild.php");
 
 $action = new AjaxActionBuild();

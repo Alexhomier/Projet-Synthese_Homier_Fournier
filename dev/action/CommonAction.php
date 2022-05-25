@@ -1,4 +1,7 @@
 <?php
+//  Auteur: Alexandre Homier
+//  Description: Gestionnaire de php.
+//  Date: 25 mai 2022
 session_start();
 $_SESSION["INSCRIT"] = FALSE;
 require_once("action/constants.php");
