@@ -46,6 +46,10 @@ class Case {
             this.case.style.backgroundColor = "white";
             this.case.setAttribute("title", "Salle");
         }
+        if (this.state == "Porte") {
+            this.case.style.backgroundColor = "red";
+            this.case.setAttribute("title", "Porte");
+        }
     }
 
     checkStateCaseFill() {

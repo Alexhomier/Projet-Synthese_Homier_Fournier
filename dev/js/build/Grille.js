@@ -12,6 +12,16 @@ class Grille {
         this.indBySalle = 0;
     }
 
+    setGrille(grille) {
+        for (let x = 0; x < this.grille.length; x++) {
+            for (let y = 0; y < this.grille[x].length; y++) {
+                this.grille[x][y].state = grille[x][y].state;
+                this.grille[x][y].checkStateCase();
+                this.getminMax(x, y);
+            }
+        }
+    }
+
     setHeight() {
         let pourcentage = this.gridDOM.offsetWidth / screen.height * 100;
         this.gridDOM.style.height = pourcentage + "%";

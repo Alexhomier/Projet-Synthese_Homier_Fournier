@@ -18,12 +18,19 @@ window.addEventListener("load", () => {
     grille.setHeight();
     grille.createGrid();
     grille.resizeGridStart();
+    if (localStorage.getItem("grilleBuild")) {
+        grille.setGrille(JSON.parse(localStorage.getItem("grilleBuild")));
+    }
     setCurrentSelectionText();
     updateScrollBar();
     setUpMultipleSelection();
     keylistener();
-    document.querySelector(".loading").style.display = "none";
     tick();
+});
+
+addEventListener('unload', () => {
+    localStorage.setItem("grilleBuild", JSON.stringify(grille.grille));
+    document.querySelector(".loading").style.display = "none";
 });
 
 function getIfIDValid() {
