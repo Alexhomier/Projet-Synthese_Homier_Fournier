@@ -1,8 +1,3 @@
-<!-- 
-    Auteur: Alexandre Homier
-    Description: Ajax forgotpwd redirection.
-    Date: 25 mai 2022
- -->
 <?php
 //  Auteur: Alexandre Homier
 //  Description: Ajax forgotpwd redirection.

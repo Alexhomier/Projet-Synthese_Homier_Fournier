@@ -14,10 +14,9 @@ const GRIDSIZE = 2500;
 
 window.addEventListener("load", () => {
     getIfIDValid();
-    grille = new Grille(GRIDSIZE);
-    grille.setHeight();
-    grille.createGrid();
-    grille.resizeGridStart();
+    let grilleDOM = document.querySelector(".grid");
+    grille = new Grille(GRIDSIZE, grilleDOM);
+    grille.init();
     if (localStorage.getItem("grilleBuild")) {
         grille.setGrille(JSON.parse(localStorage.getItem("grilleBuild")));
     }

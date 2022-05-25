@@ -4,12 +4,18 @@
 //  Date: 25 mai 2022                                                      //
 /////////////////////////////////////////////////////////////////////////////
 class Grille {
-    constructor(gridSize) {
-        this.gridDOM = document.querySelector(".grid");
+    constructor(gridSize, gridDOM) {
+        this.gridDOM = gridDOM;
         this.gridsize = gridSize;
         this.gridisFullscreen = false;
         this.grille = [];
         this.indBySalle = 0;
+    }
+
+    init() {
+        this.setHeight();
+        this.createGrid();
+        this.resizeGridStart();
     }
 
     setGrille(grille) {
