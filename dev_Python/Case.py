@@ -45,18 +45,21 @@ class Case:
 
     def update_voisins_algo(self, grid): #Regarde si voisin est mur ou non
         self.voisins = []
-        if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].get_type() == 'Wall' and not grid[self.row + 1][self.col].get_type() == 'Individu' and not grid[self.row + 1][self.col] in self.came_from: # DOWN
-            self.voisins.append(grid[self.row + 1][self.col])
+        if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].get_type() == 'Wall' and not grid[self.row + 1][self.col].get_type() == 'Individu': # DOWN
+            if not grid[self.row + 1][self.col] in self.came_from:
+                self.voisins.append(grid[self.row + 1][self.col])
         
-        if self.row > 0 and not grid[self.row - 1][self.col].get_type() == 'Wall' and not grid[self.row - 1][self.col].get_type() == 'Individu' and not grid[self.row - 1][self.col] in self.came_from: # UP
-            self.voisins.append(grid[self.row - 1][self.col])
+        if self.row > 0 and not grid[self.row - 1][self.col].get_type() == 'Wall' and not grid[self.row - 1][self.col].get_type() == 'Individu': # UP
+            if not grid[self.row - 1][self.col] in self.came_from:
+                self.voisins.append(grid[self.row - 1][self.col])
         
-        if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].get_type() == 'Wall' and not grid[self.row][self.col + 1].get_type() == 'Individu' and not grid[self.row][self.col + 1] in self.came_from: # RIGHT
-            self.voisins.append(grid[self.row][self.col + 1])
+        if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].get_type() == 'Wall' and not grid[self.row][self.col + 1].get_type() == 'Individu': # RIGHT
+            if not grid[self.row][self.col + 1] in self.came_from:
+                self.voisins.append(grid[self.row][self.col + 1])
         
-        if self.col > 0 and not grid[self.row][self.col - 1].get_type() == 'Wall' and not grid[self.row][self.col - 1].get_type() == 'Individu' and not grid[self.row][self.col - 1] in self.came_from: # LEFT
-            self.voisins.append(grid[self.row][self.col - 1])
-
+        if self.col > 0 and not grid[self.row][self.col - 1].get_type() == 'Wall' and not grid[self.row][self.col - 1].get_type() == 'Individu': # LEFT
+            if not grid[self.row][self.col - 1] in self.came_from:
+                self.voisins.append(grid[self.row][self.col - 1])
 
     def update_voisins_closest(self, grid): #Regarde si voisin est mur ou non
         self.voisins = []
