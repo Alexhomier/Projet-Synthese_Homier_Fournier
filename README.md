@@ -21,7 +21,7 @@
   
   ![alt text](https://i.imgur.com/4vdHoAC.png)
   
-   > Ensuite vous devrez créer la grille avec l'element HTML de la grille ci-haut:
+   > Ensuite vous devrez créer la grille avec l'lélement HTML de la grille ci-haut:
   
   ![alt text](https://i.imgur.com/TLQkgJn.png)
   
