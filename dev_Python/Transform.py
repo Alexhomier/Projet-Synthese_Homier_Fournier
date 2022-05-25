@@ -1,3 +1,4 @@
+import random
 from Case import *
 from Astar import *
 from queue import PriorityQueue
@@ -60,20 +61,30 @@ def ChooseEnd(grid, end_array, individu_array):
             individu.set_end(closest_end.get()[2])
     return individu_array
 
-## Méthode qui place les individus à tout les 5 cases, dans une salle. Qui est limité par le nombre maximal passé en paramêtre ##
+## Méthode qui place les individus aléatoirement dans la grille, dans une salle. Qui est limité par le nombre maximal passé en paramêtre ##
 
 def PlaceIndividus(grille, nb_individus_max, minX, maxX, minY, maxY):
     i = 0
     counter = 0
     individu_array = []
-    for x in range(minX, maxX + 1):
-        for y in range(minY, maxY + 1):
-            if grille[x][y].type == "Salle" and i % 5 == 0 and counter < int(nb_individus_max):
-                grille[x][y].type = "Individu"
-                grille[x][y].iden = counter
-                individu_array.append([grille[x][y]])
-                counter += 1
-            i += 1
+    while counter < int(nb_individus_max):
+        x = random.randrange(minX, maxX)
+        y = random.randrange(minY, maxY)
+        if grille[x][y].type == "Salle":
+            grille[x][y].type = "Individu"
+            grille[x][y].iden = counter
+            individu_array.append([grille[x][y]])
+            counter += 1
+
+    # for x in range(minX, maxX + 1):
+    #     for y in range(minY, maxY + 1):
+    #         if grille[x][y].type == "Salle" and i % 5 == 0 and counter < int(nb_individus_max):
+    #             grille[x][y].type = "Individu"
+    #             grille[x][y].iden = counter
+    #             individu_array.append([grille[x][y]])
+    #             counter += 1
+    #         i += 1
+
     return grille, individu_array
 
 ## Méthode permettant d'update les voisins de chaque case dans la grille, pour calculer le chemin le plus court, ou l'agorithme ##
