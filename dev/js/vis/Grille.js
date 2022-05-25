@@ -28,6 +28,7 @@ class Grille {
         this.individus = this.infos.individus;
         this.blocked = this.infos.blocked;
         this.firstFrame = this.infos.frames;
+        this.evacInd = 0;
 
         let sizeX = this.grille.maxX - this.grille.minX;
         let sizeY = this.grille.maxY - this.grille.minY;
@@ -249,6 +250,7 @@ class Grille {
                     this.dictInd[nextFrame.value.id].moveIndividus(nextFrame.value.id, nextFrame.value.x, nextFrame.value.y, this.indAnimation);
                     if (nextFrame.value.isOut) {
                         this.outIndiv.push(nextFrame.value.id);
+                        this.evacInd += 1;
                     }
                     return nextFrame;
                 } else {
@@ -278,5 +280,9 @@ class Grille {
         } else {
             return false;
         }
+    }
+
+    getEvacInd() {
+        return this.evacInd;
     }
 }

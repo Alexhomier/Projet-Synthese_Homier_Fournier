@@ -110,6 +110,7 @@ const tick = () => {
     }
     getCompatibility();
     getIfIDValid();
+    document.querySelector("#indEvac").innerHTML = `Individus évacués : ${grille.getEvacInd()}`;
     document.querySelector("#currentFrameCount").innerHTML = `Position de la simulation : ${currentFrameCount}`;
     requestAnimationFrame(tick);
 };

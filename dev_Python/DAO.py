@@ -22,10 +22,7 @@ def post():
         jsonGrille = result[0]
         jsonFrames = result[1]
         jsonBlocked = result[2]
-        print(jsonGrille)
-        print(jsonFrames)
-        print(jsonIndividu)
-        print(jsonBlocked)
+        print("Starting...");
         return jsonify(
             Grille = grille,
             Frames = jsonFrames,
