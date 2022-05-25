@@ -73,7 +73,6 @@ def ChooseEnd(grid, end_array, individu_array):
 ## Méthode qui place les individus aléatoirement dans la grille, dans une salle. Qui est limité par le nombre maximal passé en paramêtre ##
 
 def PlaceIndividus(grille, nb_individus_max, minX, maxX, minY, maxY):
-    i = 0
     counter = 0
     individu_array = []
     while counter < int(nb_individus_max):
@@ -84,15 +83,6 @@ def PlaceIndividus(grille, nb_individus_max, minX, maxX, minY, maxY):
             grille[x][y].iden = counter
             individu_array.append([grille[x][y]])
             counter += 1
-
-    # for x in range(minX, maxX + 1):
-    #     for y in range(minY, maxY + 1):
-    #         if grille[x][y].type == "Salle" and i % 5 == 0 and counter < int(nb_individus_max):
-    #             grille[x][y].type = "Individu"
-    #             grille[x][y].iden = counter
-    #             individu_array.append([grille[x][y]])
-    #             counter += 1
-    #         i += 1
 
     return grille, individu_array
 

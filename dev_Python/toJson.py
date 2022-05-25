@@ -6,20 +6,6 @@
 
 from Case import *
 
-def toJsonGrid(grid):
-    first = True
-    jsonString = ''
-    jsonString += '{ "grille": ['
-    for x in range(len(grid)):
-        for y in range(len(grid)):
-            if first:
-                jsonString += grid[x][y].to_json()
-                first = False
-            else:
-                jsonString = jsonString + ", " + grid[x][y].to_json()
-    jsonString += ']}'
-    return jsonString
-
 def toJsonIndividu(grid):
     first = True
     jsonString = ''

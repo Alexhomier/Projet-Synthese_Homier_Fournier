@@ -19,14 +19,12 @@ def post():
     manipulateur = Manipulateur(grille)
     jsonIndividu = manipulateur._get_individus_json()
     succes = manipulateur._do_individus_frames()
-    jsonGrille = ''
     jsonFrames = ''
     jsonBlocked = ''
     if succes:
         result = manipulateur._get_json()
-        jsonGrille = result[0]
-        jsonFrames = result[1]
-        jsonBlocked = result[2]
+        jsonFrames = result[0]
+        jsonBlocked = result[1]
         print("Starting...")
         return jsonify(
             Grille = grille,

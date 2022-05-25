@@ -102,10 +102,9 @@ class Manipulateur():
             return False
 
     def _get_json(self):
-        jsonGrille = toJsonGrid(self.__grille)
         jsonFrames = toJsonFrames(self.__frames)
         jsonBlocked = toJsonBlocked(self.__blocked_array)
-        return jsonGrille, jsonFrames, jsonBlocked
+        return jsonFrames, jsonBlocked
 
     def _get_individus_json(self):
         return self.jsonIndividu
