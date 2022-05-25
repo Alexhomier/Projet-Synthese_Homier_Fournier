@@ -9,10 +9,6 @@ from ClassJson import *
 #  Vectoriser les arrays (numpy)
 #
 
-## DANS ASTAR, PEUT ETRE ESSAYER D'AJOUTER LA CASE ORIGINAL (CELLE QUI EST REGARDER) DANS LE CLOSEST POUR SAVOIR S'IL POURRAIT NE PAS BOUGER ##
-
-## REGARDE LES ENDROITS OU J'UPDATE LES VOISINS, C'EST PEUT ETRE NECESSAIRE DE LE FAIRE POUR LA GRILLE AU COMPLET AUSSI ##
-
 class Manipulateur():
     def __init__(self, grille):
         self.__grille_size = len(grille["grille"])
@@ -64,28 +60,22 @@ class Manipulateur():
                         if result:
                             is_done = result[0]
                             next_case = result[1]
+                            next_case.iden = current_individu.iden      
+                            next_case.add_came_from(current_individu)
+                            pos_last = current_individu.get_position()
+                            current_individu.reset()
+                            self.__grille[pos_last[0]][pos_last[1]] = current_individu 
                             if is_done:  
-                                next_case.iden = current_individu.iden      
-                                next_case.add_came_from(current_individu)
                                 next_case.type = "End"
-                                pos_last = current_individu.get_position()
-                                current_individu.reset()
-                                self.__grille[pos_last[0]][pos_last[1]] = current_individu 
                                 self.__final_array.append(next_case)
-                                frames_temp.append(next_case)
                                 self.__nb_out += 1
                                 print(str(self.__nb_out) + " personne(s) out")
                             else :
-                                next_case.iden = current_individu.iden
-                                next_case.add_came_from(current_individu)
                                 next_case.type = "Individu"
-                                pos_last = current_individu.get_position()
-                                current_individu.reset()
-                                self.__grille[pos_last[0]][pos_last[1]] = current_individu 
                                 pos_next = next_case.get_position()
                                 self.__grille[pos_next[0]][pos_next[1]] = next_case
                                 self.__individu_array.append(next_case)
-                                frames_temp.append(next_case)
+                            frames_temp.append(next_case)
                         else:
                             self.__individu_array.append(current_individu)
                             frames_temp.append(current_individu)
