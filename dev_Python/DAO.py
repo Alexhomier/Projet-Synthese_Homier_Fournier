@@ -36,7 +36,7 @@ def post():
         )
     else:
         print("No doors are on the building")
-        return False  #Jsp sque tu veux la
+        return False 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8500)
