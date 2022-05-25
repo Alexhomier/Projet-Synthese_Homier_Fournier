@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Main JS pour la page index.php                    //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 let spriteList = [];
 const PASSWORD_MIN_NBCHAR = 8;
 const PASSWORD_MAX_NBCHAR = 30;

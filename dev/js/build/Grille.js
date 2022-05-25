@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Création de la grille par l'utilisateur                   //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 class Grille {
     constructor(gridSize) {
         this.gridDOM = document.querySelector(".grid");
@@ -145,9 +150,9 @@ class Grille {
         daoGrille.sendToPy(true);
     }
 
-    sendGrilleToPy() {
+    sendGrilleToPy(save) {
         this.fillEmptyCase();
         let daoGrille = new DAOGrille(this);
-        daoGrille.sendToPy();
+        daoGrille.sendToPy(save);
     }
 }

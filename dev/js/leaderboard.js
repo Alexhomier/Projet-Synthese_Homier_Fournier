@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Main JS pour la page leaderboard.php                      //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 let spriteList = [];
 let currentBoardSelection = "moi";
 let currentPage = 1;

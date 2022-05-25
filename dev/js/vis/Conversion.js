@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Conversion d'une mesure logique vers une mesure graphique //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 class ConversionTo3D {
     constructor(gridInfo) {
         this.gridInfo = gridInfo;

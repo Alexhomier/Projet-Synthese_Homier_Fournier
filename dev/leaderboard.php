@@ -1,3 +1,8 @@
+<!-- 
+    Auteur: Alexandre Homier
+    Description: Page leaderboard.php.
+    Date: 25 mai 2022
+ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

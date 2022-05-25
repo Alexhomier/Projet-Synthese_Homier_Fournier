@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Création du sol en 3D                                     //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 class PlaneFormBase {
     constructor(packImports, grid) {
         this.scene = packImports.scene;

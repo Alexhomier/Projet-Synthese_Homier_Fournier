@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Main JS pour la page build.php                            //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 let grille;
 let isfullscreen = false;
 let currentSelection = "Salle";
@@ -138,11 +143,6 @@ function updateScrollBar() {
 
     grille.setIndBySalle(scrollbarValue);
     textIndSalle.innerHTML = `Individus par salle : ${scrollbarValue}`;
-}
-
-function saveGrid() {
-    grille.fillEmptyCase();
-    localStorage.setItem("grille", grille.getGrille());
 }
 
 function seeLeaderboard() {

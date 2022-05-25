@@ -1,4 +1,7 @@
 <?php
+//  Auteur: Alexandre Homier
+//  Description: DAO base de donnée informations de connection.
+//  Date: 25 mai 2022
     class Connection {
         private static $connection = null;
 

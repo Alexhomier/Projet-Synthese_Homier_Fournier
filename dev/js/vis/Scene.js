@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Scène 3D (Moteur 3D de ThreeJs)                           //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 class Scene {
     constructor(canvas) {
         this.canvas = canvas;
@@ -16,18 +21,6 @@ class Scene {
             renderer,
             camera,
         };
-
-        // temp
-        const axesHelper = new THREE.AxesHelper(20);
-        this.scene.add(axesHelper);
-
-        const size = 400;
-        const divisions = 75;
-
-        const gridHelper = new THREE.GridHelper(size, divisions);
-        // this.scene.add(gridHelper);
-
-        // end temp
 
         window.addEventListener('resize', this.resizeWindow.bind(this));
     }

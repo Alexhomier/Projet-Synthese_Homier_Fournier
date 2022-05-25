@@ -1,3 +1,8 @@
+<!-- 
+    Auteur: Alexandre Homier
+    Description: Page build.php.
+    Date: 25 mai 2022
+ -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -65,9 +70,9 @@
                         <h2 class="left-panel-title-item-cat">Options:</h2>
                     </div>
                     <div class="left-panel-options-button-container">
-                        <button title="Enregistrer le plan" class="left-panel-button-item-save" onclick="saveGrid()"></button>
+                        <button title="Enregistrer le plan" class="left-panel-button-item-save" onclick="grille.sendGrilleToPy(true)"></button>
                         <button title="Accéder au classement" class="left-panel-button-item-lb" onclick="seeLeaderboard()"></button>
-                        <button title="Simulation" class="left-panel-button-item-simu" onclick="grille.sendGrilleToPy()"></button>
+                        <button title="Simulation" class="left-panel-button-item-simu" onclick="grille.sendGrilleToPy(false)"></button>
                     </div>
                 </div>
             </div>

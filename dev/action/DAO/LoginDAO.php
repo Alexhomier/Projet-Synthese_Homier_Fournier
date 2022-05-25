@@ -1,4 +1,7 @@
 <?php
+//  Auteur: Alexandre Homier
+//  Description: DAO base de donnée login.
+//  Date: 25 mai 2022
     require_once("action/DAO/Connection.php");
 
     class LoginDAO {

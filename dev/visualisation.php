@@ -1,3 +1,8 @@
+<!-- 
+    Auteur: Alexandre Homier
+    Description: Page visualisation.php.
+    Date: 25 mai 2022
+ -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>

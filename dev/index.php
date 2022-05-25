@@ -1,3 +1,8 @@
+<!-- 
+    Auteur: Alexandre Homier
+    Description: Page index.php.
+    Date: 25 mai 2022
+ -->
 <?php
 require_once("action/CommonAction.php");
 require_once("action/IndexAction.php");

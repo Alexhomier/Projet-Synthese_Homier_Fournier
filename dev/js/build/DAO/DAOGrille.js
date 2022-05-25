@@ -1,12 +1,19 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Envoie du JS à l'algorithme Python                        //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
 class DAOGrille {
     constructor(valuesToSend) {
         this.dictValues = { "grille": valuesToSend.grille, "IndParSalle": valuesToSend.indBySalle, "minX": valuesToSend.minX, "minY": valuesToSend.minY, "maxX": valuesToSend.maxX, "maxY": valuesToSend.maxY };
+        this.isSave = false;
     }
 
     sendToPy(isSave = false) {
+        this.isSave = isSave;
         document.querySelector(".loading").style.display = "flex";
         let loading = document.querySelector(".loading-title");
-        if (isSave) {
+        if (this.isSave) {
             loading.innerHTML = "Sauvegarde en cours...";
         } else {
             loading.innerHTML = "Chargement de la simulation en cours...";
@@ -22,18 +29,8 @@ class DAOGrille {
             })
             .then(response => response.json())
             .then(response => {
-                let jsonLoad = JSON.parse(response);
-                let grille = jsonLoad.Grille;
-                let individus = JSON.parse(jsonLoad.Individu);
-                let blocked = JSON.parse(jsonLoad.Blocked);
-                let frames = JSON.parse(jsonLoad.Frames);
-                console.log(grille);
-                console.log(individus);
-                console.log(blocked);
-                console.log(frames);
-
                 localStorage.setItem('grille', response);
-                if (isSave) {
+                if (this.isSave) {
                     this.saveGridBD(response);
                     window.location.href = "leaderboard";
                 } else {
@@ -48,10 +45,8 @@ class DAOGrille {
 
         let iduser = localStorage.getItem("id");
         if (iduser == null) {
-            window.location.href = "index";
+            window.location.href = "/";
         }
-
-        console.log(grille);
 
         formData.append("grille", grille);
         formData.append("iduser", iduser);

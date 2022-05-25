@@ -1,3 +1,9 @@
+/////////////////////////////////////////////////////////////////////////////
+//  Auteur: Alexandre Homier                                               //
+//  Description: Grille de la visualisation 3D                             //
+//  Date: 25 mai 2022                                                      //
+/////////////////////////////////////////////////////////////////////////////
+
 class Grille {
     constructor(data, packImports, indAnimation) {
         const WALLHEIGHT = 5.0;
@@ -62,20 +68,26 @@ class Grille {
                     this.planeFormWalls.addWall(wall, true);
                 }
             });
+
+            let conversion = new ConversionTo3D(this.gridInfo);
             for (let x = this.gridInfo.minX; x <= this.gridInfo.maxX; x++) {
                 if (this.grille.grille[x][this.gridInfo.minY].state == "Porte") {
-                    this.planeFormWalls.addDoor(x, this.gridInfo.minY);
+                    let newPos = conversion.get3DPositions(x, this.gridInfo.minY);
+                    this.planeFormWalls.addDoor(newPos.x, newPos.y, false);
                 }
-                if (this.grille.grille[x][this.gridInfo.sizeX - 1].state == "Porte") {
-                    this.planeFormWalls.addDoor(x, this.gridInfo.sizeX - 1);
+                if (this.grille.grille[x][this.gridInfo.maxY].state == "Porte") {
+                    let newPos = conversion.get3DPositions(x, this.gridInfo.maxY);
+                    this.planeFormWalls.addDoor(newPos.x, newPos.y, false);
                 }
             }
             for (let y = this.gridInfo.minY; y <= this.gridInfo.maxY; y++) {
                 if (this.grille.grille[this.gridInfo.minX][y].state == "Porte") {
-                    this.planeFormWalls.addDoor(this.gridInfo.minX, y);
+                    let newPos = conversion.get3DPositions(this.gridInfo.minX, y);
+                    this.planeFormWalls.addDoor(newPos.x, newPos.y, true);
                 }
-                if (this.grille.grille[this.gridInfo.sizeY - 1][y].state == "Porte") {
-                    this.planeFormWalls.addDoor(this.gridInfo.sizeY - 1, y);
+                if (this.grille.grille[this.gridInfo.maxX][y].state == "Porte") {
+                    let newPos = conversion.get3DPositions(this.gridInfo.maxX, y);
+                    this.planeFormWalls.addDoor(newPos.x, newPos.y, true);
                 }
             }
 
@@ -240,9 +252,6 @@ class Grille {
                     }
                     return nextFrame;
                 } else {
-                    this.outIndiv.forEach(ind => {
-                        this.dictInd[ind].removeInd();
-                    });
                     return false;
                 }
             } else {

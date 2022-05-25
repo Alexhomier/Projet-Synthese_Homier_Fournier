@@ -1,4 +1,7 @@
 <?php
+//  Auteur: Alexandre Homier
+//  Description: Ajax pour le leaderboard.
+//  Date: 25 mai 2022
 require_once("action/CommonAction.php");
 require_once("action/DAO/LBDAO.php");
 
