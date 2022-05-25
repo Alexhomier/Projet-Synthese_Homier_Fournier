@@ -29,7 +29,7 @@
   
   ![alt text](https://i.imgur.com/XY0qnVa.png)
   
-   > Celle-ci prendra en paramètre une grille, les importations de ThreeJS et les informations importantes de la grille.
+   > Celle-ci prendra en paramètre une grille, les importations de ThreeJS et la scene ThreeJS.
 
 # Références
 
