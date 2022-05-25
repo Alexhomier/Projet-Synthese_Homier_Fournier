@@ -62,18 +62,17 @@ class Grille {
                     this.planeFormWalls.addWall(wall, true);
                 }
             });
-
             for (let x = this.gridInfo.minX; x <= this.gridInfo.maxX; x++) {
-                if (this.grille.grille[x][0].state == "Porte") {
-                    this.planeFormWalls.addDoor(x, 0);
+                if (this.grille.grille[x][this.gridInfo.minY].state == "Porte") {
+                    this.planeFormWalls.addDoor(x, this.gridInfo.minY);
                 }
                 if (this.grille.grille[x][this.gridInfo.sizeX - 1].state == "Porte") {
                     this.planeFormWalls.addDoor(x, this.gridInfo.sizeX - 1);
                 }
             }
             for (let y = this.gridInfo.minY; y <= this.gridInfo.maxY; y++) {
-                if (this.grille.grille[0][y].state == "Porte") {
-                    this.planeFormWalls.addDoor(0, y);
+                if (this.grille.grille[this.gridInfo.minX][y].state == "Porte") {
+                    this.planeFormWalls.addDoor(this.gridInfo.minX, y);
                 }
                 if (this.grille.grille[this.gridInfo.sizeY - 1][y].state == "Porte") {
                     this.planeFormWalls.addDoor(this.gridInfo.sizeY - 1, y);

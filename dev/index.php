@@ -34,7 +34,7 @@ $data = $action->execute();
   <div class="background-blacken" onclick="loginButton()"></div>
   <header class="header">
       <div class="header-container">
-        <a href="index" class="header-item-title">M.A.</a>
+        <a href="https://masimulation.ca" class="header-item-title">M.A.</a>
         <div class="header-item-link">
           <a href="#ma" class="header-item-link-decoration">M.A.</a>
           <p class="header-item-link-decoration">|</p>

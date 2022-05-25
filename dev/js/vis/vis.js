@@ -5,6 +5,7 @@ let currentFrameCount = 0;
 let play = false;
 
 window.addEventListener("load", () => {
+    getIfIDValid();
     const canvas = document.getElementById("canvas");
 
     spriteList.push(new Scene(canvas));
@@ -15,6 +16,13 @@ window.addEventListener("load", () => {
 
     tick();
 });
+
+function getIfIDValid() {
+    if (!localStorage.getItem("id")) {
+        location.href = "/";
+    }
+}
+
 
 function getCompatibility() {
     if (window.innerWidth <= 1555 || window.innerHeight <= 818) {
@@ -96,6 +104,7 @@ const tick = () => {
         }
     }
     getCompatibility();
+    getIfIDValid();
     document.querySelector("#currentFrameCount").innerHTML = `Position de la simulation : ${currentFrameCount}`;
     requestAnimationFrame(tick);
 };

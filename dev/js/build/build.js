@@ -8,7 +8,7 @@ let isPresent = false;
 const GRIDSIZE = 2500;
 
 window.addEventListener("load", () => {
-    getCompatibility();
+    getIfIDValid();
     grille = new Grille(GRIDSIZE);
     grille.setHeight();
     grille.createGrid();
@@ -20,6 +20,12 @@ window.addEventListener("load", () => {
     document.querySelector(".loading").style.display = "none";
     tick();
 });
+
+function getIfIDValid() {
+    if (!localStorage.getItem("id")) {
+        location.href = "/";
+    }
+}
 
 function getCompatibility() {
     if (window.innerWidth <= 977 || window.innerHeight <= 709) {
@@ -198,5 +204,6 @@ function setUpMultipleSelection() {
 
 const tick = () => {
     getCompatibility();
+    getIfIDValid();
     requestAnimationFrame(tick);
 };
