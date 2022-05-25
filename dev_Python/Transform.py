@@ -1,17 +1,25 @@
+###################################################################################
+##  Auteur: Mathieu Fournier                                                     ##
+##  Description: Documents de méthodes gèrant la transformation des données      ##
+##  Date: 27 mai 2022                                                            ##
+###################################################################################
+
 import random
 from Case import *
 from Astar import *
 from queue import PriorityQueue
+import numpy as np
 
 BLOCKED_VALUE = 1000
 
-## Méthodes de Traduction de JSON a python object ##
+## Méthodes de Traduction de JSON a numpy array de python object ##
 
 def Traduction(grille, width, rows):
     grid = []
     gap = width // rows
+    grid  = np.zeros(rows, dtype='object')
     for i in range(rows):
-        grid.append([])
+        line = np.zeros(rows, dtype='object')
         for j in range(rows):
             if(grille[i][j]["state"] == "Couloir"):
                 case = Case(i, j, gap, rows, "Couloir")
@@ -21,7 +29,8 @@ def Traduction(grille, width, rows):
                 case = Case(i, j, gap, rows, "Porte")
             else:
                 case = Case(i, j, gap, rows, None)
-            grid[i].append(case)
+            line[j] = case
+        grid[i] = line
     return grid
 
 ## Méthode retournant une PriorityQueue ayant, placé en ordre croissant de longueur de chemin, les individus ##

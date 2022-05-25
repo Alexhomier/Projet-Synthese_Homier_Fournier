@@ -1,3 +1,9 @@
+###############################################################
+##  Auteur: Mathieu Fournier                                 ##
+##  Description: Algorithme Astar						     ##
+##  Date: 27 mai 2022                                        ##
+###############################################################
+
 from queue import PriorityQueue 
 
 class Astar:
@@ -43,7 +49,7 @@ class Astar:
 
 		return False
 
-	def single_algo(self, grid, start, end):
+	def single_algo(self, grid, start, end):  # Fait avancer l'individu de un seul pas.
 		count = 0
 		open_set = PriorityQueue()
 		came_from = {}

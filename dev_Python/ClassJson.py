@@ -1,6 +1,9 @@
+##############################################################################################
+##  Auteur: Mathieu Fournier                                                                ##
+##  Description: Classes d'objets sérialisables pour la Traduction entre Python et JSON     ##
+##  Date: 27 mai 2022                                                                       ##
+##############################################################################################
 import json
-
-## Classes d'objets sérialisables pour la Traduction entre Python et JSON ##
 
 class CaseJson:
     def __init__(self, row, col, type):

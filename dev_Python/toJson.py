@@ -1,6 +1,10 @@
-from Case import *
+##############################################################################################
+##  Auteur: Mathieu Fournier                                                                ##
+##  Description: Méthodes retournant une string JSON pour les différentes informations      ##
+##  Date: 27 mai 2022                                                                       ##
+##############################################################################################
 
-## Méthodes retournant une string JSON pour les différentes information ##
+from Case import *
 
 def toJsonGrid(grid):
     first = True

@@ -1,3 +1,9 @@
+###################################################################################
+##  Auteur: Mathieu Fournier & Alexandre Homier                                  ##
+##  Description: DAO Permettant la communication entre le serveur et python      ##
+##  Date: 27 mai 2022                                                            ##
+###################################################################################
+
 from urllib import request
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -27,42 +33,7 @@ def post():
         return jsonGrille, jsonFrames, jsonIndividu, jsonBlocked
     else:
         print("No doors are on the building")
-        return False  #Jsp sque tu veux la
+        return False  
 
 if __name__ == '__main__':
     app.run()
-
-# """
-#     run is the main of the algo.
-
-#     :param grille: json dict                                  size grille
-#      - { "grille", "IndParSalle", "minX", "minY", "maxX", "maxY", "size",  }
-
-#     :return: json dict                       ?
-#      - {"grille": [OBJECT Grille], "individus": [Array of Individus], "frame": [Array of visualisation Frame]}
-#      individus[
-#        ind: {
-#             id : int
-#             x : float
-#             y : float
-#        }    
-#      ]
-#       Frame[
-#           ind[
-#               ind: {
-#                   newPosX : float
-#                   newPosY : float
-#                   isOut : bool
-#               },
-#           ], [
-#               ind: {
-#                   id: int
-#                   newPosX : float
-#                   newPosY : float
-#                   isOut : Bool
-#               }
-#           ]
-#       ]
-# 
-#       NE PAS MODIFIER LA GRILLE SVP
-# """ 

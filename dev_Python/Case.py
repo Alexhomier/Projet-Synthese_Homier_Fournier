@@ -1,3 +1,9 @@
+##############################################################################################
+##  Auteur: Mathieu Fournier                                                                ##
+##  Description: Classes Case, représenter un objet dans la grille                          ##
+##  Date: 27 mai 2022                                                                       ##
+##############################################################################################
+
 from ClassJson import *
 import json
 

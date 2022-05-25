@@ -1,4 +1,12 @@
+##############################################################################################
+##  Auteur: Mathieu Fournier                                                                ##
+##  Description: Méthodes retournant les murs pour la grille                                ##
+##  Date: 27 mai 2022                                                                       ##
+##############################################################################################
+
+from tabnanny import check
 from Case import *
+import numpy as np
 
 ## Méthode qui regarde si une case est entre une salle et un couloir, ce qui est donc un mur, et retourne s'il l'est ou non ##
 
@@ -39,12 +47,12 @@ def checkWalls(x, y, size, grille):
 ## Fait checkWalls pour tout la grille et retourne la grille modifié ##
 
 def GetWalls(grille, size, minX, maxX, minY, maxY):
-    GRID_FOR_CHECKING = grille
+    intial_grille = grille
     grille_size = size
     end_array = []
     for x in range(minX, maxX + 1):
         for y in range(minY, maxY + 1):
-            checkWall = checkWalls(x, y, grille_size, GRID_FOR_CHECKING)
+            checkWall = checkWalls(x, y, grille_size, intial_grille)
             if checkWall:
                 grille[x][y].type = "Wall"
             if (x == minX or x == maxX or y == minY or y == maxY) and grille[x][y].type == "Porte":

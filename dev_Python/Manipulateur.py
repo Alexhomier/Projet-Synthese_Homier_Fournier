@@ -1,3 +1,9 @@
+###################################################################################
+##  Auteur: Mathieu Fournier                                                     ##
+##  Description: Manipulateur de données, gérant la récepetions et l'analyse     ##
+##  Date: 27 mai 2022                                                            ##
+###################################################################################
+
 from queue import PriorityQueue
 from Transform import *
 from toJson import *
@@ -6,8 +12,10 @@ from Astar import *
 from ClassJson import *
 
 #
-#  Vectoriser les arrays (numpy)
+#  Les méthodes des fichiers, Transform, toJson, Walls, ClassJson et Astar ont tous leurs description à l'intérieur de ceux-ci
 #
+
+# To do, 2 min = sort.
 
 class Manipulateur():
     def __init__(self, grille):
@@ -21,37 +29,37 @@ class Manipulateur():
         self.__final_array = []
         self.__frames = []
 
-        self.__grille = Traduction(grille["grille"], 1000, self.__grille_size)
+        self.__grille = Traduction(grille["grille"], 1000, self.__grille_size) #Traduction de la grille JSON -> Array numpy de Python Object
 
         resultWalls = GetWalls(self.__grille, self.__grille_size, self.__minX, self.__maxX, self.__minY, self.__maxY)
-        self.__grille = resultWalls[0]
-        self.__end_array = resultWalls[1]
+        self.__grille = resultWalls[0]                                          # Modification de la grille, ajout des murs
+        self.__end_array = resultWalls[1]                                       # Ajout de l'array de sortie disponible
 
         self.__individu_array = []
-        resultIndividu = PlaceIndividus(self.__grille, self.__nb_indvidivu, self.__minX, self.__maxX, self.__minY, self.__maxY)
-        self.__grille = resultIndividu[0]
+        resultIndividu = PlaceIndividus(self.__grille, self.__nb_indvidivu, self.__minX, self.__maxX, self.__minY, self.__maxY)  
+        self.__grille = resultIndividu[0]                                       # Modification de la grille, ajout des individus
         for individu in resultIndividu[1]:
-            self.__individu_array.append(individu[0])
-        self.__initial_individus = self.__individu_array
-        self.jsonIndividu = toJsonIndividu(self.__initial_individus)
+            self.__individu_array.append(individu[0])                           # Initialisation de l'array des individus
+        self.jsonIndividu = toJsonIndividu(self.__individu_array)               # Stockage, en JSON, de l'array initial des individus pour l'envoie au Web.
 
-        self.__nb_in = len(self.__individu_array)
-        self.__nb_out = 0
-        self.__blocked = 0
+        self.__nb_in = len(self.__individu_array)                               # Initialisation du nombre de personne dans la batisse.
+        self.__nb_out = 0                                                       # Initialisation du nombre de personne sortie de la batisse.
+        self.__blocked = 0                                                      # Initialisation du nombre de personne bloqué.(Patch, puisque certains invidus se retrouve bloqué dans un coin, sans voisins...)
 
     def _do_individus_frames(self):
         if not self.__end_array == None:  #S'il n'y a pas de porte
-            while self.__nb_out < self.__nb_in and self.__blocked < self.__nb_in-self.__nb_out:  #Si les individus sont tous bloqués, sa sort.
-                self.__grille = UpdateVoisinGrille(self.__grille, self.__minX, self.__maxX, self.__minY, self.__maxY, "Closest")
-                self.__individu_array = ChooseEnd(self.__grille, self.__end_array, self.__individu_array)
-                self.__closest_end = ClosestEnd(self.__individu_array, self.__grille)
+            while self.__nb_out < self.__nb_in and self.__blocked < self.__nb_in-self.__nb_out:
+                # Update les voisins de chaque case dans la grille pour permettre le choix de sortie et découvrir qui est le plus proche de la sortie. (ci-dessous)
+                self.__grille = UpdateVoisinGrille(self.__grille, self.__minX, self.__maxX, self.__minY, self.__maxY, "Closest") 
+                self.__individu_array = ChooseEnd(self.__grille, self.__end_array, self.__individu_array)   # Choisi les sorties pour chaque individus
+                self.__closest_end = ClosestEnd(self.__individu_array, self.__grille)                       #Retourne une PriorityQueue, avec leurs individu et leur longeur de chemin.
                 self.__individu_array = [] 
                 self.__blocked_array = []
                 self.__blocked = 0
 
                 frames_temp = []
                 while not self.__closest_end.empty():
-                    current_individu = self.__closest_end.get()[2]
+                    current_individu = self.__closest_end.get()[2]  #Prends l'individu avec le chemin le plus court (plus près de la sortie)
                     self.__grille = UpdateVoisinGrille(self.__grille, self.__minX, self.__maxX, self.__minY, self.__maxY, "Algo") 
                     current_individu.update_voisins_algo(self.__grille)
 
