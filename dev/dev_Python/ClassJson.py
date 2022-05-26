@@ -1,4 +1,5 @@
 ##############################################################################################
+##  Nom du fichier : ClassJson                         									    ##
 ##  Auteur: Mathieu Fournier                                                                ##
 ##  Description: Classes d'objets sérialisables pour la Traduction entre Python et JSON     ##
 ##  Date: 27 mai 2022                                                                       ##

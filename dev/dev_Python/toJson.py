@@ -1,4 +1,5 @@
 ##############################################################################################
+##  Nom du fichier : toJson                             								    ##
 ##  Auteur: Mathieu Fournier                                                                ##
 ##  Description: Méthodes retournant une string JSON pour les différentes informations      ##
 ##  Date: 27 mai 2022                                                                       ##
