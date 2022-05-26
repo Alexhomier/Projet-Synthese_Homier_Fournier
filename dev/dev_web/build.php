@@ -62,7 +62,7 @@
                         <h3 class="left-panel-info-value-selection">Sélection courante : </h3>
                         <div class="left-panel-info-scrollbar-container">
                             <h3 class="left-panel-info-value-selection-sb">Individus total : </h3>
-                            <input title= "Individus total 1-100" type="range" min="1" max="100" class="left-panel-info-scrollbar" oninput="updateScrollBar()">
+                            <input title= "Individus total 1-50" type="range" min="1" max="50" class="left-panel-info-scrollbar" oninput="updateScrollBar()">
                         </div>
                     </div>
                 </div>
