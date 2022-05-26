@@ -1,4 +1,5 @@
 ###################################################################################
+##  Nom du fichier : Manipulateur           									 ##
 ##  Auteur: Mathieu Fournier                                                     ##
 ##  Description: Manipulateur de données, gérant la récepetions et l'analyse     ##
 ##  Date: 27 mai 2022                                                            ##

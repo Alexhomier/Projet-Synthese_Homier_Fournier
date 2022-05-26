@@ -1,5 +1,6 @@
 ###############################################################
-##  Auteur: Mathieu Fournier                                 ##
+##  Nom du fichier : Astar									 ##
+##	Auteur: Mathieu Fournier                                 ##
 ##  Description: Algorithme Astar						     ##
 ##  Date: 27 mai 2022                                        ##
 ###############################################################
