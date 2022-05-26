@@ -31,7 +31,7 @@
   
    > Celle-ci prendra en paramètre une grille, les importations de ThreeJS et la scene ThreeJS.
 
-   > La grille pour la visulation est généré par l'algorithme Astar, qui se retrouve dans dev_Python.
+   > La grille pour la visulation est généré par l'algorithme, qui se retrouve dans dev_Python.
    >> Le type d'algorithme est un "Astar Pathfinding Algorithm"
 
 # Références
