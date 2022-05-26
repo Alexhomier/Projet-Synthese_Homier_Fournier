@@ -1,4 +1,5 @@
 ##############################################################################################
+##  Nom du fichier : Walls                              									##
 ##  Auteur: Mathieu Fournier                                                                ##
 ##  Description: Méthodes retournant les murs pour la grille                                ##
 ##  Date: 27 mai 2022                                                                       ##

@@ -46,7 +46,6 @@ def ClosestEnd(individu_array, grid):
             closest_end.put((len(chemin), count, individu))
             count += 1
         else:
-            print("Failed Algo Shortest")
             closest_end.put((BLOCKED_VALUE + count, count, individu))
             count += 1
     return closest_end
@@ -67,7 +66,6 @@ def ChooseEnd(grid, end_array, individu_array):
                 else:
                     closest_end.put((BLOCKED_VALUE + count, count, sortie))
                     count += 1
-                    print("Failed Algo Choix Sortie")
             individu.set_end(closest_end.get()[2])
     return individu_array
 

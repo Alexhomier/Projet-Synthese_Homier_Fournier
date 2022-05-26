@@ -50,7 +50,7 @@ class Case:
     def get_came_from(self):
         return self._came_from
 
-    def update_voisins_algo(self, grid): #Regarde si voisin est mur ou non
+    def update_voisins_algo(self, grid): 
         self._voisins = []
         if self._row < self._total_rows - 1 and not grid[self._row + 1][self._col].get_type() == 'Wall' and not grid[self._row + 1][self._col].get_type() == 'Individu': # DOWN
             if not grid[self._row + 1][self._col] in self._came_from:
@@ -68,7 +68,7 @@ class Case:
             if not grid[self._row][self._col - 1] in self._came_from:
                 self._voisins.append(grid[self._row][self._col - 1])
 
-    def update_voisins_closest(self, grid): #Regarde si voisin est mur ou non
+    def update_voisins_closest(self, grid): 
         self._voisins = []
         if self._row < self._total_rows - 1 and not grid[self._row + 1][self._col].get_type() == 'Wall': # DOWN
             self._voisins.append(grid[self._row + 1][self._col])

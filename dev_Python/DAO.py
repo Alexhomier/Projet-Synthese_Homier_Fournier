@@ -27,7 +27,6 @@ def post():
             result = manipulateur._get_json()
             jsonFrames = result[0]
             jsonBlocked = result[1]
-            print("Starting...")
             return jsonify(
                 Grille = grille,
                 Frames = jsonFrames,
@@ -35,10 +34,8 @@ def post():
                 Blocked = jsonBlocked
             )
         else:
-            print("No doors are on the building")
             return False
     except:
-        print("Erreur Algorithme")
         return False
 
 if __name__ == '__main__':
