@@ -149,7 +149,7 @@ function updateScrollBar() {
     let scrollbarValue = document.querySelector(".left-panel-info-scrollbar").value;
 
     grille.setIndBySalle(scrollbarValue);
-    textIndSalle.innerHTML = `Individus par salle : ${scrollbarValue}`;
+    textIndSalle.innerHTML = `Individus dans le bâtiment : ${scrollbarValue}`;
 }
 
 function seeLeaderboard() {
