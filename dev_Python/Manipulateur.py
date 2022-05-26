@@ -10,12 +10,11 @@ from toJson import *
 from Walls import *
 from Astar import *
 from ClassJson import *
+from datetime import datetime, timedelta
 
 #
 #  Les méthodes des fichiers, Transform, toJson, Walls, ClassJson et Astar ont tous leurs description à l'intérieur de ceux-ci
 #
-
-# To do, 2 min = sort.
 
 class Manipulateur():
     def __init__(self, grille):
@@ -45,10 +44,12 @@ class Manipulateur():
         self.__nb_in = len(self.__individu_array)                               # Initialisation du nombre de personne dans la batisse.
         self.__nb_out = 0                                                       # Initialisation du nombre de personne sortie de la batisse.
         self.__blocked = 0                                                      # Initialisation du nombre de personne bloqué.(Patch, puisque certains invidus se retrouve bloqué dans un coin, sans voisins...)
+        self.__now = datetime.now()                                             # Gestion du temps pour une limite de 2 minutes, sinon la requête web est annulé
+        self.__start = datetime.now()                                           # Gestion du temps pour une limite de 2 minutes, sinon la requête web est annulé
 
     def _do_individus_frames(self):
         if not self.__end_array == None:  #S'il n'y a pas de porte
-            while self.__nb_out < self.__nb_in and self.__blocked < self.__nb_in-self.__nb_out:
+            while self.__nb_out < self.__nb_in and self.__blocked < self.__nb_in-self.__nb_out and self.__now < self.__start + timedelta(minutes = 2):   
                 # Update les voisins de chaque case dans la grille pour permettre le choix de sortie et découvrir qui est le plus proche de la sortie. (ci-dessous)
                 self.__grille = UpdateVoisinGrille(self.__grille, self.__minX, self.__maxX, self.__minY, self.__maxY, "Closest") 
                 self.__individu_array = ChooseEnd(self.__grille, self.__end_array, self.__individu_array)   # Choisi les sorties pour chaque individus
@@ -96,6 +97,7 @@ class Manipulateur():
                 frames_json = []
                 frames_json = caseToJson(frames_temp)
                 self.__frames.append(frames_json)
+                self.__now = datetime.now()
             return True
         else:
             print("Il n'y a pas de porte de sortie")
