@@ -35,7 +35,7 @@ class DAOGrille {
                     this.saveGridBD(response);
                     window.location.href = "leaderboard";
                 } else {
-                    // window.location.href = "visualisation";
+                    window.location.href = "visualisation";
                 }
             });
     }
