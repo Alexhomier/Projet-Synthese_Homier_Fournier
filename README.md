@@ -25,11 +25,14 @@
   
   ![alt text](https://i.imgur.com/TLQkgJn.png)
   
-   > Finalement, pour la visualisation, vous devrez initialiser une autre grille:
+   > Finalement, pour la visualisation, vous devrez initialiser une autre grille dans le dossier d
   
   ![alt text](https://i.imgur.com/XY0qnVa.png)
   
    > Celle-ci prendra en paramètre une grille, les importations de ThreeJS et la scene ThreeJS.
+
+   > La grille pour la visulation est généré par l'algorithme, qui se retrouve dans dev_Python.
+   >> Le type d'algorithme est un "Astar Pathfinding Algorithm"
 
 # Références
 
